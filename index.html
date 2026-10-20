@@ -26,14 +26,15 @@
   <style>
     :root {
       color-scheme: light;
-      /* Almost-white very light ash pink paper + deep violet ink + discreet moon blue & toxic green accents */
+      /* Whisper-light ash pink paper + deep violet ink + discreet moon blue & toxic green accents */
       --paper-bg: #fcf8fa;
-      --paper-subtle: #f6eef3;
+      --paper-panel: #f9f2f6;
+      --paper-subtle: #f4eaf0;
       --ink-violet: #1e0f38;
       --ink-violet-body: #2d1b4e;
       --ink-violet-muted: #655085;
       --rule-hairline: rgba(30, 15, 56, 0.14);
-      --rule-strong: rgba(30, 15, 56, 0.45);
+      --rule-strong: rgba(30, 15, 56, 0.42);
 
       --accent-moon-blue: #1d6fa5;
       --accent-toxic-green: #1ea800;
@@ -61,18 +62,21 @@
       background-color: var(--paper-bg);
       color: var(--ink-violet);
       font-family: var(--font-serif);
-      font-size: 1.15rem;
-      line-height: 1.72;
+      font-size: 1.1rem;
+      line-height: 1.68;
       -webkit-font-smoothing: antialiased;
       min-block-size: 100dvh;
     }
 
-    /* Minimalist Academic Running Header (Like a Print Journal Header) */
+    /* Minimalist Academic Running Header */
     .running-header {
-      max-inline-size: 1080px;
-      margin-inline: auto;
-      padding-block: 1.15rem 0.75rem;
-      padding-inline: clamp(1.25rem, 4vw, 3rem);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(252, 248, 250, 0.94);
+      backdrop-filter: blur(10px);
+      padding-block: 0.85rem;
+      padding-inline: clamp(1rem, 2.5vw, 2rem);
       border-bottom: 1px solid var(--rule-strong);
       display: flex;
       flex-wrap: wrap;
@@ -80,7 +84,7 @@
       align-items: baseline;
       gap: 1rem;
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       letter-spacing: 0.04em;
       color: var(--ink-violet-muted);
     }
@@ -89,14 +93,14 @@
       display: flex;
       flex-wrap: wrap;
       flex-wrap: balance;
-      gap: 1.35rem;
+      gap: 1.25rem;
       align-items: baseline;
     }
 
     .running-nav a,
     .running-nav button {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       color: var(--ink-violet-body);
       text-decoration: none;
       background: none;
@@ -111,59 +115,292 @@
       text-decoration: underline;
     }
 
-    /* Main Monograph Column */
-    .monograph-container {
-      max-inline-size: 1080px;
+    /* 3-Column Scholarly Workbench Layout: Left Glossary Frame | Center Monograph | Right Epistemic Frame */
+    .workbench-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-inline-size: 1720px;
       margin-inline: auto;
-      padding-block: 2.75rem 5rem;
-      padding-inline: clamp(1.25rem, 4vw, 3rem);
     }
 
-    /* Paper Title & Author Block (LaTeX Article / Monograph Style) */
-    .paper-header {
-      padding-bottom: 2.25rem;
+    @media (min-width: 1200px) {
+      .workbench-grid {
+        grid-template-columns: 330px minmax(0, 1fr) 340px;
+        align-items: start;
+      }
+    }
+
+    /* Left & Right Side Frames (Academic Margin Frames) */
+    .side-frame {
+      background: var(--paper-panel);
+      padding: 1.35rem 1.25rem 2.5rem;
+    }
+
+    @media (min-width: 1200px) {
+      .side-frame-left {
+        position: sticky;
+        top: 2.85rem;
+        block-size: calc(100dvh - 2.85rem);
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+        overscroll-behavior: contain;
+        border-right: 1px solid var(--rule-strong);
+      }
+
+      .side-frame-right {
+        position: sticky;
+        top: 2.85rem;
+        block-size: calc(100dvh - 2.85rem);
+        overflow-y: auto;
+        scrollbar-gutter: stable;
+        overscroll-behavior: contain;
+        border-left: 1px solid var(--rule-strong);
+      }
+    }
+
+    @media (max-width: 1199px) {
+      .side-frame-left {
+        border-bottom: 1px solid var(--rule-strong);
+      }
+      .side-frame-right {
+        border-top: 1px solid var(--rule-strong);
+      }
+    }
+
+    .frame-header {
+      padding-bottom: 0.75rem;
+      margin-bottom: 0.85rem;
+      border-bottom: 1px solid var(--rule-strong);
+    }
+
+    .frame-kicker {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--accent-moon-blue);
+    }
+
+    .frame-title {
+      font-family: var(--font-serif);
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--ink-violet);
+      line-height: 1.2;
+      margin-top: 0.15rem;
+    }
+
+    .frame-subtitle {
+      font-size: 0.9rem;
+      color: var(--ink-violet-muted);
+      margin-top: 0.2rem;
+      line-height: 1.4;
+    }
+
+    /* Glossary Search Input */
+    .glossary-search-input {
+      inline-size: 100%;
+      padding: 0.42rem 0.6rem;
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--ink-violet);
+      background: var(--paper-bg);
+      border: 1px solid var(--rule-strong);
+      margin-bottom: 0.85rem;
+    }
+
+    .glossary-search-input:focus {
+      outline: 1px solid var(--accent-moon-blue);
+      border-color: var(--accent-moon-blue);
+    }
+
+    /* Cascading Glossary Tree (Domain -> Subdomain -> Concept Definition) */
+    details.glossary-domain {
       border-bottom: 1px solid var(--rule-hairline);
-      margin-bottom: 2.5rem;
+      padding-block: 0.45rem;
+    }
+
+    details.glossary-domain > summary {
+      cursor: pointer;
+      font-family: var(--font-serif);
+      font-size: 1.02rem;
+      font-weight: 700;
+      color: var(--ink-violet);
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.4rem;
+      padding-block: 0.2rem;
+    }
+
+    details.glossary-domain > summary:hover {
+      color: var(--accent-moon-blue);
+    }
+
+    .domain-count {
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      font-weight: 400;
+      color: var(--ink-violet-muted);
+    }
+
+    .subdomain-block {
+      padding-left: 0.65rem;
+      margin-top: 0.35rem;
+      border-left: 1px solid var(--rule-hairline);
+    }
+
+    .subdomain-title {
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent-moon-blue);
+      margin-block: 0.45rem 0.25rem;
+    }
+
+    details.concept-item {
+      padding-block: 0.25rem;
+      border-bottom: 1px dotted var(--rule-hairline);
+    }
+
+    details.concept-item:last-child {
+      border-bottom: none;
+    }
+
+    details.concept-item > summary {
+      cursor: pointer;
+      font-family: var(--font-serif);
+      font-size: 0.96rem;
+      font-weight: 600;
+      color: var(--ink-violet-body);
+      line-height: 1.35;
+    }
+
+    details.concept-item > summary:hover,
+    details.concept-item[open] > summary {
+      color: var(--ink-violet);
+      text-decoration: underline;
+      text-decoration-color: var(--accent-toxic-green);
+    }
+
+    .concept-def {
+      margin-top: 0.3rem;
+      padding-left: 0.55rem;
+      border-left: 1.5px solid var(--accent-moon-blue);
+      font-size: 0.9rem;
+      color: var(--ink-violet-body);
+      line-height: 1.5;
+    }
+
+    .concept-formula {
+      font-family: var(--font-mono);
+      font-size: 0.74rem;
+      color: var(--ink-violet);
+      margin-top: 0.25rem;
+      overflow-x: auto;
+    }
+
+    /* Right Frame: Epistemic Inquiry Questions */
+    .epistemic-theme {
+      margin-bottom: 1.15rem;
+    }
+
+    .epistemic-theme-header {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--accent-moon-blue);
+      border-bottom: 1px solid var(--rule-hairline);
+      padding-bottom: 0.25rem;
+      margin-bottom: 0.45rem;
+    }
+
+    details.epistemic-q {
+      padding-block: 0.45rem;
+      border-bottom: 1px dotted var(--rule-hairline);
+    }
+
+    details.epistemic-q > summary {
+      cursor: pointer;
+      font-family: var(--font-serif);
+      font-size: 0.98rem;
+      font-weight: 600;
+      font-style: italic;
+      color: var(--ink-violet);
+      line-height: 1.38;
+    }
+
+    details.epistemic-q > summary:hover {
+      color: var(--accent-moon-blue);
+    }
+
+    .epistemic-body {
+      margin-top: 0.4rem;
+      font-size: 0.9rem;
+      color: var(--ink-violet-body);
+      line-height: 1.52;
+      text-align: justify;
+    }
+
+    .epistemic-anchor {
+      margin-top: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: var(--ink-violet-muted);
+    }
+
+    /* Center Monograph Column */
+    .monograph-container {
+      padding-block: 2.25rem 5rem;
+      padding-inline: clamp(1.25rem, 3.5vw, 3rem);
+      min-inline-size: 0;
+    }
+
+    /* Paper Title & Author Block */
+    .paper-header {
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--rule-hairline);
+      margin-bottom: 2.25rem;
     }
 
     .paper-kicker {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.74rem;
       text-transform: uppercase;
       letter-spacing: 0.09em;
       color: var(--accent-moon-blue);
-      margin-bottom: 0.65rem;
+      margin-bottom: 0.55rem;
     }
 
     .paper-title {
       font-family: var(--font-serif);
-      font-size: clamp(2.1rem, 1.5rem + 2vw, 3.1rem);
+      font-size: clamp(1.95rem, 1.4rem + 1.8vw, 2.85rem);
       font-weight: 600;
       line-height: 1.14;
       letter-spacing: -0.015em;
       color: var(--ink-violet);
-      max-inline-size: 30ch;
     }
 
     .paper-etymology {
-      margin-top: 0.85rem;
-      font-size: 1.15rem;
+      margin-top: 0.75rem;
+      font-size: 1.1rem;
       color: var(--ink-violet-body);
-      max-inline-size: 68ch;
-      line-height: 1.6;
+      line-height: 1.58;
     }
 
     .author-line {
-      margin-top: 1.25rem;
+      margin-top: 1.15rem;
       font-family: var(--font-sans);
-      font-size: 0.86rem;
+      font-size: 0.82rem;
       color: var(--ink-violet-muted);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: baseline;
-      gap: 1rem;
-      padding-top: 0.85rem;
+      gap: 0.75rem;
+      padding-top: 0.75rem;
       border-top: 1px solid var(--rule-hairline);
     }
 
@@ -174,7 +411,7 @@
 
     .telemetry-inline {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-violet-muted);
     }
 
@@ -183,78 +420,69 @@
       font-weight: 700;
     }
 
-    /* Epigraph / Mission Statement (Pure Book Typography — No Boxes or Frames) */
+    /* Epigraph / Mission Statement (Unframed Book Typography) */
     .epigraph-figure {
-      margin-block: 2.25rem 0.5rem;
-      margin-inline: auto;
-      max-inline-size: 64ch;
-      padding-left: 1.5rem;
+      margin-block: 1.85rem 0.5rem;
+      padding-left: 1.35rem;
       border-left: 2px solid var(--ink-violet);
     }
 
     .epigraph-quote {
       font-family: var(--font-serif);
-      font-size: 1.14rem;
+      font-size: 1.08rem;
       font-style: italic;
       color: var(--ink-violet-body);
-      line-height: 1.68;
+      line-height: 1.65;
     }
 
     .epigraph-caption {
-      margin-top: 0.55rem;
+      margin-top: 0.45rem;
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       letter-spacing: 0.03em;
       color: var(--ink-violet-muted);
     }
 
-    /* Section Headings (Academic Numbered Sections) */
+    /* Section Headings */
     .section-header {
-      margin-bottom: 1.5rem;
-      padding-bottom: 0.45rem;
+      margin-bottom: 1.35rem;
+      padding-bottom: 0.4rem;
       border-bottom: 1px solid var(--rule-strong);
       display: flex;
       flex-wrap: wrap;
       justify-content: space-between;
       align-items: baseline;
-      gap: 1rem;
+      gap: 0.75rem;
     }
 
     .section-title {
       font-family: var(--font-serif);
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       font-weight: 700;
       color: var(--ink-violet);
     }
 
     .section-meta {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-violet-muted);
     }
 
-    /* Active Lecture Layout: Two-Column Academic Paper Grid */
+    /* Active Lecture Layout inside Center Monograph */
     .lecture-layout {
-      display: grid;
-      grid-template-columns: 1fr;
-      gap: 2.5rem;
-      margin-bottom: 3.75rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.85rem;
+      margin-bottom: 3.25rem;
     }
 
-    @media (min-width: 960px) {
-      .lecture-layout {
-        grid-template-columns: 1.35fr 1fr;
-        align-items: start;
-      }
-    }
-
-    /* 16:9 Video Figure (Clean Sharp Academic Figure) */
+    /* 16:9 Video Figure */
     .video-stage {
       aspect-ratio: 16 / 9;
       inline-size: 100%;
       background: #1b0f30;
       color: #fcf8fa;
-      padding: 1.35rem 1.5rem;
+      padding: 1.25rem 1.4rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
@@ -271,7 +499,7 @@
       font-size: 0.72rem;
       color: #d8c8eb;
       border-bottom: 1px solid rgba(252, 248, 250, 0.14);
-      padding-bottom: 0.45rem;
+      padding-bottom: 0.4rem;
     }
 
     .blackboard-center {
@@ -281,7 +509,7 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 0.75rem;
+      gap: 0.65rem;
     }
 
     .blackboard-chapter {
@@ -294,36 +522,32 @@
 
     .blackboard-heading {
       font-family: var(--font-serif);
-      font-size: clamp(1.1rem, 0.95rem + 0.65vw, 1.5rem);
+      font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.45rem);
       font-weight: 500;
       color: #fcf8fa;
-      max-inline-size: 44ch;
+      max-inline-size: 46ch;
       line-height: 1.3;
     }
 
     .blackboard-math {
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: #fcf8fa;
-      padding-block: 0.35rem;
+      padding-block: 0.25rem;
       max-inline-size: 100%;
       overflow-x: auto;
     }
 
     .play-link-btn {
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.73rem;
       font-weight: 600;
       color: var(--accent-toxic-bright);
       background: transparent;
       border: none;
       border-bottom: 1px solid var(--accent-toxic-bright);
-      padding-bottom: 0.15rem;
+      padding-bottom: 0.12rem;
       cursor: pointer;
       letter-spacing: 0.05em;
-    }
-
-    .play-link-btn:hover {
-      opacity: 0.85;
     }
 
     .scrubber-track {
@@ -341,39 +565,38 @@
 
     .figure-caption {
       font-family: var(--font-serif);
-      font-size: 0.92rem;
+      font-size: 0.9rem;
       color: var(--ink-violet-muted);
-      margin-top: 0.55rem;
-      line-height: 1.45;
+      margin-top: 0.45rem;
     }
 
-    /* Timestamp Index (Formatted like a Journal Table of Contents, No Boxes) */
+    /* Timestamp Index */
     .timestamp-index {
-      margin-top: 1.35rem;
-      padding-top: 0.85rem;
+      margin-top: 0.85rem;
+      padding-top: 0.65rem;
       border-top: 1px solid var(--rule-hairline);
     }
 
     .timestamp-heading {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       text-transform: uppercase;
       letter-spacing: 0.06em;
       color: var(--ink-violet-muted);
-      margin-bottom: 0.45rem;
+      margin-bottom: 0.35rem;
     }
 
     .timestamp-list {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      column-gap: 1.5rem;
     }
 
     .timestamp-row {
       display: flex;
       align-items: baseline;
-      gap: 0.85rem;
-      padding-block: 0.38rem;
+      gap: 0.65rem;
+      padding-block: 0.32rem;
       border-bottom: 1px dotted var(--rule-hairline);
       background: none;
       border-top: none;
@@ -384,7 +607,7 @@
       cursor: pointer;
       color: var(--ink-violet-body);
       font-family: var(--font-serif);
-      font-size: 1rem;
+      font-size: 0.96rem;
     }
 
     .timestamp-row:hover,
@@ -399,28 +622,30 @@
 
     .ts-time {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-violet-muted);
-      min-inline-size: 3.6rem;
+      min-inline-size: 3.2rem;
     }
 
-    /* Right Column: Pure LaTeX Monograph Prose (No Boxes Around Text) */
+    /* Companion Monograph Prose */
     .monograph-notes {
       display: flex;
       flex-direction: column;
-      gap: 1.25rem;
+      gap: 1rem;
+      padding-top: 0.5rem;
+      border-top: 1px solid var(--rule-hairline);
     }
 
     .monograph-entry-title {
       font-family: var(--font-serif);
-      font-size: 1.55rem;
+      font-size: 1.45rem;
       font-weight: 700;
       line-height: 1.22;
       color: var(--ink-violet);
     }
 
     .monograph-paragraph {
-      font-size: 1.06rem;
+      font-size: 1.04rem;
       color: var(--ink-violet-body);
       text-align: justify;
       hyphens: auto;
@@ -434,9 +659,8 @@
       margin-right: 0.35rem;
     }
 
-    /* LaTeX amsthm-style Theorem Block (Pure Typography, No Box) */
     .latex-theorem {
-      padding-block: 0.35rem;
+      padding-block: 0.25rem;
       font-style: italic;
       color: var(--ink-violet);
     }
@@ -449,33 +673,33 @@
     }
 
     .monograph-links {
-      padding-top: 0.75rem;
+      padding-top: 0.65rem;
       border-top: 1px solid var(--rule-hairline);
       font-family: var(--font-mono);
-      font-size: 0.74rem;
+      font-size: 0.72rem;
       color: var(--ink-violet-muted);
       display: flex;
       flex-wrap: wrap;
-      gap: 1.25rem;
+      gap: 1.1rem;
     }
 
-    /* Section 2: Archive Index (Clean Editorial Journal Table, No Card Boxes) */
+    /* Archive List */
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
       flex-wrap: balance;
-      gap: 1.15rem;
+      gap: 1rem;
       align-items: baseline;
     }
 
     .filter-link {
       font-family: var(--font-mono);
-      font-size: 0.75rem;
+      font-size: 0.72rem;
       color: var(--ink-violet-muted);
       background: none;
       border: none;
       border-bottom: 1.5px solid transparent;
-      padding-bottom: 0.15rem;
+      padding-bottom: 0.12rem;
       cursor: pointer;
     }
 
@@ -489,33 +713,33 @@
     .archive-list {
       display: flex;
       flex-direction: column;
-      margin-bottom: 3.75rem;
+      margin-bottom: 3.25rem;
     }
 
     .archive-item {
       display: grid;
       grid-template-columns: 1fr;
-      gap: 1rem;
-      padding-block: 1.35rem;
+      gap: 0.75rem;
+      padding-block: 1.15rem;
       border-bottom: 1px solid var(--rule-hairline);
     }
 
-    @media (min-width: 760px) {
+    @media (min-width: 700px) {
       .archive-item {
-        grid-template-columns: 150px 1fr auto;
+        grid-template-columns: 140px 1fr auto;
         align-items: baseline;
-        gap: 1.75rem;
+        gap: 1.35rem;
       }
     }
 
-    /* Syllabus Section: Pure Print-Style Qualifying Reading List */
+    /* Syllabus Section */
     .syllabus-list {
       display: flex;
       flex-direction: column;
     }
 
     details.syllabus-row {
-      padding-block: 1rem;
+      padding-block: 0.85rem;
       border-bottom: 1px solid var(--rule-hairline);
     }
 
@@ -526,7 +750,7 @@
       justify-content: space-between;
       align-items: baseline;
       gap: 0.75rem;
-      font-size: 1.18rem;
+      font-size: 1.12rem;
       font-weight: 600;
       color: var(--ink-violet);
     }
@@ -535,7 +759,6 @@
       color: var(--accent-moon-blue);
     }
 
-    /* Clean Modal */
     dialog.academic-modal {
       background: var(--paper-bg);
       color: var(--ink-violet);
@@ -559,234 +782,277 @@
       <strong style="color: var(--ink-violet);">ISTIGNET</strong> (<em>Istigkeit + Network</em>) &mdash; Open-Notebook Doctoral Monograph &amp; Vlog
     </div>
     <nav class="running-nav" aria-label="Primary Navigation">
+      <a href="#glossary-frame">← Concept Glossary</a>
       <a href="#lecture-theater">§1. Lecture &amp; Notes</a>
       <a href="#episode-archive">§2. Vlog Index</a>
       <a href="#doctoral-syllabus">§3. Qualifying Syllabus</a>
-      <a href="https://mormontx.github.io/Textbook-Project-Premium/">Physics Textbook</a>
+      <a href="#epistemic-frame">Epistemic Inquiry →</a>
       <button type="button" onclick="document.getElementById('publish-modal').showModal()">[+ Log Episode]</button>
     </nav>
   </header>
 
-  <main class="monograph-container">
+  <!-- 3-COLUMN SCHOLARLY WORKBENCH -->
+  <div class="workbench-grid">
 
-    <!-- PAPER TITLE, ETYMOLOGY & UNFRAMED EPIGRAPH -->
-    <header class="paper-header">
-      <div class="paper-kicker">Self-Directed Doctoral Research &amp; AI-Age Curriculum Design</div>
-      <h1 class="paper-title">
-        Istignet: From Classical Computation to Quantum Information Theory
-      </h1>
-      <p class="paper-etymology">
-        <strong>Istignet</strong> (<em>Istigkeit</em> + <em>Network</em>): Combining Aldous Huxley’s borrowed philosophical term for the pure “Is-ness” or essence of things with the structure of a decentralized network. It signifies a web of raw, unfiltered, and uncorrupted knowledge.
-      </p>
-
-      <!-- Unframed Book-Style Epigraph -->
-      <figure id="mission-manifesto" class="epigraph-figure">
-        <blockquote cite="https://github.com/mormontx/Istignet" class="epigraph-quote">
-          <p>“Our mission is to bypass the artificial filters of traditional education and connect learners directly to the boundless intelligence of the global community. We believe that knowledge, much like the Mind at Large, should never be confined, rationed, or gated by proprietary walls. We are building a decentralized, open-source ecosystem where information flows freely, empowering every individual to tap into the unadulterated reality of collective human discovery and contribute to a limitless shared consciousness.”</p>
-        </blockquote>
-        <figcaption class="epigraph-caption">
-          &mdash; Founding Mission Statement of <cite>Istignet</cite> &middot; Epistemic reference: <cite>The Doors of Perception</cite> (Aldous Huxley)
-        </figcaption>
-      </figure>
-
-      <div class="author-line">
-        <div>
-          <strong>Istignet Research Collective</strong> &middot; Decentralized Open-Source Curriculum &amp; Epistemic Monograph
-        </div>
-        <div class="telemetry-inline">
-          <span class="status-dot">●</span> Volume I (Stage I of V) &middot; 04 Recorded Lectures &middot; Closed-Book Verified
-        </div>
-      </div>
-    </header>
-
-    <!-- §1. ACTIVE LECTURE & SYNCHRONIZED MONOGRAPH EXCERPT -->
-    <section id="lecture-theater" aria-labelledby="sec-1-title">
-      <div class="section-header">
-        <h2 id="sec-1-title" class="section-title">§ 1. Active Video Lecture &amp; Companion Monograph Notes</h2>
-        <div class="section-meta">
-          <span id="active-ep-code">VOL. I, LECTURE 03</span> &middot; <span id="active-ep-date">Oct 20, 2026</span> &middot; <span id="active-ep-duration">28:15</span>
-        </div>
+    <!-- LEFT FRAME: CASCADING GLOSSARY OF COMPUTATION & QUANTUM INFORMATION -->
+    <aside id="glossary-frame" class="side-frame side-frame-left" aria-labelledby="glossary-heading">
+      <div class="frame-header">
+        <div class="frame-kicker">Lexicon &amp; Formal Definitions</div>
+        <h2 id="glossary-heading" class="frame-title">Cascading Concept Glossary</h2>
+        <p class="frame-subtitle">
+          Every foundational concept from classical computability and Shannon theory to quantum channels and complexity.
+        </p>
       </div>
 
-      <div class="lecture-layout">
-        <!-- Left Column: Video Figure & Table-of-Contents Timestamps -->
-        <div>
-          <figure>
-            <div class="video-stage">
-              <div class="video-top-meta">
-                <span id="video-stage-badge">STAGE I &middot; SHANNON INFORMATION THEORY</span>
-                <span id="video-time-indicator" style="color: var(--accent-toxic-bright);">05:42 / 28:15</span>
-              </div>
+      <search aria-label="Filter glossary concepts">
+        <input
+          type="search"
+          id="glossary-search"
+          class="glossary-search-input"
+          placeholder="Filter concepts (e.g. Toffoli, Holevo, BQP)..."
+          oninput="filterGlossary(this.value)"
+        >
+      </search>
 
-              <div class="blackboard-center">
-                <div id="video-chapter-label" class="blackboard-chapter">
-                  §2. BLACKBOARD DERIVATION &middot; THE BRANCHING AXIOM
-                </div>
-                <div id="video-title-overlay" class="blackboard-heading">
-                  Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic
-                </div>
-                <div id="video-equation-overlay" class="blackboard-math">
-                  $$H(p_1, p_2, p_3) = H(p_1, p_2 + p_3) + (p_2 + p_3)\,H\!\left(\frac{p_2}{p_2+p_3}, \frac{p_3}{p_2+p_3}\right)$$
-                </div>
-                <button type="button" id="play-btn" class="play-link-btn" onclick="togglePlaySimulation()">
-                  ▶ PLAY LECTURE RECORDING
-                </button>
-              </div>
+      <div id="glossary-tree"></div>
+    </aside>
 
-              <div style="display: flex; flex-direction: column; gap: 0.35rem;">
-                <div class="scrubber-track">
-                  <div id="scrubber-fill" class="scrubber-bar" style="inline-size: 28%;"></div>
-                </div>
-                <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.68rem; color: #c5b4db;">
-                  <span id="scrubber-status">PAUSED &middot; SELECT A TIMESTAMP BELOW TO SEEK</span>
-                  <span>1080p60 &middot; BLACKBOARD RECORDING</span>
-                </div>
-              </div>
-            </div>
-            <figcaption class="figure-caption">
-              <strong>Figure 1.</strong> Blackboard lecture recording with synchronized mathematical checkpoints.
-            </figcaption>
-          </figure>
+    <!-- CENTER COLUMN: MAIN ACADEMIC MONOGRAPH & VLOG THEATER -->
+    <main class="monograph-container">
 
-          <div class="timestamp-index">
-            <div class="timestamp-heading">Lecture Contents &amp; Timestamps</div>
-            <div id="chapter-buttons" class="timestamp-list"></div>
-          </div>
-        </div>
+      <!-- PAPER TITLE, ETYMOLOGY & UNFRAMED EPIGRAPH -->
+      <header class="paper-header">
+        <div class="paper-kicker">Self-Directed Doctoral Research &amp; AI-Age Curriculum Design</div>
+        <h1 class="paper-title">
+          Istignet: From Classical Computation to Quantum Information Theory
+        </h1>
+        <p class="paper-etymology">
+          <strong>Istignet</strong> (<em>Istigkeit</em> + <em>Network</em>): Combining Aldous Huxley’s borrowed philosophical term for the pure “Is-ness” or essence of things with the structure of a decentralized network. It signifies a web of raw, unfiltered, and uncorrupted knowledge.
+        </p>
 
-        <!-- Right Column: Pure Journal Prose (No Boxes or Frames Around Text) -->
-        <aside class="monograph-notes" aria-label="Companion Monograph Notes">
+        <!-- Unframed Book-Style Epigraph -->
+        <figure id="mission-manifesto" class="epigraph-figure">
+          <blockquote cite="https://github.com/mormontx/Istignet" class="epigraph-quote">
+            <p>“Our mission is to bypass the artificial filters of traditional education and connect learners directly to the boundless intelligence of the global community. We believe that knowledge, much like the Mind at Large, should never be confined, rationed, or gated by proprietary walls. We are building a decentralized, open-source ecosystem where information flows freely, empowering every individual to tap into the unadulterated reality of collective human discovery and contribute to a limitless shared consciousness.”</p>
+          </blockquote>
+          <figcaption class="epigraph-caption">
+            &mdash; Founding Mission Statement of <cite>Istignet</cite> &middot; Epistemic reference: <cite>The Doors of Perception</cite> (Aldous Huxley)
+          </figcaption>
+        </figure>
+
+        <div class="author-line">
           <div>
-            <div id="dossier-module" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue); text-transform: uppercase; letter-spacing: 0.05em;">
-              MODULE 102 &middot; SHANNON INFORMATION THEORY
+            <strong>Istignet Research Collective</strong> &middot; Decentralized Open-Source Curriculum &amp; Epistemic Monograph
+          </div>
+          <div class="telemetry-inline">
+            <span class="status-dot">●</span> Volume I (Stage I of V) &middot; 04 Recorded Lectures &middot; Closed-Book Verified
+          </div>
+        </div>
+      </header>
+
+      <!-- §1. ACTIVE LECTURE & SYNCHRONIZED MONOGRAPH EXCERPT -->
+      <section id="lecture-theater" aria-labelledby="sec-1-title">
+        <div class="section-header">
+          <h2 id="sec-1-title" class="section-title">§ 1. Active Video Lecture &amp; Companion Monograph Notes</h2>
+          <div class="section-meta">
+            <span id="active-ep-code">VOL. I, LECTURE 03</span> &middot; <span id="active-ep-date">Oct 20, 2026</span> &middot; <span id="active-ep-duration">28:15</span>
+          </div>
+        </div>
+
+        <div class="lecture-layout">
+          <!-- Video Figure & Table-of-Contents Timestamps -->
+          <div>
+            <figure>
+              <div class="video-stage">
+                <div class="video-top-meta">
+                  <span id="video-stage-badge">STAGE I &middot; SHANNON INFORMATION THEORY</span>
+                  <span id="video-time-indicator" style="color: var(--accent-toxic-bright);">05:42 / 28:15</span>
+                </div>
+
+                <div class="blackboard-center">
+                  <div id="video-chapter-label" class="blackboard-chapter">
+                    §2. BLACKBOARD DERIVATION &middot; THE BRANCHING AXIOM
+                  </div>
+                  <div id="video-title-overlay" class="blackboard-heading">
+                    Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic
+                  </div>
+                  <div id="video-equation-overlay" class="blackboard-math">
+                    $$H(p_1, p_2, p_3) = H(p_1, p_2 + p_3) + (p_2 + p_3)\,H\!\left(\frac{p_2}{p_2+p_3}, \frac{p_3}{p_2+p_3}\right)$$
+                  </div>
+                  <button type="button" id="play-btn" class="play-link-btn" onclick="togglePlaySimulation()">
+                    ▶ PLAY LECTURE RECORDING
+                  </button>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 0.35rem;">
+                  <div class="scrubber-track">
+                    <div id="scrubber-fill" class="scrubber-bar" style="inline-size: 28%;"></div>
+                  </div>
+                  <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.68rem; color: #c5b4db;">
+                    <span id="scrubber-status">PAUSED &middot; SELECT A TIMESTAMP BELOW TO SEEK</span>
+                    <span>1080p60 &middot; BLACKBOARD RECORDING</span>
+                  </div>
+                </div>
+              </div>
+              <figcaption class="figure-caption">
+                <strong>Figure 1.</strong> Blackboard lecture recording with synchronized mathematical checkpoints.
+              </figcaption>
+            </figure>
+
+            <div class="timestamp-index">
+              <div class="timestamp-heading">Lecture Contents &amp; Timestamps</div>
+              <div id="chapter-buttons" class="timestamp-list"></div>
             </div>
-            <h3 id="dossier-title" class="monograph-entry-title">
-              Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic
-            </h3>
           </div>
 
-          <p class="monograph-paragraph">
-            <span class="run-in-label">Abstract.</span>
-            <span id="dossier-abstract"></span>
-          </p>
+          <!-- Pure Journal Prose (No Boxes or Frames Around Text) -->
+          <article class="monograph-notes" aria-label="Companion Monograph Notes">
+            <div>
+              <div id="dossier-module" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue); text-transform: uppercase; letter-spacing: 0.05em;">
+                MODULE 102 &middot; SHANNON INFORMATION THEORY
+              </div>
+              <h3 id="dossier-title" class="monograph-entry-title">
+                Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic
+              </h3>
+            </div>
 
-          <div class="latex-theorem">
-            <span id="dossier-theorem-label" class="thm-head">Theorem 1.2 (Khinchin Uniqueness).</span>
-            <span id="dossier-theorem-body"></span> $\square$
-          </div>
+            <p class="monograph-paragraph">
+              <span class="run-in-label">Abstract.</span>
+              <span id="dossier-abstract"></span>
+            </p>
 
-          <p class="monograph-paragraph">
-            <span class="run-in-label">Epistemic Friction (Field Note).</span>
-            <span id="dossier-friction"></span>
-          </p>
+            <div class="latex-theorem">
+              <span id="dossier-theorem-label" class="thm-head">Theorem 1.2 (Khinchin Uniqueness).</span>
+              <span id="dossier-theorem-body"></span> $\square$
+            </div>
 
-          <p class="monograph-paragraph">
-            <span class="run-in-label">AI-Age Curriculum Protocol (<span id="dossier-ai-badge" style="color: var(--accent-moon-blue);">Socratic Referee</span>).</span>
-            <span id="dossier-ai-audit"></span>
-          </p>
+            <p class="monograph-paragraph">
+              <span class="run-in-label">Epistemic Friction (Field Note).</span>
+              <span id="dossier-friction"></span>
+            </p>
 
-          <div class="monograph-links">
-            <span>Companion LaTeX PDF</span>
-            <span>&middot;</span>
-            <span>Simulation Code</span>
-            <span>&middot;</span>
-            <span style="color: var(--accent-toxic-green);">✓ Closed-Book Verified</span>
-          </div>
-        </aside>
+            <p class="monograph-paragraph">
+              <span class="run-in-label">AI-Age Curriculum Protocol (<span id="dossier-ai-badge" style="color: var(--accent-moon-blue);">Socratic Referee</span>).</span>
+              <span id="dossier-ai-audit"></span>
+            </p>
+
+            <div class="monograph-links">
+              <span>Companion LaTeX PDF</span>
+              <span>&middot;</span>
+              <span>Simulation Code</span>
+              <span>&middot;</span>
+              <span style="color: var(--accent-toxic-green);">✓ Closed-Book Verified</span>
+            </div>
+          </article>
+        </div>
+      </section>
+
+      <!-- §2. CHRONOLOGICAL VLOG INDEX -->
+      <section id="episode-archive" aria-labelledby="sec-2-title">
+        <div class="section-header">
+          <h2 id="sec-2-title" class="section-title">§ 2. Chronological Vlog &amp; Monograph Index</h2>
+          <search aria-label="Filter vlog episodes by stage">
+            <div class="filter-bar">
+              <button type="button" class="filter-link active" onclick="filterEpisodes('ALL', this)">All Entries (04)</button>
+              <button type="button" class="filter-link" onclick="filterEpisodes('STAGE I', this)">Stage I: Classical &amp; Shannon</button>
+              <button type="button" class="filter-link" onclick="filterEpisodes('STAGE II', this)">Stage II: Hilbert Space</button>
+            </div>
+          </search>
+        </div>
+
+        <div id="episode-grid" class="archive-list"></div>
+      </section>
+
+      <!-- §3. DOCTORAL QUALIFYING SYLLABUS -->
+      <section id="doctoral-syllabus" aria-labelledby="sec-3-title">
+        <div class="section-header">
+          <h2 id="sec-3-title" class="section-title">§ 3. Self-Directed Doctoral Qualifying Syllabus (Stages I–V)</h2>
+          <div class="section-meta">Classical Computation $\longrightarrow$ Quantum Information Theory</div>
+        </div>
+
+        <div class="syllabus-list">
+          <details name="curriculum-stage" open class="syllabus-row">
+            <summary>
+              <span>Stage I. Classical Computation, Reversible Logic &amp; Shannon Information Theory</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-toxic-green);">Active Volume &middot; 3 Lectures</span>
+            </summary>
+            <p class="monograph-paragraph" style="margin-top: 0.65rem;">
+              <span class="run-in-label">Classical Core:</span> Turing machines, Boolean circuit complexity, Landauer’s erasure bound ($k_B T \ln 2$), Toffoli/Fredkin reversible logic, Shannon entropy $H(X)$, Kullback–Leibler divergence $D(p\parallel q)$, and the Noisy Channel Coding Theorem.
+              <br>
+              <span class="run-in-label">Quantum Information Bridge:</span> Why unitary evolution demands physical reversibility; Bennett’s uncomputation trick to clear ancilla garbage before quantum interference; $H(X)$ as the diagonal spectrum limit of Von Neumann entropy $S(\rho)$.
+              <br>
+              <span class="run-in-label">Primary Monographs:</span> <cite>Elements of Information Theory</cite> (Cover &amp; Thomas); <cite>Lectures on Computation</cite> (Feynman); <cite>Information Theory, Inference, and Learning Algorithms</cite> (MacKay).
+            </p>
+          </details>
+
+          <details name="curriculum-stage" class="syllabus-row">
+            <summary>
+              <span>Stage II. Finite-Dimensional Hilbert Spaces, Quantum Postulates &amp; Non-Local Games</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue);">In Recording &middot; 1 Lecture</span>
+            </summary>
+            <p class="monograph-paragraph" style="margin-top: 0.65rem;">
+              <span class="run-in-label">Mathematical Substrate:</span> Spectral Theorem for normal operators, tensor products $\mathcal{H}_A \otimes \mathcal{H}_B$, Singular Value &amp; Schmidt Decomposition, projective vs. POVM measurements.
+              <br>
+              <span class="run-in-label">Information-Theoretic Focus:</span> No-Cloning &amp; No-Signaling duality; Bell inequalities framed as the CHSH cooperative information game (classical $75\%$ vs. Tsirelson $\cos^2(\pi/8) \approx 85.4\%$ quantum limit).
+              <br>
+              <span class="run-in-label">Primary Monographs:</span> <cite>Quantum Computation and Quantum Information</cite> (Nielsen &amp; Chuang); <cite>The Theory of Quantum Information</cite> (Watrous).
+            </p>
+          </details>
+
+          <details name="curriculum-stage" class="syllabus-row">
+            <summary>
+              <span>Stage III. Quantum Circuits, Oracular Complexity &amp; Algorithmic Speedups</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">Scheduled</span>
+            </summary>
+            <p class="monograph-paragraph" style="margin-top: 0.65rem;">
+              <span class="run-in-label">Algorithmic Spine:</span> Universal gate sets, Solovay–Kitaev theorem, phase kickback, Deutsch–Jozsa, Bernstein–Vazirani, Simon’s periodicity, Quantum Fourier Transform, Shor’s factoring, and Grover’s $\mathcal{O}(\sqrt{N})$ optimality proof via the hybrid method.
+              <br>
+              <span class="run-in-label">Primary Monographs:</span> <cite>Quantum Computing Since Democritus</cite> (Aaronson); <cite>Classical and Quantum Computation</cite> (Kitaev, Shen &amp; Vyalyi).
+            </p>
+          </details>
+
+          <details name="curriculum-stage" class="syllabus-row">
+            <summary>
+              <span>Stage IV. Quantum Information Theory: Channels, Entropy &amp; Entanglement Resource Theory</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">Core Doctoral Concentration</span>
+            </summary>
+            <p class="monograph-paragraph" style="margin-top: 0.65rem;">
+              <span class="run-in-label">Open Systems &amp; Capacities:</span> Density operators $\rho$, purifications, CPTP quantum channels, Kraus &amp; Stinespring dilation, Von Neumann entropy $S(\rho) = -\operatorname{Tr}(\rho \log_2 \rho)$, Strong Subadditivity, Holevo’s bound $\chi$, Schumacher compression, and LOCC entanglement distillation.
+              <br>
+              <span class="run-in-label">Primary Monographs:</span> <cite>Quantum Information Theory</cite> (Mark Wilde); <cite>The Theory of Quantum Information</cite> (John Watrous); Preskill Caltech Lecture Notes.
+            </p>
+          </details>
+
+          <details name="curriculum-stage" class="syllabus-row">
+            <summary>
+              <span>Stage V. Quantum Error Correction, Complexity Theory ($\mathsf{BQP}/\mathsf{QMA}$) &amp; Thesis Monograph</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">Capstone Stage</span>
+            </summary>
+            <p class="monograph-paragraph" style="margin-top: 0.65rem;">
+              <span class="run-in-label">Fault Tolerance &amp; Complexity:</span> Pauli stabilizer formalism, Gottesman–Knill theorem, Shor 9-qubit &amp; Steane 7-qubit codes, topological surface codes, fault-tolerant threshold theorem, and $\mathsf{QMA}$-completeness of the $k$-Local Hamiltonian problem.
+              <br>
+              <span class="run-in-label">Primary Monographs:</span> <cite>Stabilizer Codes and Quantum Error Correction</cite> (Gottesman PhD Thesis); <cite>Quantum Hamiltonian Complexity</cite> (Gharibian et al.).
+            </p>
+          </details>
+        </div>
+      </section>
+
+    </main>
+
+    <!-- RIGHT FRAME: EPISTEMIC QUESTIONS ON THE NATURE OF COMPUTATIONAL KNOWLEDGE -->
+    <aside id="epistemic-frame" class="side-frame side-frame-right" aria-labelledby="epistemic-heading">
+      <div class="frame-header">
+        <div class="frame-kicker">Philosophy of Computation &amp; TOK</div>
+        <h2 id="epistemic-heading" class="frame-title">Epistemic Inquiry</h2>
+        <p class="frame-subtitle">
+          Foundational questions on the nature, limits, and physicality of computational and quantum knowledge.
+        </p>
       </div>
-    </section>
 
-    <!-- §2. CHRONOLOGICAL VLOG INDEX (CLEAN JOURNAL TABLE OF CONTENTS) -->
-    <section id="episode-archive" aria-labelledby="sec-2-title">
-      <div class="section-header">
-        <h2 id="sec-2-title" class="section-title">§ 2. Chronological Vlog &amp; Monograph Index</h2>
-        <search aria-label="Filter vlog episodes by stage">
-          <div class="filter-bar">
-            <button type="button" class="filter-link active" onclick="filterEpisodes('ALL', this)">All Entries (04)</button>
-            <button type="button" class="filter-link" onclick="filterEpisodes('STAGE I', this)">Stage I: Classical &amp; Shannon</button>
-            <button type="button" class="filter-link" onclick="filterEpisodes('STAGE II', this)">Stage II: Hilbert Space</button>
-          </div>
-        </search>
-      </div>
+      <div id="epistemic-list"></div>
+    </aside>
 
-      <div id="episode-grid" class="archive-list"></div>
-    </section>
-
-    <!-- §3. DOCTORAL QUALIFYING SYLLABUS -->
-    <section id="doctoral-syllabus" aria-labelledby="sec-3-title">
-      <div class="section-header">
-        <h2 id="sec-3-title" class="section-title">§ 3. Self-Directed Doctoral Qualifying Syllabus (Stages I–V)</h2>
-        <div class="section-meta">Classical Computation $\longrightarrow$ Quantum Information Theory</div>
-      </div>
-
-      <div class="syllabus-list">
-        <details name="curriculum-stage" open class="syllabus-row">
-          <summary>
-            <span>Stage I. Classical Computation, Reversible Logic &amp; Shannon Information Theory</span>
-            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-toxic-green);">Active Volume &middot; 3 Lectures</span>
-          </summary>
-          <p class="monograph-paragraph" style="margin-top: 0.65rem;">
-            <span class="run-in-label">Classical Core:</span> Turing machines, Boolean circuit complexity, Landauer’s erasure bound ($k_B T \ln 2$), Toffoli/Fredkin reversible logic, Shannon entropy $H(X)$, Kullback–Leibler divergence $D(p\parallel q)$, and the Noisy Channel Coding Theorem.
-            <br>
-            <span class="run-in-label">Quantum Information Bridge:</span> Why unitary evolution demands physical reversibility; Bennett’s uncomputation trick to clear ancilla garbage before quantum interference; $H(X)$ as the diagonal spectrum limit of Von Neumann entropy $S(\rho)$.
-            <br>
-            <span class="run-in-label">Primary Monographs:</span> <cite>Elements of Information Theory</cite> (Cover &amp; Thomas); <cite>Lectures on Computation</cite> (Feynman); <cite>Information Theory, Inference, and Learning Algorithms</cite> (MacKay).
-          </p>
-        </details>
-
-        <details name="curriculum-stage" class="syllabus-row">
-          <summary>
-            <span>Stage II. Finite-Dimensional Hilbert Spaces, Quantum Postulates &amp; Non-Local Games</span>
-            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--accent-moon-blue);">In Recording &middot; 1 Lecture</span>
-          </summary>
-          <p class="monograph-paragraph" style="margin-top: 0.65rem;">
-            <span class="run-in-label">Mathematical Substrate:</span> Spectral Theorem for normal operators, tensor products $\mathcal{H}_A \otimes \mathcal{H}_B$, Singular Value &amp; Schmidt Decomposition, projective vs. POVM measurements.
-            <br>
-            <span class="run-in-label">Information-Theoretic Focus:</span> No-Cloning &amp; No-Signaling duality; Bell inequalities framed as the CHSH cooperative information game (classical $75\%$ vs. Tsirelson $\cos^2(\pi/8) \approx 85.4\%$ quantum limit).
-            <br>
-            <span class="run-in-label">Primary Monographs:</span> <cite>Quantum Computation and Quantum Information</cite> (Nielsen &amp; Chuang); <cite>The Theory of Quantum Information</cite> (Watrous).
-          </p>
-        </details>
-
-        <details name="curriculum-stage" class="syllabus-row">
-          <summary>
-            <span>Stage III. Quantum Circuits, Oracular Complexity &amp; Algorithmic Speedups</span>
-            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-violet-muted);">Scheduled</span>
-          </summary>
-          <p class="monograph-paragraph" style="margin-top: 0.65rem;">
-            <span class="run-in-label">Algorithmic Spine:</span> Universal gate sets, Solovay–Kitaev theorem, phase kickback, Deutsch–Jozsa, Bernstein–Vazirani, Simon’s periodicity, Quantum Fourier Transform, Shor’s factoring, and Grover’s $\mathcal{O}(\sqrt{N})$ optimality proof via the hybrid method.
-            <br>
-            <span class="run-in-label">Primary Monographs:</span> <cite>Quantum Computing Since Democritus</cite> (Aaronson); <cite>Classical and Quantum Computation</cite> (Kitaev, Shen &amp; Vyalyi).
-          </p>
-        </details>
-
-        <details name="curriculum-stage" class="syllabus-row">
-          <summary>
-            <span>Stage IV. Quantum Information Theory: Channels, Entropy &amp; Entanglement Resource Theory</span>
-            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-violet-muted);">Core Doctoral Concentration</span>
-          </summary>
-          <p class="monograph-paragraph" style="margin-top: 0.65rem;">
-            <span class="run-in-label">Open Systems &amp; Capacities:</span> Density operators $\rho$, purifications, CPTP quantum channels, Kraus &amp; Stinespring dilation, Von Neumann entropy $S(\rho) = -\operatorname{Tr}(\rho \log_2 \rho)$, Strong Subadditivity, Holevo’s bound $\chi$, Schumacher compression, and LOCC entanglement distillation.
-            <br>
-            <span class="run-in-label">Primary Monographs:</span> <cite>Quantum Information Theory</cite> (Mark Wilde); <cite>The Theory of Quantum Information</cite> (John Watrous); Preskill Caltech Lecture Notes.
-          </p>
-        </details>
-
-        <details name="curriculum-stage" class="syllabus-row">
-          <summary>
-            <span>Stage V. Quantum Error Correction, Complexity Theory ($\mathsf{BQP}/\mathsf{QMA}$) &amp; Thesis Monograph</span>
-            <span style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-violet-muted);">Capstone Stage</span>
-          </summary>
-          <p class="monograph-paragraph" style="margin-top: 0.65rem;">
-            <span class="run-in-label">Fault Tolerance &amp; Complexity:</span> Pauli stabilizer formalism, Gottesman–Knill theorem, Shor 9-qubit &amp; Steane 7-qubit codes, topological surface codes, fault-tolerant threshold theorem, and $\mathsf{QMA}$-completeness of the $k$-Local Hamiltonian problem.
-            <br>
-            <span class="run-in-label">Primary Monographs:</span> <cite>Stabilizer Codes and Quantum Error Correction</cite> (Gottesman PhD Thesis); <cite>Quantum Hamiltonian Complexity</cite> (Gharibian et al.).
-          </p>
-        </details>
-      </div>
-    </section>
-
-  </main>
+  </div>
 
   <!-- CLEAN PAPER MODAL FOR PUBLISHING WORKFLOW -->
   <dialog id="publish-modal" closedby="any" class="academic-modal">
@@ -818,6 +1084,400 @@
   </dialog>
 
   <script>
+    /* 1. CASCADING GLOSSARY DATA (LEFT FRAME) */
+    const glossaryData = [
+      {
+        domain: "I. Classical Computation & Logic",
+        open: true,
+        subdomains: [
+          {
+            title: "1.1 Automata & Computability",
+            concepts: [
+              {
+                term: "Finite Automaton (DFA / NFA)",
+                formula: "$M = (Q, \\Sigma, \\delta, q_0, F)$",
+                def: "Abstract state machine with finite memory recognizing regular languages. Demonstrates the exact boundary of computation without external storage."
+              },
+              {
+                term: "Turing Machine & Church–Turing Thesis",
+                formula: "$\\delta: Q \\times \\Gamma \\to Q \\times \\Gamma \\times \\{L, R\\}$",
+                def: "Mathematical model of an unrestricted read/write tape head defining the class of partial recursive (effectively computable) functions."
+              },
+              {
+                term: "Universal Turing Machine (UTM)",
+                formula: "$U(\\langle M, x \\rangle) = M(x)$",
+                def: "A single fixed machine that reads the symbolic encoding of any other machine M and simulates its execution on input x."
+              },
+              {
+                term: "Halting Problem & Diagonalization",
+                formula: "$\\text{HALT} = \\{\\langle M, x\\rangle \\mid M(x)\\text{ halts}\\}$",
+                def: "Undecidable language proving via Cantor self-reference that no algorithm can universally verify program termination."
+              }
+            ]
+          },
+          {
+            title: "1.2 Circuits & Reversible Physics",
+            concepts: [
+              {
+                term: "Boolean Circuit Family",
+                formula: "$C_n: \\{0,1\\}^n \\to \\{0,1\\}^m$",
+                def: "Directed acyclic graph of logic gates (AND, OR, NOT) parameterized by input length n, measuring parallel depth and gate size."
+              },
+              {
+                term: "Landauer's Erasure Principle",
+                formula: "$\\Delta Q_{\\text{env}} \\ge k_B T \\ln 2$",
+                def: "Physical law stating that logically irreversible bit erasure compresses phase space and must dissipate at least k_B T ln(2) of heat per erased bit."
+              },
+              {
+                term: "Toffoli Gate (CCNOT)",
+                formula: "$|a, b, c\\rangle \\mapsto |a, b, c \\oplus (a \\wedge b)\\rangle$",
+                def: "Universal 3-bit reversible gate. Setting ancilla c=1 implements a reversible NAND gate without erasing input information."
+              },
+              {
+                term: "Fredkin Gate (CSWAP)",
+                formula: "$\\text{CSWAP}(c, x, y) = (c, \\bar{c}x + cy, cx + \\bar{c}y)$",
+                def: "Conservative, reversible 3-bit gate that swaps its two target inputs iff control c=1, preserving total Hamming weight."
+              },
+              {
+                term: "Bennett's Uncomputation Trick",
+                formula: "$|x\\rangle|0\\rangle|0\\rangle \\to |x\\rangle|g(x)\\rangle|f(x)\\rangle \\to |x\\rangle|0\\rangle|f(x)\\rangle$",
+                def: "Three-stage reversible protocol (Compute–Copy–Uncompute) that erases intermediate ancilla garbage bits reversibly so quantum interference is preserved."
+              }
+            ]
+          },
+          {
+            title: "1.3 Classical Complexity Classes",
+            concepts: [
+              {
+                term: "Classes P and NP",
+                formula: "$\\mathsf{P} \\subseteq \\mathsf{NP}$",
+                def: "P comprises decision problems solvable deterministically in polynomial time; NP comprises problems whose solutions can be verified in polynomial time given a witness."
+              },
+              {
+                term: "Class BPP (Randomized Poly-Time)",
+                formula: "$\\Pr[M(x) = L(x)] \\ge 2/3$",
+                def: "Bounded-error Probabilistic Polynomial time: what a classical computer can solve efficiently using true random coin tosses."
+              },
+              {
+                term: "Class PSPACE",
+                formula: "$\\mathsf{P} \\subseteq \\mathsf{BPP} \\subseteq \\mathsf{BQP} \\subseteq \\mathsf{PSPACE}$",
+                def: "Decision problems solvable using polynomial memory space regardless of time; upper-bounds the power of polynomial-size quantum circuits."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        domain: "II. Shannon Information Theory",
+        open: true,
+        subdomains: [
+          {
+            title: "2.1 Entropy & Uncertainty",
+            concepts: [
+              {
+                term: "Self-Information (Surprisal)",
+                formula: "$i(x) = -\\log_2 p(x)\\text{ bits}$",
+                def: "Operational measure of the information gained upon observing a single event x of probability p(x); additive for independent events."
+              },
+              {
+                term: "Shannon Entropy",
+                formula: "$H(X) = -\\sum_{x} p(x) \\log_2 p(x)$",
+                def: "Expected surprisal of random variable X; uniquely determined by Khinchin's continuity, monotonicity, and recursive branching axioms."
+              },
+              {
+                term: "Conditional Entropy & Chain Rule",
+                formula: "$H(X|Y) = H(X,Y) - H(Y)$",
+                def: "Average uncertainty remaining in X after observing Y. In classical probability H(X|Y) is always non-negative."
+              },
+              {
+                term: "Kullback–Leibler Relative Entropy",
+                formula: "$D(p \\parallel q) = \\sum_x p(x) \\log_2 \\frac{p(x)}{q(x)} \\ge 0$",
+                def: "Asymmetric measure of the extra bits per symbol incurred when encoding source p using a code optimized for distribution q."
+              }
+            ]
+          },
+          {
+            title: "2.2 Channels, Typicality & Coding",
+            concepts: [
+              {
+                term: "Mutual Information",
+                formula: "$I(X;Y) = H(X) + H(Y) - H(X,Y)$",
+                def: "Reduction in uncertainty of X due to knowledge of Y; equals the KL divergence D(p(x,y) || p(x)p(y))."
+              },
+              {
+                term: "Data Processing Inequality",
+                formula: "$X \\to Y \\to Z \\implies I(X;Z) \\le I(X;Y)$",
+                def: "No local deterministic or stochastic manipulation of data Y can increase the information it contains about source X."
+              },
+              {
+                term: "Asymptotic Equipartition (AEP)",
+                formula: "$|A_\\epsilon^{(n)}| \\approx 2^{n H(X)}$",
+                def: "Law of large numbers for information: long i.i.d. sequences concentrate on a typical set of size 2^{nH(X)} with near-uniform probability 2^{-nH(X)}."
+              },
+              {
+                term: "Shannon Noisy Channel Capacity",
+                formula: "$C = \\max_{p(x)} I(X;Y)$",
+                def: "Supremum of rates R < C at which information can be transmitted across a noisy memoryless channel with vanishing error probability as blocklength n -> infinity."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        domain: "III. Hilbert Space & Quantum Substrate",
+        open: false,
+        subdomains: [
+          {
+            title: "3.1 State Spaces & Decompositions",
+            concepts: [
+              {
+                term: "Qubit & Bloch Sphere Representation",
+                formula: "$|\\psi\\rangle = \\cos(\\tfrac{\\theta}{2})|0\\rangle + e^{i\\phi}\\sin(\\tfrac{\\theta}{2})|1\\rangle$",
+                def: "Unit vector in C^2 modulo global phase, bijectively mapped to the surface of the 3D unit ball via expectation values of Pauli operators."
+              },
+              {
+                term: "Tensor Product & Entanglement",
+                formula: "$|\\Psi\\rangle \\in \\mathcal{H}_A \\otimes \\mathcal{H}_B,\\quad |\\Psi\\rangle \\neq |\\psi_A\\rangle \\otimes |\\psi_B\\rangle$",
+                def: "Multiplicative state-space composition whose non-factorizable vectors exhibit non-classical correlations across subsystems."
+              },
+              {
+                term: "Spectral Theorem for Normal Operators",
+                formula: "$M M^\\dagger = M^\\dagger M \\iff M = \\sum_i \\lambda_i |i\\rangle\\langle i|$",
+                def: "Guarantees that unitary and Hermitian operators are diagonalizable in an orthonormal eigenbasis with real or unit-modulus eigenvalues."
+              },
+              {
+                term: "Schmidt Decomposition",
+                formula: "$|\\psi_{AB}\\rangle = \\sum_{i=1}^r \\sigma_i |u_i\\rangle_A \\otimes |v_i\\rangle_B$",
+                def: "Canonical bipartite representation derived from SVD; a pure state is entangled iff its Schmidt rank r > 1."
+              }
+            ]
+          },
+          {
+            title: "3.2 Measurements & Non-Locality",
+            concepts: [
+              {
+                term: "Projective (Von Neumann) Measurement",
+                formula: "$p(m) = \\langle\\psi|\\Pi_m|\\psi\\rangle,\\quad \\sum_m \\Pi_m = I$",
+                def: "Orthogonal projector measurement yielding outcome m with Born probability p(m) and post-measurement state Pi_m|psi>/sqrt(p(m))."
+              },
+              {
+                term: "POVM (General Measurement)",
+                formula: "$\\{F_m\\}_{m},\\quad F_m \\succeq 0,\\quad \\sum_m F_m = I$",
+                def: "Positive Operator-Valued Measure describing the most general measurement statistics achievable by coupling to an ancilla and performing a projective measurement."
+              },
+              {
+                term: "Wootters–Zurek No-Cloning Theorem",
+                formula: "$U|\\psi\\rangle|0\\rangle = |\\psi\\rangle|\\psi\\rangle \\implies \\langle\\psi|\\phi\\rangle \\in \\{0,1\\}$",
+                def: "Impossibility of copying an unknown quantum state reliably; follows from linearity/unitarity and protects relativistic causality from superluminal signaling."
+              },
+              {
+                term: "Bell / CHSH Non-Local Game",
+                formula: "$S_{\\text{classical}} \\le 2 < S_{\\text{quantum}} = 2\\sqrt{2}$",
+                def: "Information-theoretic game proving that shared entanglement achieves correlation win rate cos^2(pi/8) ≈ 85.4%, impossible under any local hidden variable theory (≤ 75%)."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        domain: "IV. Quantum Circuits & Algorithms",
+        open: false,
+        subdomains: [
+          {
+            title: "4.1 Quantum Gates & Interference",
+            concepts: [
+              {
+                term: "Pauli Group & Clifford Gates",
+                formula: "$X = \\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\; Z = \\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix},\\; H = \\frac{X+Z}{\\sqrt{2}}$",
+                def: "Fundamental discrete operators generating bit flips (X), phase flips (Z), superpositions (H), and two-qubit entanglement (CNOT)."
+              },
+              {
+                term: "Phase Kickback",
+                formula: "$C\\text{-}U(|+\\rangle \\otimes |u\\rangle) = \\frac{|0\\rangle + e^{i\\phi}|1\\rangle}{\\sqrt{2}} \\otimes |u\\rangle$",
+                def: "Core quantum primitive where applying a controlled unitary to an eigenstate transfers the eigenvalue phase back onto the control register."
+              },
+              {
+                term: "Solovay–Kitaev Theorem",
+                formula: "$L(\\epsilon) = \\mathcal{O}(\\log^c(1/\\epsilon))$",
+                def: "Establishes that a finite universal gate set (such as Clifford + T) approximates any continuous unitary in SU(2) with polylogarithmic gate overhead."
+              }
+            ]
+          },
+          {
+            title: "4.2 Oracles, QFT & Search",
+            concepts: [
+              {
+                term: "Deutsch–Jozsa & Bernstein–Vazirani",
+                formula: "$H^{\\otimes n} U_f H^{\\otimes n}|0\\rangle^{\\otimes n} = |s\\rangle$",
+                def: "Oracle algorithms extracting global parity or hidden linear string s in a single quantum query via constructive/destructive interference."
+              },
+              {
+                term: "Simon's Periodicity Algorithm",
+                formula: "$f(x) = f(y) \\iff y = x \\oplus s$",
+                def: "Samples random vectors orthogonal to hidden period s in O(n) quantum queries versus Omega(2^{n/2}) classical randomized queries."
+              },
+              {
+                term: "Quantum Fourier Transform & Shor's Algorithm",
+                formula: "$\\text{QFT}|x\\rangle = \\frac{1}{\\sqrt{N}}\\sum_{k=0}^{N-1} e^{2\\pi i x k / N}|k\\rangle$",
+                def: "Executes discrete Fourier transform on 2^n amplitudes in O(n^2) gates, enabling polynomial-time order finding and integer factorization."
+              },
+              {
+                term: "Grover's Amplitude Amplification",
+                formula: "$G = (2|\\psi\\rangle\\langle\\psi| - I) O_f,\\quad T = \\Theta(\\sqrt{N})$",
+                def: "Iteratively rotates the state vector toward marked target states in a 2D subspace, achieving provably optimal quadratic speedup for unstructured search."
+              }
+            ]
+          }
+        ]
+      },
+      {
+        domain: "V. Quantum Information & Fault Tolerance",
+        open: false,
+        subdomains: [
+          {
+            title: "5.1 Open Systems & Quantum Channels",
+            concepts: [
+              {
+                term: "Density Operator & Purity",
+                formula: "$\\rho = \\sum_i p_i |\\psi_i\\rangle\\langle\\psi_i|,\\quad \\operatorname{Tr}(\\rho^2) \\le 1$",
+                def: "Positive semidefinite trace-1 operator encoding both classical statistical uncertainty and quantum coherence in a single mathematical object."
+              },
+              {
+                term: "Partial Trace & Purification",
+                formula: "$\\rho_A = \\operatorname{Tr}_B(|\\Psi_{AB}\\rangle\\langle\\Psi_{AB}|)$",
+                def: "Marginalization over environment B turns a pure entangled state into a mixed state; conversely, any mixed state admits a pure extension."
+              },
+              {
+                term: "CPTP Quantum Channel & Kraus Operators",
+                formula: "$\\mathcal{E}(\\rho) = \\sum_k E_k \\rho E_k^\\dagger,\\quad \\sum_k E_k^\\dagger E_k = I$",
+                def: "Completely Positive Trace-Preserving linear map modeling decoherence, noise, measurements, and open-system dynamics."
+              },
+              {
+                term: "Stinespring Dilation Theorem",
+                formula: "$\\mathcal{E}(\\rho) = \\operatorname{Tr}_E\\!\\left(U (\\rho \\otimes |0\\rangle\\langle 0|_E) U^\\dagger\\right)$",
+                def: "Proves that every noisy quantum channel is simply reversible unitary evolution on a larger system-plus-environment Hilbert space."
+              }
+            ]
+          },
+          {
+            title: "5.2 Quantum Entropy & Capacities",
+            concepts: [
+              {
+                term: "Von Neumann Entropy",
+                formula: "$S(\\rho) = -\\operatorname{Tr}(\\rho \\log_2 \\rho) = -\\sum_i \\lambda_i \\log_2 \\lambda_i$",
+                def: "Quantum operational entropy equal to the Shannon entropy of the eigenvalue spectrum; vanishes for pure states and can yield negative conditional entropy S(A|B) < 0."
+              },
+              {
+                term: "Strong Subadditivity (SSA)",
+                formula: "$S(\\rho_{ABC}) + S(\\rho_B) \\le S(\\rho_{AB}) + S(\\rho_{BC})$",
+                def: "Deepest inequality of quantum information theory (Lieb–Ruskai), equivalent to the data processing inequality I(A;BC) >= I(A;B) for quantum states."
+              },
+              {
+                term: "Holevo's Bound (Accessible Information)",
+                formula: "$I(X;Y) \\le S\\!\\left(\\sum_x p_x \\rho_x\\right) - \\sum_x p_x S(\\rho_x) = \\chi$",
+                def: "Upper-bounds the classical information extractable from a quantum ensemble; implies n qubits cannot transmit more than n classical bits without shared entanglement."
+              },
+              {
+                term: "Schumacher Quantum Compression",
+                formula: "$R_{\\text{min}} = S(\\rho)\\text{ qubits per state}$",
+                def: "Quantum analog of Shannon's noiseless coding theorem: projects an i.i.d. tensor-power state onto its typical subspace of dimension 2^{nS(rho)}."
+              }
+            ]
+          },
+          {
+            title: "5.3 Error Correction & Complexity",
+            concepts: [
+              {
+                term: "Stabilizer Formalism & Syndrome Decoding",
+                formula: "$\\mathcal{S} \\subset \\mathcal{P}_n,\\quad g|\\overline{\\psi}\\rangle = +|\\overline{\\psi}\\rangle\\;\\forall g \\in \\mathcal{S}$",
+                def: "Encodes logical qubits in the simultaneous +1 eigenspace of an Abelian Pauli subgroup, allowing discrete error syndromes to be measured without destroying superposition."
+              },
+              {
+                term: "Gottesman–Knill Theorem",
+                formula: "$\\text{Clifford}_n + \\text{Pauli Meas.} \\in \\mathsf{P}$",
+                def: "Proves that entanglement and superposition alone do not suffice for quantum speedup: stabilizer circuits are efficiently simulable classically by tracking 2n Pauli generators."
+              },
+              {
+                term: "Fault-Tolerant Threshold Theorem",
+                formula: "$p_{\\text{phys}} < p_{\\text{th}} \\implies \\epsilon_{\\text{logical}} \\to 0$",
+                def: "Guarantees that once physical gate error falls below a constant threshold, concatenated or topological surface codes enable arbitrarily long quantum computations."
+              },
+              {
+                term: "Complexity Classes BQP and QMA",
+                formula: "$k\\text{-Local Hamiltonian} \\in \\mathsf{QMA}\\text{-Complete}$",
+                def: "BQP captures efficient quantum decision problems; QMA is the quantum analog of NP where the verifier checks an entangled quantum witness state."
+              }
+            ]
+          }
+        ]
+      }
+    ];
+
+    /* 2. EPISTEMIC INQUIRY QUESTIONS DATA (RIGHT FRAME) */
+    const epistemicData = [
+      {
+        theme: "I. Ontology of Computation",
+        questions: [
+          {
+            q: "Is computability a purely mathematical truth or a contingent law of physics?",
+            body: "Classical computer science treats the Church–Turing thesis as a mathematical axiom independent of hardware. Yet Shor's algorithm and the extended Church–Turing–Deutsch principle show that what is efficiently computable (BPP vs. BQP) depends directly on the physical laws governing our universe.",
+            anchor: "Syllabus Anchor: Stage I (MOD-101) & Stage III"
+          },
+          {
+            q: "Why does logical erasure carry an unavoidable thermodynamic cost?",
+            body: "Before Landauer and Bennett, logic gates were viewed as Platonic mappings detached from thermodynamics. If erasing a single bit must dump k_B T ln(2) of heat into the environment, is information a physical substance on par with energy?",
+            anchor: "Syllabus Anchor: Stage I (Landauer & Toffoli)"
+          }
+        ]
+      },
+      {
+        theme: "II. Probability vs. Quantum Amplitudes",
+        questions: [
+          {
+            q: "What separates epistemic ignorance (classical probability) from ontic indeterminacy (quantum superposition)?",
+            body: "A classical coin distribution p = (1/2, 1/2) has Shannon entropy H(X) = 1 bit because we lack knowledge of a definite hidden state. A pure quantum state |+⟩ has Von Neumann entropy S(|+⟩⟨+|) = 0—representing complete maximal knowledge—yet still produces random outcomes upon Z-basis measurement.",
+            anchor: "Syllabus Anchor: Stage I & Stage IV (S(ρ) vs H(X))"
+          },
+          {
+            q: "Why does nature single out the complex L2 norm over L1 probability vectors?",
+            body: "Scott Aaronson frames quantum mechanics as 'probability theory with minus signs' conserving the 2-norm ∑|α_i|^2 = 1 instead of the 1-norm ∑p_i = 1. What epistemic and operational axioms uniquely force complex Hilbert space?",
+            anchor: "Syllabus Anchor: Stage II (MOD-201)"
+          }
+        ]
+      },
+      {
+        theme: "III. The Epistemic Paradox of Qubits",
+        questions: [
+          {
+            q: "Where does exponential quantum information reside if Holevo's bound restricts extraction to n bits?",
+            body: "Describing an n-qubit state vector requires 2^n - 1 continuous complex amplitudes, yet Holevo's theorem proves no measurement can extract more than n classical bits. In what sense does a quantum computer 'process' information that can never be directly read out?",
+            anchor: "Syllabus Anchor: Stage IV (Holevo Bound χ)"
+          },
+          {
+            q: "How can we possess complete knowledge of a composite whole while having zero knowledge of its parts?",
+            body: "In Classical Information Theory, H(A,B) >= H(A): knowing the whole system always bounds our uncertainty about its parts. For an entangled Bell pair, global entropy is S(AB) = 0 while marginal entropy is S(A) = 1, yielding negative conditional entropy S(A|B) = -1 and overturning classical reductionism.",
+            anchor: "Syllabus Anchor: Stage IV (Entanglement & SSA)"
+          }
+        ]
+      },
+      {
+        theme: "IV. Verification, Proof & AI Epistemology",
+        questions: [
+          {
+            q: "Does a non-clonable quantum witness (QMA) constitute mathematical justification?",
+            body: "A classical NP proof is a static bit-string that any mathematician can copy, broadcast, and inspect deterministically. A QMA witness is a fragile entangled state |ψ⟩ that cannot be cloned and is irreversibly disturbed by verification.",
+            anchor: "Syllabus Anchor: Stage V (BQP vs QMA)"
+          },
+          {
+            q: "What distinguishes genuine human epistemic mastery from AI-assisted fluency?",
+            body: "In an era where language models generate fluent mathematical prose instantaneously, passive reading creates an illusion of competence. True epistemic ownership requires surviving closed-book derivations, adversarial Socratic questioning, and building working simulations from first principles.",
+            anchor: "Syllabus Anchor: Istignet AI-Age Protocol"
+          }
+        ]
+      }
+    ];
+
+    /* 3. VLOG EPISODES DATA (CENTER COLUMN) */
     const episodes = [
       {
         id: "ep-03",
@@ -917,6 +1577,76 @@
       }
     }
 
+    function renderGlossary(query = '') {
+      const q = query.trim().toLowerCase();
+      const treeEl = document.getElementById('glossary-tree');
+
+      treeEl.innerHTML = glossaryData.map(dom => {
+        const filteredSubdomains = dom.subdomains.map(sub => {
+          const matchedConcepts = sub.concepts.filter(c =>
+            !q ||
+            c.term.toLowerCase().includes(q) ||
+            c.def.toLowerCase().includes(q)
+          );
+          return { ...sub, concepts: matchedConcepts };
+        }).filter(sub => sub.concepts.length > 0);
+
+        if (filteredSubdomains.length === 0) return '';
+
+        const totalConcepts = filteredSubdomains.reduce((acc, s) => acc + s.concepts.length, 0);
+        const shouldOpen = q.length > 0 || dom.open;
+
+        return `
+          <details class="glossary-domain" ${shouldOpen ? 'open' : ''}>
+            <summary>
+              <span>${dom.domain}</span>
+              <span class="domain-count">[${totalConcepts}]</span>
+            </summary>
+            <div>
+              ${filteredSubdomains.map(sub => `
+                <div class="subdomain-block">
+                  <div class="subdomain-title">${sub.title}</div>
+                  ${sub.concepts.map(c => `
+                    <details class="concept-item" ${q.length > 0 ? 'open' : ''}>
+                      <summary>${c.term}</summary>
+                      <div class="concept-def">
+                        <div>${c.def}</div>
+                        <div class="concept-formula">${c.formula}</div>
+                      </div>
+                    </details>
+                  `).join('')}
+                </div>
+              `).join('')}
+            </div>
+          </details>
+        `;
+      }).join('');
+
+      typesetMath();
+    }
+
+    function filterGlossary(val) {
+      renderGlossary(val);
+    }
+
+    function renderEpistemicQuestions() {
+      const container = document.getElementById('epistemic-list');
+      container.innerHTML = epistemicData.map((group, gIdx) => `
+        <div class="epistemic-theme">
+          <div class="epistemic-theme-header">${group.theme}</div>
+          ${group.questions.map((item, qIdx) => `
+            <details class="epistemic-q" ${gIdx === 0 && qIdx === 0 ? 'open' : ''}>
+              <summary>${item.q}</summary>
+              <div class="epistemic-body">
+                <p>${item.body}</p>
+                <div class="epistemic-anchor">${item.anchor}</div>
+              </div>
+            </details>
+          `).join('')}
+        </div>
+      `).join('');
+    }
+
     function loadEpisode(epId) {
       const found = episodes.find(e => e.id === epId);
       if (!found) return;
@@ -987,25 +1717,25 @@
 
       grid.innerHTML = filtered.map(ep => `
         <article class="archive-item">
-          <div style="font-family: var(--font-mono); font-size: 0.74rem; color: var(--ink-violet-muted);">
+          <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">
             <div style="color: var(--ink-violet); font-weight: 600;">${ep.code}</div>
             <div>${ep.date} &middot; ${ep.duration}</div>
           </div>
 
           <div>
-            <div style="font-family: var(--font-mono); font-size: 0.7rem; color: var(--accent-moon-blue); text-transform: uppercase;">
+            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-moon-blue); text-transform: uppercase;">
               ${ep.module}
             </div>
-            <h3 style="font-family: var(--font-serif); font-size: 1.28rem; font-weight: 700; color: var(--ink-violet); margin-top: 0.1rem;">
+            <h3 style="font-family: var(--font-serif); font-size: 1.22rem; font-weight: 700; color: var(--ink-violet); margin-top: 0.1rem;">
               ${ep.title}
             </h3>
-            <p style="font-size: 1rem; color: var(--ink-violet-body); margin-top: 0.25rem;">
+            <p style="font-size: 0.98rem; color: var(--ink-violet-body); margin-top: 0.2rem;">
               ${ep.abstract}
             </p>
           </div>
 
-          <div style="font-family: var(--font-mono); font-size: 0.74rem;">
-            <button type="button" onclick="loadEpisode('${ep.id}'); document.getElementById('lecture-theater').scrollIntoView({behavior: 'smooth'});" style="background: none; border: none; border-bottom: 1px solid var(--ink-violet); color: var(--ink-violet); font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; cursor: pointer; padding-bottom: 0.1rem;">
+          <div style="font-family: var(--font-mono); font-size: 0.72rem;">
+            <button type="button" onclick="loadEpisode('${ep.id}'); document.getElementById('lecture-theater').scrollIntoView({behavior: 'smooth'});" style="background: none; border: none; border-bottom: 1px solid var(--ink-violet); color: var(--ink-violet); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; cursor: pointer; padding-bottom: 0.1rem;">
               Load Lecture &amp; Notes →
             </button>
           </div>
@@ -1021,6 +1751,8 @@
       renderEpisodeArchive(stage);
     }
 
+    renderGlossary('');
+    renderEpistemicQuestions();
     loadEpisode('ep-03');
     renderEpisodeArchive('ALL');
   </script>
