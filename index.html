@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Istignet — Open-Notebook Doctoral Monograph &amp; Video Lecture Series</title>
+  <title>Istignet — Dynamic Curriculum Map &amp; Epistemic Framework for Computation &amp; Quantum Information</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=JetBrains+Mono:wght@400;500;600&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -37,6 +37,7 @@
       --rule-strong: rgba(30, 15, 56, 0.42);
 
       --accent-moon-blue: #1d6fa5;
+      --accent-moon-bright: #8be0ff;
       --accent-toxic-green: #1ea800;
       --accent-toxic-bright: #39ff14;
 
@@ -68,6 +69,23 @@
       min-block-size: 100dvh;
     }
 
+    :where(a:any-link, button, input, select, textarea, summary):focus-visible {
+      outline: 2px solid var(--accent-moon-blue);
+      outline-offset: 2px;
+    }
+
+    .visually-hidden:where(:not(:focus-within, :active)) {
+      position: absolute !important;
+      clip-path: inset(50%) !important;
+      overflow: hidden !important;
+      width: 1px !important;
+      height: 1px !important;
+      margin: -1px !important;
+      padding: 0 !important;
+      border: 0 !important;
+      white-space: nowrap !important;
+    }
+
     /* Minimalist Academic Running Header */
     .running-header {
       position: sticky;
@@ -92,7 +110,6 @@
     .running-nav {
       display: flex;
       flex-wrap: wrap;
-      flex-wrap: balance;
       gap: 1.25rem;
       align-items: baseline;
     }
@@ -115,7 +132,7 @@
       text-decoration: underline;
     }
 
-    /* 3-Column Scholarly Workbench Layout: Left Glossary Frame | Center Monograph | Right Epistemic Frame */
+    /* 3-Column Scholarly Workbench Layout: Left Glossary Frame | Center Curriculum Map & Monograph | Right Epistemic Frame */
     .workbench-grid {
       display: grid;
       grid-template-columns: 1fr;
@@ -209,11 +226,6 @@
       margin-bottom: 0.85rem;
     }
 
-    .glossary-search-input:focus {
-      outline: 1px solid var(--accent-moon-blue);
-      border-color: var(--accent-moon-blue);
-    }
-
     /* Cascading Glossary Tree (Domain -> Subdomain -> Concept Definition) */
     details.glossary-domain {
       border-bottom: 1px solid var(--rule-hairline);
@@ -301,6 +313,23 @@
       overflow-x: auto;
     }
 
+    .glossary-map-jump {
+      margin-top: 0.3rem;
+      background: none;
+      border: none;
+      border-bottom: 1px dotted var(--accent-moon-blue);
+      color: var(--accent-moon-blue);
+      font-family: var(--font-mono);
+      font-size: 0.66rem;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .glossary-map-jump:hover {
+      color: var(--ink-violet);
+      border-bottom-color: var(--accent-toxic-green);
+    }
+
     /* Right Frame: Epistemic Inquiry Questions */
     .epistemic-theme {
       margin-bottom: 1.15rem;
@@ -351,7 +380,7 @@
       color: var(--ink-violet-muted);
     }
 
-    /* Center Monograph Column */
+    /* Center Monograph & Concept Map Column */
     .monograph-container {
       padding-block: 2.25rem 5rem;
       padding-inline: clamp(1.25rem, 3.5vw, 3rem);
@@ -445,7 +474,7 @@
 
     /* Section Headings */
     .section-header {
-      margin-bottom: 1.35rem;
+      margin-bottom: 1.15rem;
       padding-bottom: 0.4rem;
       border-bottom: 1px solid var(--rule-strong);
       display: flex;
@@ -468,99 +497,236 @@
       color: var(--ink-violet-muted);
     }
 
-    /* Active Lecture Layout inside Center Monograph */
-    .lecture-layout {
+    /* Stage Selector Radio Strip (5 Mutually Exclusive Curriculum Stages) */
+    .stage-selector-fieldset {
+      border: none;
+      margin-bottom: 0.85rem;
+      padding-bottom: 0.55rem;
+      border-bottom: 1px solid var(--rule-hairline);
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.45rem 1.1rem;
+    }
+
+    .stage-selector-legend {
+      font-family: var(--font-mono);
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-violet-muted);
+      margin-right: 0.5rem;
+      float: left;
+    }
+
+    .stage-radio-label {
+      display: inline-flex;
+      align-items: baseline;
+      gap: 0.35rem;
+      font-family: var(--font-mono);
+      font-size: 0.73rem;
+      color: var(--ink-violet-muted);
+      cursor: pointer;
+      padding-block: 0.2rem;
+      border-bottom: 2px solid transparent;
+    }
+
+    .stage-radio-label input[type="radio"] {
+      accent-color: var(--accent-toxic-green);
+      margin: 0;
+      cursor: pointer;
+    }
+
+    .stage-radio-label:has(input[type="radio"]:checked) {
+      color: var(--ink-violet);
+      font-weight: 600;
+      border-bottom-color: var(--accent-toxic-green);
+    }
+
+    .stage-radio-label:hover {
+      color: var(--accent-moon-blue);
+    }
+
+    /* Dynamic Editable Concept Map Blackboard Window */
+    .concept-map-layout {
       display: flex;
       flex-direction: column;
-      gap: 1.85rem;
+      gap: 1.65rem;
       margin-bottom: 3.25rem;
     }
 
-    /* 16:9 Video Figure */
-    .video-stage {
-      aspect-ratio: 16 / 9;
+    .concept-map-stage {
       inline-size: 100%;
       background: #1b0f30;
       color: #fcf8fa;
-      padding: 1.25rem 1.4rem;
+      padding: 1rem 1.25rem;
       display: flex;
       flex-direction: column;
       justify-content: space-between;
       position: relative;
-      overflow: clip;
       border: 1px solid var(--ink-violet);
     }
 
-    .video-top-meta {
+    .map-top-bar {
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: baseline;
+      gap: 0.75rem;
       font-family: var(--font-mono);
       font-size: 0.72rem;
       color: #d8c8eb;
       border-bottom: 1px solid rgba(252, 248, 250, 0.14);
-      padding-bottom: 0.4rem;
+      padding-bottom: 0.5rem;
     }
 
-    .blackboard-center {
-      margin-block: auto;
-      text-align: center;
-      padding-inline: 0.75rem;
+    .map-toolbar {
       display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 0.65rem;
+      flex-wrap: wrap;
+      gap: 0.85rem;
+      align-items: baseline;
     }
 
-    .blackboard-chapter {
+    .map-tool-btn {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #8be0ff;
-    }
-
-    .blackboard-heading {
-      font-family: var(--font-serif);
-      font-size: clamp(1.1rem, 0.95rem + 0.6vw, 1.45rem);
+      font-size: 0.7rem;
       font-weight: 500;
-      color: #fcf8fa;
-      max-inline-size: 46ch;
-      line-height: 1.3;
-    }
-
-    .blackboard-math {
-      font-size: 0.9rem;
-      color: #fcf8fa;
-      padding-block: 0.25rem;
-      max-inline-size: 100%;
-      overflow-x: auto;
-    }
-
-    .play-link-btn {
-      font-family: var(--font-mono);
-      font-size: 0.73rem;
-      font-weight: 600;
-      color: var(--accent-toxic-bright);
-      background: transparent;
+      color: #d8c8eb;
+      background: none;
       border: none;
-      border-bottom: 1px solid var(--accent-toxic-bright);
-      padding-bottom: 0.12rem;
+      border-bottom: 1px solid rgba(216, 200, 235, 0.4);
+      padding-bottom: 0.1rem;
       cursor: pointer;
-      letter-spacing: 0.05em;
+      letter-spacing: 0.03em;
     }
 
-    .scrubber-track {
-      inline-size: 100%;
-      block-size: 3px;
-      background: rgba(252, 248, 250, 0.18);
-      overflow: clip;
+    .map-tool-btn:hover {
+      color: var(--accent-moon-bright);
+      border-bottom-color: var(--accent-moon-bright);
     }
 
-    .scrubber-bar {
-      block-size: 100%;
+    .map-tool-btn.primary-action {
+      color: var(--accent-toxic-bright);
+      border-bottom-color: var(--accent-toxic-bright);
+    }
+
+    .map-tool-btn[aria-pressed="true"] {
+      color: #1b0f30;
       background: var(--accent-toxic-bright);
-      transition: inline-size 0.3s ease;
+      padding-inline: 0.35rem;
+      border-bottom-color: var(--accent-toxic-bright);
+      font-weight: 600;
+    }
+
+    /* Interactive SVG Canvas */
+    .concept-map-viewport {
+      inline-size: 100%;
+      aspect-ratio: 16 / 9;
+      min-block-size: 360px;
+      position: relative;
+      overflow: hidden;
+      background-image: radial-gradient(rgba(216, 200, 235, 0.14) 1px, transparent 1px);
+      background-size: 24px 24px;
+      margin-block: 0.45rem;
+    }
+
+    #concept-map-svg {
+      inline-size: 100%;
+      block-size: 100%;
+      display: block;
+      user-select: none;
+      -webkit-user-select: none;
+      touch-action: pan-y;
+    }
+
+    .map-edge-line {
+      stroke: rgba(139, 224, 255, 0.42);
+      stroke-width: 1.6;
+      transition: stroke 0.15s ease, stroke-width 0.15s ease;
+    }
+
+    .map-edge-line.highlighted {
+      stroke: var(--accent-toxic-bright);
+      stroke-width: 2.3;
+    }
+
+    .map-edge-label {
+      fill: #b8a3d1;
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.03em;
+      pointer-events: none;
+    }
+
+    .map-node-group {
+      cursor: grab;
+    }
+
+    .map-node-group:active {
+      cursor: grabbing;
+    }
+
+    .map-node-rect {
+      fill: #24143f;
+      stroke: rgba(139, 224, 255, 0.55);
+      stroke-width: 1.25;
+      transition: stroke 0.15s ease, fill 0.15s ease;
+    }
+
+    .map-node-group:hover .map-node-rect {
+      stroke: var(--accent-moon-bright);
+      fill: #2c194d;
+    }
+
+    .map-node-group.selected .map-node-rect {
+      stroke: var(--accent-toxic-bright);
+      stroke-width: 2.2;
+      fill: #2f1a54;
+    }
+
+    .map-node-group.link-source .map-node-rect {
+      stroke: var(--accent-moon-bright);
+      stroke-dasharray: 4 2;
+      stroke-width: 2.2;
+    }
+
+    .map-node-code {
+      fill: var(--accent-moon-bright);
+      font-family: var(--font-mono);
+      font-size: 9.5px;
+      letter-spacing: 0.04em;
+    }
+
+    .map-node-status {
+      font-family: var(--font-mono);
+      font-size: 9px;
+      letter-spacing: 0.03em;
+    }
+
+    .map-node-title {
+      fill: #fcf8fa;
+      font-family: var(--font-serif);
+      font-size: 13.5px;
+      font-weight: 600;
+    }
+
+    .map-node-formula {
+      fill: #d8c8eb;
+      font-family: var(--font-mono);
+      font-size: 10px;
+    }
+
+    .map-bottom-bar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.5rem;
+      border-top: 1px solid rgba(252, 248, 250, 0.14);
+      padding-top: 0.45rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: #c5b4db;
     }
 
     .figure-caption {
@@ -570,14 +736,14 @@
       margin-top: 0.45rem;
     }
 
-    /* Timestamp Index */
-    .timestamp-index {
-      margin-top: 0.85rem;
-      padding-top: 0.65rem;
+    /* Quick Node Index Strip */
+    .node-index-strip {
+      margin-top: 0.75rem;
+      padding-top: 0.6rem;
       border-top: 1px solid var(--rule-hairline);
     }
 
-    .timestamp-heading {
+    .node-index-heading {
       font-family: var(--font-mono);
       font-size: 0.7rem;
       text-transform: uppercase;
@@ -586,17 +752,17 @@
       margin-bottom: 0.35rem;
     }
 
-    .timestamp-list {
+    .node-index-list {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       column-gap: 1.5rem;
     }
 
-    .timestamp-row {
+    .node-index-btn {
       display: flex;
       align-items: baseline;
-      gap: 0.65rem;
-      padding-block: 0.32rem;
+      gap: 0.55rem;
+      padding-block: 0.3rem;
       border-bottom: 1px dotted var(--rule-hairline);
       background: none;
       border-top: none;
@@ -607,33 +773,41 @@
       cursor: pointer;
       color: var(--ink-violet-body);
       font-family: var(--font-serif);
-      font-size: 0.96rem;
+      font-size: 0.95rem;
     }
 
-    .timestamp-row:hover,
-    .timestamp-row.active {
+    .node-index-btn:hover,
+    .node-index-btn.active {
       color: var(--accent-moon-blue);
     }
 
-    .timestamp-row.active .ts-time {
+    .node-index-btn.active .node-code-tag {
       color: var(--accent-toxic-green);
       font-weight: 700;
     }
 
-    .ts-time {
+    .node-code-tag {
       font-family: var(--font-mono);
-      font-size: 0.72rem;
+      font-size: 0.7rem;
       color: var(--ink-violet-muted);
-      min-inline-size: 3.2rem;
+      min-inline-size: 3.1rem;
     }
 
-    /* Companion Monograph Prose */
-    .monograph-notes {
+    /* Unframed Academic Node Editor & Companion Specification */
+    .node-companion-article {
       display: flex;
       flex-direction: column;
-      gap: 1rem;
-      padding-top: 0.5rem;
-      border-top: 1px solid var(--rule-hairline);
+      gap: 1.15rem;
+      padding-top: 0.65rem;
+      border-top: 1px solid var(--rule-strong);
+    }
+
+    .companion-header-line {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      align-items: baseline;
+      gap: 0.75rem;
     }
 
     .monograph-entry-title {
@@ -672,23 +846,115 @@
       margin-right: 0.35rem;
     }
 
-    .monograph-links {
-      padding-top: 0.65rem;
+    /* Clean Unframed Inline Editor Form (Journal Marginalia Style) */
+    .node-editor-form {
+      padding-top: 0.9rem;
       border-top: 1px solid var(--rule-hairline);
-      font-family: var(--font-mono);
-      font-size: 0.72rem;
-      color: var(--ink-violet-muted);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 1.1rem;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 0.95rem;
     }
 
-    /* Archive List */
+    @media (min-width: 760px) {
+      .node-editor-row-2col {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1.25rem;
+      }
+    }
+
+    .editor-field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.22rem;
+    }
+
+    .editor-field label,
+    .editor-fieldset legend {
+      font-family: var(--font-mono);
+      font-size: 0.69rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: var(--ink-violet-muted);
+    }
+
+    .editor-input,
+    .editor-textarea,
+    .editor-select {
+      font-family: var(--font-serif);
+      font-size: 1rem;
+      color: var(--ink-violet);
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid var(--rule-strong);
+      padding: 0.3rem 0.15rem;
+      inline-size: 100%;
+    }
+
+    .editor-input.mono-input {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+    }
+
+    .editor-textarea {
+      resize: vertical;
+      min-block-size: 3.4rem;
+      line-height: 1.5;
+    }
+
+    .editor-fieldset {
+      border: none;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.9rem;
+      align-items: center;
+      padding-top: 0.2rem;
+    }
+
+    .status-radio-option {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.3rem;
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      color: var(--ink-violet-body);
+      cursor: pointer;
+    }
+
+    .status-radio-option input[type="radio"] {
+      accent-color: var(--accent-toxic-green);
+    }
+
+    .edge-builder-bar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: baseline;
+      gap: 0.65rem;
+      padding-top: 0.25rem;
+    }
+
+    .text-action-btn {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 600;
+      color: var(--ink-violet);
+      background: none;
+      border: none;
+      border-bottom: 1.5px solid var(--accent-toxic-green);
+      padding-bottom: 0.1rem;
+      cursor: pointer;
+    }
+
+    .text-action-btn:hover {
+      color: var(--accent-moon-blue);
+      border-bottom-color: var(--accent-moon-blue);
+    }
+
+    /* Section 2: Stage Dependency Pathways */
     .filter-bar {
       display: flex;
       flex-wrap: wrap;
-      flex-wrap: balance;
-      gap: 1rem;
+      gap: 0.85rem;
       align-items: baseline;
     }
 
@@ -720,13 +986,13 @@
       display: grid;
       grid-template-columns: 1fr;
       gap: 0.75rem;
-      padding-block: 1.15rem;
+      padding-block: 1.05rem;
       border-bottom: 1px solid var(--rule-hairline);
     }
 
     @media (min-width: 700px) {
       .archive-item {
-        grid-template-columns: 140px 1fr auto;
+        grid-template-columns: 145px 1fr auto;
         align-items: baseline;
         gap: 1.35rem;
       }
@@ -764,7 +1030,7 @@
       color: var(--ink-violet);
       border: 1px solid var(--ink-violet);
       padding: 2rem;
-      max-inline-size: 620px;
+      max-inline-size: 660px;
       inline-size: 92%;
       margin: auto;
     }
@@ -779,15 +1045,15 @@
   <!-- MINIMALIST ACADEMIC RUNNING HEADER -->
   <header class="running-header">
     <div>
-      <strong style="color: var(--ink-violet);">ISTIGNET</strong> (<em>Istigkeit + Network</em>) &mdash; Open-Notebook Doctoral Monograph &amp; Vlog
+      <strong style="color: var(--ink-violet);">ISTIGNET</strong> (<em>Istigkeit + Network</em>) &mdash; Decentralized Curriculum Map &amp; Epistemic Framework
     </div>
     <nav class="running-nav" aria-label="Primary Navigation">
       <a href="#glossary-frame">← Concept Glossary</a>
-      <a href="#lecture-theater">§1. Lecture &amp; Notes</a>
-      <a href="#episode-archive">§2. Vlog Index</a>
+      <a href="#concept-map-section">§1. Dynamic Concept Map</a>
+      <a href="#pathway-archive">§2. Stage Pathways</a>
       <a href="#doctoral-syllabus">§3. Qualifying Syllabus</a>
       <a href="#epistemic-frame">Epistemic Inquiry →</a>
-      <button type="button" onclick="document.getElementById('publish-modal').showModal()">[+ Log Episode]</button>
+      <button type="button" onclick="openExportModal()">[Export / Fork Map JSON]</button>
     </nav>
   </header>
 
@@ -805,11 +1071,16 @@
       </div>
 
       <search aria-label="Filter glossary concepts">
+        <label for="glossary-search" class="visually-hidden">Filter glossary concepts</label>
         <input
           type="search"
           id="glossary-search"
+          name="glossarySearch"
           class="glossary-search-input"
           placeholder="Filter concepts (e.g. Toffoli, Holevo, BQP)..."
+          autocorrect="off"
+          autocapitalize="off"
+          spellcheck="false"
           oninput="filterGlossary(this.value)"
         >
       </search>
@@ -817,12 +1088,12 @@
       <div id="glossary-tree"></div>
     </aside>
 
-    <!-- CENTER COLUMN: MAIN ACADEMIC MONOGRAPH & VLOG THEATER -->
+    <!-- CENTER COLUMN: DYNAMIC CURRICULUM MAP & ACADEMIC FRAMEWORK -->
     <main class="monograph-container">
 
       <!-- PAPER TITLE, ETYMOLOGY & UNFRAMED EPIGRAPH -->
       <header class="paper-header">
-        <div class="paper-kicker">Self-Directed Doctoral Research &amp; AI-Age Curriculum Design</div>
+        <div class="paper-kicker">Open-Source Doctoral Curriculum Architecture &amp; Epistemic Graph</div>
         <h1 class="paper-title">
           Istignet: From Classical Computation to Quantum Information Theory
         </h1>
@@ -842,139 +1113,277 @@
 
         <div class="author-line">
           <div>
-            <strong>Istignet Research Collective</strong> &middot; Decentralized Open-Source Curriculum &amp; Epistemic Monograph
+            <strong>Istignet Research Collective</strong> &middot; Editable Curriculum Framework &amp; Epistemic Graph
           </div>
           <div class="telemetry-inline">
-            <span class="status-dot">●</span> Volume I (Stage I of V) &middot; 04 Recorded Lectures &middot; Closed-Book Verified
+            <span class="status-dot">●</span> Stages I–V Interactive Concept Maps &middot; Customizable &amp; Forkable in Browser
           </div>
         </div>
       </header>
 
-      <!-- §1. ACTIVE LECTURE & SYNCHRONIZED MONOGRAPH EXCERPT -->
-      <section id="lecture-theater" aria-labelledby="sec-1-title">
+      <!-- §1. DYNAMIC EDITABLE CONCEPT MAP & NODE SPECIFICATION -->
+      <section id="concept-map-section" aria-labelledby="sec-1-title">
         <div class="section-header">
-          <h2 id="sec-1-title" class="section-title">§ 1. Active Video Lecture &amp; Companion Monograph Notes</h2>
+          <h2 id="sec-1-title" class="section-title">§ 1. Dynamic Stage Concept Map &amp; Editable Curriculum Graph</h2>
           <div class="section-meta">
-            <span id="active-ep-code">VOL. I, LECTURE 03</span> &middot; <span id="active-ep-date">Oct 20, 2026</span> &middot; <span id="active-ep-duration">28:15</span>
+            <span id="active-stage-code">STAGE I OF V</span> &middot; <span id="active-stage-summary">8 Concept Nodes</span>
           </div>
         </div>
 
-        <div class="lecture-layout">
-          <!-- Video Figure & Table-of-Contents Timestamps -->
+        <!-- Stage Selector Radio Group (5 Curriculum Stages) -->
+        <fieldset class="stage-selector-fieldset" aria-label="Select Curriculum Stage for Concept Map">
+          <legend class="stage-selector-legend">Select Stage Map:</legend>
+          <label class="stage-radio-label">
+            <input type="radio" name="curriculumStage" value="STAGE I" checked onchange="selectStageMap(this.value)">
+            <span>Stage I: Classical &amp; Shannon</span>
+          </label>
+          <label class="stage-radio-label">
+            <input type="radio" name="curriculumStage" value="STAGE II" onchange="selectStageMap(this.value)">
+            <span>Stage II: Hilbert Space</span>
+          </label>
+          <label class="stage-radio-label">
+            <input type="radio" name="curriculumStage" value="STAGE III" onchange="selectStageMap(this.value)">
+            <span>Stage III: Quantum Circuits</span>
+          </label>
+          <label class="stage-radio-label">
+            <input type="radio" name="curriculumStage" value="STAGE IV" onchange="selectStageMap(this.value)">
+            <span>Stage IV: Channels &amp; Entropy</span>
+          </label>
+          <label class="stage-radio-label">
+            <input type="radio" name="curriculumStage" value="STAGE V" onchange="selectStageMap(this.value)">
+            <span>Stage V: QEC &amp; Complexity</span>
+          </label>
+        </fieldset>
+
+        <div class="concept-map-layout">
           <div>
             <figure>
-              <div class="video-stage">
-                <div class="video-top-meta">
-                  <span id="video-stage-badge">STAGE I &middot; SHANNON INFORMATION THEORY</span>
-                  <span id="video-time-indicator" style="color: var(--accent-toxic-bright);">05:42 / 28:15</span>
+              <div class="concept-map-stage">
+                <div class="map-top-bar">
+                  <span id="map-stage-badge">STAGE I &middot; CLASSICAL COMPUTATION &amp; SHANNON INFORMATION THEORY</span>
+                  <div class="map-toolbar" role="toolbar" aria-label="Concept Map Editing Actions">
+                    <button type="button" class="map-tool-btn primary-action" onclick="addNewConceptNode()">
+                      [+ Add Concept Node]
+                    </button>
+                    <button type="button" id="link-mode-btn" class="map-tool-btn" aria-pressed="false" onclick="toggleLinkMode()">
+                      [⇄ Link Prerequisite Edge]
+                    </button>
+                    <button type="button" class="map-tool-btn" onclick="deleteSelectedNode()">
+                      [× Delete Node]
+                    </button>
+                    <button type="button" class="map-tool-btn" onclick="resetCurrentStageMap()">
+                      [↺ Reset Stage Default]
+                    </button>
+                  </div>
                 </div>
 
-                <div class="blackboard-center">
-                  <div id="video-chapter-label" class="blackboard-chapter">
-                    §2. BLACKBOARD DERIVATION &middot; THE BRANCHING AXIOM
-                  </div>
-                  <div id="video-title-overlay" class="blackboard-heading">
-                    Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic
-                  </div>
-                  <div id="video-equation-overlay" class="blackboard-math">
-                    $$H(p_1, p_2, p_3) = H(p_1, p_2 + p_3) + (p_2 + p_3)\,H\!\left(\frac{p_2}{p_2+p_3}, \frac{p_3}{p_2+p_3}\right)$$
-                  </div>
-                  <button type="button" id="play-btn" class="play-link-btn" onclick="togglePlaySimulation()">
-                    ▶ PLAY LECTURE RECORDING
-                  </button>
+                <!-- Interactive SVG Concept Graph -->
+                <div class="concept-map-viewport">
+                  <svg
+                    id="concept-map-svg"
+                    viewBox="0 0 920 500"
+                    role="img"
+                    aria-labelledby="map-svg-title"
+                  >
+                    <title id="map-svg-title">Interactive Editable Concept Map for Stage I: Classical Computation and Shannon Information Theory</title>
+                    <defs>
+                      <marker id="arrow-default" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="rgba(139, 224, 255, 0.68)"></path>
+                      </marker>
+                      <marker id="arrow-active" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6.5" markerHeight="6.5" orient="auto-start-reverse">
+                        <path d="M 0 1.5 L 9 5 L 0 8.5 z" fill="#39ff14"></path>
+                      </marker>
+                    </defs>
+                    <g id="map-edges-layer"></g>
+                    <g id="map-nodes-layer"></g>
+                  </svg>
                 </div>
 
-                <div style="display: flex; flex-direction: column; gap: 0.35rem;">
-                  <div class="scrubber-track">
-                    <div id="scrubber-fill" class="scrubber-bar" style="inline-size: 28%;"></div>
-                  </div>
-                  <div style="display: flex; justify-content: space-between; font-family: var(--font-mono); font-size: 0.68rem; color: #c5b4db;">
-                    <span id="scrubber-status">PAUSED &middot; SELECT A TIMESTAMP BELOW TO SEEK</span>
-                    <span>1080p60 &middot; BLACKBOARD RECORDING</span>
-                  </div>
+                <div class="map-bottom-bar">
+                  <span id="map-status-msg" aria-live="polite">
+                    DRAG NODES TO REARRANGE &middot; CLICK ANY NODE TO CUSTOMIZE YOUR PERSONAL CURRICULUM VERSION BELOW
+                  </span>
+                  <span id="map-stats-indicator" style="color: var(--accent-toxic-bright);">
+                    8 NODES &middot; 8 EDGES &middot; AUTO-SAVED LOCALLY
+                  </span>
                 </div>
               </div>
               <figcaption class="figure-caption">
-                <strong>Figure 1.</strong> Blackboard lecture recording with synchronized mathematical checkpoints.
+                <strong>Figure 1.</strong> Interactive, user-editable curriculum concept map. Drag nodes to reorganize your pathway, add or link concepts, and customize definitions below. All changes persist locally in your browser and can be exported as JSON.
               </figcaption>
             </figure>
 
-            <div class="timestamp-index">
-              <div class="timestamp-heading">Lecture Contents &amp; Timestamps</div>
-              <div id="chapter-buttons" class="timestamp-list"></div>
+            <!-- Quick Node Selector Strip -->
+            <div class="node-index-strip">
+              <div class="node-index-heading">Stage Concept Nodes (Click to Select &amp; Edit)</div>
+              <div id="node-index-buttons" class="node-index-list"></div>
             </div>
           </div>
 
-          <!-- Pure Journal Prose (No Boxes or Frames Around Text) -->
-          <article class="monograph-notes" aria-label="Companion Monograph Notes">
-            <div>
-              <div id="dossier-module" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue); text-transform: uppercase; letter-spacing: 0.05em;">
-                MODULE 102 &middot; SHANNON INFORMATION THEORY
+          <!-- Unframed Academic Specification & Inline Node Editor -->
+          <article class="node-companion-article" aria-label="Selected Concept Node Specification and Editor">
+            <div class="companion-header-line">
+              <div>
+                <div id="inspector-node-code" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue); text-transform: uppercase; letter-spacing: 0.05em;">
+                  STAGE I &middot; NODE S1-N6 &middot; CORE AXIOM
+                </div>
+                <h3 id="inspector-node-title" class="monograph-entry-title">
+                  Shannon Entropy &amp; Khinchin Uniqueness Axioms
+                </h3>
               </div>
-              <h3 id="dossier-title" class="monograph-entry-title">
-                Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic
-              </h3>
+              <div id="inspector-math-preview" style="font-size: 1.02rem; color: var(--ink-violet);">
+                $$H(X) = -\sum_{x} p(x) \log_2 p(x)$$
+              </div>
             </div>
 
             <p class="monograph-paragraph">
-              <span class="run-in-label">Abstract.</span>
-              <span id="dossier-abstract"></span>
+              <span class="run-in-label">Curriculum Role &amp; Conceptual Bridge.</span>
+              <span id="inspector-node-notes"></span>
             </p>
 
             <div class="latex-theorem">
-              <span id="dossier-theorem-label" class="thm-head">Theorem 1.2 (Khinchin Uniqueness).</span>
-              <span id="dossier-theorem-body"></span> $\square$
+              <span class="thm-head">Formal Checkpoint / Theorem.</span>
+              <span id="inspector-node-theorem"></span> $\square$
             </div>
 
-            <p class="monograph-paragraph">
-              <span class="run-in-label">Epistemic Friction (Field Note).</span>
-              <span id="dossier-friction"></span>
-            </p>
+            <!-- Inline Editable Form so anyone can customize their version of the map -->
+            <form id="node-editor-form" class="node-editor-form" onsubmit="handleNodeFormSubmit(event)">
+              <div style="display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: 0.5rem;">
+                <span style="font-family: var(--font-mono); font-size: 0.72rem; text-transform: uppercase; letter-spacing: 0.06em; color: var(--accent-moon-blue);">
+                  Customize Selected Concept Node (Updates Map Live)
+                </span>
+                <span style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--ink-violet-muted);">
+                  Changes save automatically to your personal curriculum graph
+                </span>
+              </div>
 
-            <p class="monograph-paragraph">
-              <span class="run-in-label">AI-Age Curriculum Protocol (<span id="dossier-ai-badge" style="color: var(--accent-moon-blue);">Socratic Referee</span>).</span>
-              <span id="dossier-ai-audit"></span>
-            </p>
+              <div class="node-editor-row-2col">
+                <div class="editor-field">
+                  <label for="edit-node-title">Concept Title (Displayed on Map Node)</label>
+                  <input
+                    type="text"
+                    id="edit-node-title"
+                    name="nodeTitle"
+                    class="editor-input"
+                    required
+                    maxlength="64"
+                    oninput="updateSelectedNodeFromForm()"
+                  >
+                </div>
 
-            <div class="monograph-links">
-              <span>Companion LaTeX PDF</span>
-              <span>&middot;</span>
-              <span>Simulation Code</span>
-              <span>&middot;</span>
-              <span style="color: var(--accent-toxic-green);">✓ Closed-Book Verified</span>
-            </div>
+                <div class="editor-field">
+                  <label for="edit-node-formula">Mathematical Symbol / Formula (Compact Map Label)</label>
+                  <input
+                    type="text"
+                    id="edit-node-formula"
+                    name="nodeFormula"
+                    class="editor-input mono-input"
+                    maxlength="72"
+                    autocorrect="off"
+                    autocapitalize="off"
+                    spellcheck="false"
+                    oninput="updateSelectedNodeFromForm()"
+                  >
+                </div>
+              </div>
+
+              <fieldset class="editor-fieldset">
+                <legend>Personal Mastery / Curriculum Status:</legend>
+                <label class="status-radio-option">
+                  <input type="radio" name="nodeStatus" value="◆ AXIOM / CORE" onchange="updateSelectedNodeFromForm()">
+                  <span>◆ Axiom / Core</span>
+                </label>
+                <label class="status-radio-option">
+                  <input type="radio" name="nodeStatus" value="○ TO LEARN" onchange="updateSelectedNodeFromForm()">
+                  <span>○ To Learn</span>
+                </label>
+                <label class="status-radio-option">
+                  <input type="radio" name="nodeStatus" value="◐ IN PROGRESS" onchange="updateSelectedNodeFromForm()">
+                  <span>◐ In Progress</span>
+                </label>
+                <label class="status-radio-option">
+                  <input type="radio" name="nodeStatus" value="✓ MASTERED" onchange="updateSelectedNodeFromForm()">
+                  <span>✓ Mastered</span>
+                </label>
+              </fieldset>
+
+              <div class="node-editor-row-2col">
+                <div class="editor-field">
+                  <label for="edit-node-notes">Curriculum Role, Intuition &amp; Personal Study Notes</label>
+                  <textarea
+                    id="edit-node-notes"
+                    name="nodeNotes"
+                    class="editor-textarea"
+                    oninput="updateSelectedNodeFromForm()"
+                  ></textarea>
+                </div>
+
+                <div class="editor-field">
+                  <label for="edit-node-theorem">Formal Checkpoint / Core Theorem (Supports LaTeX `$...$`)</label>
+                  <textarea
+                    id="edit-node-theorem"
+                    name="nodeTheorem"
+                    class="editor-textarea"
+                    oninput="updateSelectedNodeFromForm()"
+                  ></textarea>
+                </div>
+              </div>
+
+              <div class="edge-builder-bar">
+                <label for="edge-target-select" style="font-family: var(--font-mono); font-size: 0.69rem; text-transform: uppercase; letter-spacing: 0.05em; color: var(--ink-violet-muted);">
+                  Prerequisite Edge to Node:
+                </label>
+                <select id="edge-target-select" name="edgeTarget" class="editor-select" style="max-inline-size: 260px; font-size: 0.85rem;"></select>
+                <label for="edge-label-input" class="visually-hidden">Edge Relation Label</label>
+                <input
+                  type="text"
+                  id="edge-label-input"
+                  name="edgeLabel"
+                  class="editor-input mono-input"
+                  style="max-inline-size: 180px;"
+                  placeholder="Relation (e.g. generalizes)"
+                  value="leads to"
+                >
+                <button type="button" class="text-action-btn" onclick="toggleEdgeFromForm()">
+                  [Add / Toggle Directed Edge]
+                </button>
+              </div>
+            </form>
           </article>
         </div>
       </section>
 
-      <!-- §2. CHRONOLOGICAL VLOG INDEX -->
-      <section id="episode-archive" aria-labelledby="sec-2-title">
+      <!-- §2. CURRICULUM PATHWAY MODULES ACROSS STAGES I–V -->
+      <section id="pathway-archive" aria-labelledby="sec-2-title">
         <div class="section-header">
-          <h2 id="sec-2-title" class="section-title">§ 2. Chronological Vlog &amp; Monograph Index</h2>
-          <search aria-label="Filter vlog episodes by stage">
+          <h2 id="sec-2-title" class="section-title">§ 2. Stage-by-Stage Curriculum Modules &amp; Prerequisite Bridges</h2>
+          <search aria-label="Filter curriculum modules by stage">
             <div class="filter-bar">
-              <button type="button" class="filter-link active" onclick="filterEpisodes('ALL', this)">All Entries (04)</button>
-              <button type="button" class="filter-link" onclick="filterEpisodes('STAGE I', this)">Stage I: Classical &amp; Shannon</button>
-              <button type="button" class="filter-link" onclick="filterEpisodes('STAGE II', this)">Stage II: Hilbert Space</button>
+              <button type="button" class="filter-link active" onclick="filterPathwayModules('ALL', this)">All Stages (10)</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE I', this)">Stage I</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE II', this)">Stage II</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE III', this)">Stage III</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE IV', this)">Stage IV</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE V', this)">Stage V</button>
             </div>
           </search>
         </div>
 
-        <div id="episode-grid" class="archive-list"></div>
+        <div id="pathway-grid" class="archive-list"></div>
       </section>
 
-      <!-- §3. DOCTORAL QUALIFYING SYLLABUS -->
+      <!-- §3. DOCTORAL QUALIFYING SYLLABUS (CLICK ANY STAGE TO LOAD ITS CONCEPT MAP) -->
       <section id="doctoral-syllabus" aria-labelledby="sec-3-title">
         <div class="section-header">
-          <h2 id="sec-3-title" class="section-title">§ 3. Self-Directed Doctoral Qualifying Syllabus (Stages I–V)</h2>
-          <div class="section-meta">Classical Computation $\longrightarrow$ Quantum Information Theory</div>
+          <h2 id="sec-3-title" class="section-title">§ 3. Self-Directed Doctoral Qualifying Framework (Stages I–V)</h2>
+          <div class="section-meta">Click any stage below to inspect or launch its interactive Concept Map</div>
         </div>
 
         <div class="syllabus-list">
           <details name="curriculum-stage" open class="syllabus-row">
-            <summary>
+            <summary onclick="selectStageMap('STAGE I')">
               <span>Stage I. Classical Computation, Reversible Logic &amp; Shannon Information Theory</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-toxic-green);">Active Volume &middot; 3 Lectures</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-toxic-green);">[Load Stage I Concept Map ↑]</span>
             </summary>
             <p class="monograph-paragraph" style="margin-top: 0.65rem;">
               <span class="run-in-label">Classical Core:</span> Turing machines, Boolean circuit complexity, Landauer’s erasure bound ($k_B T \ln 2$), Toffoli/Fredkin reversible logic, Shannon entropy $H(X)$, Kullback–Leibler divergence $D(p\parallel q)$, and the Noisy Channel Coding Theorem.
@@ -986,9 +1395,9 @@
           </details>
 
           <details name="curriculum-stage" class="syllabus-row">
-            <summary>
+            <summary onclick="selectStageMap('STAGE II')">
               <span>Stage II. Finite-Dimensional Hilbert Spaces, Quantum Postulates &amp; Non-Local Games</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue);">In Recording &middot; 1 Lecture</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue);">[Load Stage II Concept Map ↑]</span>
             </summary>
             <p class="monograph-paragraph" style="margin-top: 0.65rem;">
               <span class="run-in-label">Mathematical Substrate:</span> Spectral Theorem for normal operators, tensor products $\mathcal{H}_A \otimes \mathcal{H}_B$, Singular Value &amp; Schmidt Decomposition, projective vs. POVM measurements.
@@ -1000,9 +1409,9 @@
           </details>
 
           <details name="curriculum-stage" class="syllabus-row">
-            <summary>
+            <summary onclick="selectStageMap('STAGE III')">
               <span>Stage III. Quantum Circuits, Oracular Complexity &amp; Algorithmic Speedups</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">Scheduled</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue);">[Load Stage III Concept Map ↑]</span>
             </summary>
             <p class="monograph-paragraph" style="margin-top: 0.65rem;">
               <span class="run-in-label">Algorithmic Spine:</span> Universal gate sets, Solovay–Kitaev theorem, phase kickback, Deutsch–Jozsa, Bernstein–Vazirani, Simon’s periodicity, Quantum Fourier Transform, Shor’s factoring, and Grover’s $\mathcal{O}(\sqrt{N})$ optimality proof via the hybrid method.
@@ -1012,9 +1421,9 @@
           </details>
 
           <details name="curriculum-stage" class="syllabus-row">
-            <summary>
+            <summary onclick="selectStageMap('STAGE IV')">
               <span>Stage IV. Quantum Information Theory: Channels, Entropy &amp; Entanglement Resource Theory</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">Core Doctoral Concentration</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue);">[Load Stage IV Concept Map ↑]</span>
             </summary>
             <p class="monograph-paragraph" style="margin-top: 0.65rem;">
               <span class="run-in-label">Open Systems &amp; Capacities:</span> Density operators $\rho$, purifications, CPTP quantum channels, Kraus &amp; Stinespring dilation, Von Neumann entropy $S(\rho) = -\operatorname{Tr}(\rho \log_2 \rho)$, Strong Subadditivity, Holevo’s bound $\chi$, Schumacher compression, and LOCC entanglement distillation.
@@ -1024,9 +1433,9 @@
           </details>
 
           <details name="curriculum-stage" class="syllabus-row">
-            <summary>
+            <summary onclick="selectStageMap('STAGE V')">
               <span>Stage V. Quantum Error Correction, Complexity Theory ($\mathsf{BQP}/\mathsf{QMA}$) &amp; Thesis Monograph</span>
-              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">Capstone Stage</span>
+              <span style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue);">[Load Stage V Concept Map ↑]</span>
             </summary>
             <p class="monograph-paragraph" style="margin-top: 0.65rem;">
               <span class="run-in-label">Fault Tolerance &amp; Complexity:</span> Pauli stabilizer formalism, Gottesman–Knill theorem, Shor 9-qubit &amp; Steane 7-qubit codes, topological surface codes, fault-tolerant threshold theorem, and $\mathsf{QMA}$-completeness of the $k$-Local Hamiltonian problem.
@@ -1054,33 +1463,38 @@
 
   </div>
 
-  <!-- CLEAN PAPER MODAL FOR PUBLISHING WORKFLOW -->
-  <dialog id="publish-modal" closedby="any" class="academic-modal">
+  <!-- CLEAN PAPER MODAL FOR EXPORTING / FORKING PERSONAL CURRICULUM CONCEPT MAPS -->
+  <dialog id="export-modal" closedby="any" class="academic-modal" aria-labelledby="export-modal-title">
     <div style="display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid var(--rule-strong); padding-bottom: 0.65rem; margin-bottom: 1rem;">
-      <h2 style="font-family: var(--font-serif); font-size: 1.35rem;">Update-As-You-Go Vlog Publishing Schema</h2>
+      <h2 id="export-modal-title" style="font-family: var(--font-serif); font-size: 1.35rem;">Export or Import Your Personal Curriculum Map (JSON)</h2>
       <form method="dialog">
         <button style="background: none; border: none; font-family: var(--font-mono); font-size: 0.75rem; color: var(--ink-violet); cursor: pointer;">[Close ESC]</button>
       </form>
     </div>
-    <p style="font-size: 0.98rem; color: var(--ink-violet-body); margin-bottom: 1rem;">
-      Each vlog lecture and companion monograph excerpt is stored as a structured entry in <code>data/qit-vlogs.json</code>:
+    <p style="font-size: 0.96rem; color: var(--ink-violet-body); margin-bottom: 0.85rem;">
+      Every learner can adapt the <strong>Istignet</strong> concept maps (Stages I–V) into their own personal version. Copy or download the JSON below to archive or share your curriculum graph, or paste a customized JSON graph to load it:
     </p>
-    <figure style="margin-bottom: 1.25rem;">
-      <figcaption style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted); margin-bottom: 0.35rem;">
-        data/qit-vlogs.json
-      </figcaption>
-      <pre tabindex="0" style="background: var(--paper-subtle); border-left: 2px solid var(--ink-violet); padding: 0.85rem 1rem; font-family: var(--font-mono); font-size: 0.74rem; overflow-x-auto; color: var(--ink-violet);"><code>{
-  "id": "ep-05",
-  "code": "VOL. I, LECTURE 05",
-  "stage": "STAGE I",
-  "module": "MOD-102 · SHANNON INFORMATION THEORY",
-  "date": "Nov 02, 2026",
-  "duration": "31:10",
-  "title": "Noisy Channel Coding Theorem &amp; Jointly Typical Sets",
-  "theoremLabel": "Theorem 1.5 (Shannon Channel Capacity).",
-  "theoremBody": "C = \\max_{p(x)} I(X; Y) \\text{ bits per channel use}."
-}</code></pre>
-    </figure>
+    <div class="editor-field" style="margin-bottom: 1rem;">
+      <label for="map-json-textarea">Curriculum Concept Map State (Stages I–V JSON)</label>
+      <textarea
+        id="map-json-textarea"
+        name="mapJsonState"
+        class="editor-textarea"
+        style="font-family: var(--font-mono); font-size: 0.74rem; min-block-size: 220px; background: var(--paper-subtle); padding: 0.75rem; border: 1px solid var(--rule-strong);"
+        autocorrect="off"
+        autocapitalize="off"
+        spellcheck="false"
+      ></textarea>
+    </div>
+    <div style="display: flex; flex-wrap: wrap; justify-content: space-between; gap: 0.75rem;">
+      <div style="display: flex; gap: 1rem;">
+        <button type="button" class="text-action-btn" onclick="copyMapJson()">[Copy JSON to Clipboard]</button>
+        <button type="button" class="text-action-btn" onclick="importMapJson()">[Load Pasted JSON Map]</button>
+      </div>
+      <button type="button" class="text-action-btn" style="border-bottom-color: var(--accent-moon-blue);" onclick="resetAllStagesToDefault()">
+        [Restore Canonical Istignet Defaults]
+      </button>
+    </div>
   </dialog>
 
   <script>
@@ -1088,6 +1502,7 @@
     const glossaryData = [
       {
         domain: "I. Classical Computation & Logic",
+        stage: "STAGE I",
         open: true,
         subdomains: [
           {
@@ -1096,21 +1511,25 @@
               {
                 term: "Finite Automaton (DFA / NFA)",
                 formula: "$M = (Q, \\Sigma, \\delta, q_0, F)$",
+                nodeId: "s1-n1",
                 def: "Abstract state machine with finite memory recognizing regular languages. Demonstrates the exact boundary of computation without external storage."
               },
               {
                 term: "Turing Machine & Church–Turing Thesis",
                 formula: "$\\delta: Q \\times \\Gamma \\to Q \\times \\Gamma \\times \\{L, R\\}$",
+                nodeId: "s1-n1",
                 def: "Mathematical model of an unrestricted read/write tape head defining the class of partial recursive (effectively computable) functions."
               },
               {
                 term: "Universal Turing Machine (UTM)",
                 formula: "$U(\\langle M, x \\rangle) = M(x)$",
+                nodeId: "s1-n1",
                 def: "A single fixed machine that reads the symbolic encoding of any other machine M and simulates its execution on input x."
               },
               {
                 term: "Halting Problem & Diagonalization",
                 formula: "$\\text{HALT} = \\{\\langle M, x\\rangle \\mid M(x)\\text{ halts}\\}$",
+                nodeId: "s1-n1",
                 def: "Undecidable language proving via Cantor self-reference that no algorithm can universally verify program termination."
               }
             ]
@@ -1121,26 +1540,31 @@
               {
                 term: "Boolean Circuit Family",
                 formula: "$C_n: \\{0,1\\}^n \\to \\{0,1\\}^m$",
+                nodeId: "s1-n2",
                 def: "Directed acyclic graph of logic gates (AND, OR, NOT) parameterized by input length n, measuring parallel depth and gate size."
               },
               {
                 term: "Landauer's Erasure Principle",
                 formula: "$\\Delta Q_{\\text{env}} \\ge k_B T \\ln 2$",
+                nodeId: "s1-n3",
                 def: "Physical law stating that logically irreversible bit erasure compresses phase space and must dissipate at least k_B T ln(2) of heat per erased bit."
               },
               {
                 term: "Toffoli Gate (CCNOT)",
                 formula: "$|a, b, c\\rangle \\mapsto |a, b, c \\oplus (a \\wedge b)\\rangle$",
+                nodeId: "s1-n4",
                 def: "Universal 3-bit reversible gate. Setting ancilla c=1 implements a reversible NAND gate without erasing input information."
               },
               {
                 term: "Fredkin Gate (CSWAP)",
                 formula: "$\\text{CSWAP}(c, x, y) = (c, \\bar{c}x + cy, cx + \\bar{c}y)$",
+                nodeId: "s1-n4",
                 def: "Conservative, reversible 3-bit gate that swaps its two target inputs iff control c=1, preserving total Hamming weight."
               },
               {
                 term: "Bennett's Uncomputation Trick",
                 formula: "$|x\\rangle|0\\rangle|0\\rangle \\to |x\\rangle|g(x)\\rangle|f(x)\\rangle \\to |x\\rangle|0\\rangle|f(x)\\rangle$",
+                nodeId: "s1-n5",
                 def: "Three-stage reversible protocol (Compute–Copy–Uncompute) that erases intermediate ancilla garbage bits reversibly so quantum interference is preserved."
               }
             ]
@@ -1151,16 +1575,19 @@
               {
                 term: "Classes P and NP",
                 formula: "$\\mathsf{P} \\subseteq \\mathsf{NP}$",
+                nodeId: "s1-n2",
                 def: "P comprises decision problems solvable deterministically in polynomial time; NP comprises problems whose solutions can be verified in polynomial time given a witness."
               },
               {
                 term: "Class BPP (Randomized Poly-Time)",
                 formula: "$\\Pr[M(x) = L(x)] \\ge 2/3$",
+                nodeId: "s1-n2",
                 def: "Bounded-error Probabilistic Polynomial time: what a classical computer can solve efficiently using true random coin tosses."
               },
               {
                 term: "Class PSPACE",
                 formula: "$\\mathsf{P} \\subseteq \\mathsf{BPP} \\subseteq \\mathsf{BQP} \\subseteq \\mathsf{PSPACE}$",
+                nodeId: "s5-n7",
                 def: "Decision problems solvable using polynomial memory space regardless of time; upper-bounds the power of polynomial-size quantum circuits."
               }
             ]
@@ -1169,6 +1596,7 @@
       },
       {
         domain: "II. Shannon Information Theory",
+        stage: "STAGE I",
         open: true,
         subdomains: [
           {
@@ -1177,21 +1605,25 @@
               {
                 term: "Self-Information (Surprisal)",
                 formula: "$i(x) = -\\log_2 p(x)\\text{ bits}$",
+                nodeId: "s1-n6",
                 def: "Operational measure of the information gained upon observing a single event x of probability p(x); additive for independent events."
               },
               {
                 term: "Shannon Entropy",
                 formula: "$H(X) = -\\sum_{x} p(x) \\log_2 p(x)$",
+                nodeId: "s1-n6",
                 def: "Expected surprisal of random variable X; uniquely determined by Khinchin's continuity, monotonicity, and recursive branching axioms."
               },
               {
                 term: "Conditional Entropy & Chain Rule",
                 formula: "$H(X|Y) = H(X,Y) - H(Y)$",
+                nodeId: "s1-n7",
                 def: "Average uncertainty remaining in X after observing Y. In classical probability H(X|Y) is always non-negative."
               },
               {
                 term: "Kullback–Leibler Relative Entropy",
                 formula: "$D(p \\parallel q) = \\sum_x p(x) \\log_2 \\frac{p(x)}{q(x)} \\ge 0$",
+                nodeId: "s1-n7",
                 def: "Asymmetric measure of the extra bits per symbol incurred when encoding source p using a code optimized for distribution q."
               }
             ]
@@ -1202,21 +1634,25 @@
               {
                 term: "Mutual Information",
                 formula: "$I(X;Y) = H(X) + H(Y) - H(X,Y)$",
+                nodeId: "s1-n7",
                 def: "Reduction in uncertainty of X due to knowledge of Y; equals the KL divergence D(p(x,y) || p(x)p(y))."
               },
               {
                 term: "Data Processing Inequality",
                 formula: "$X \\to Y \\to Z \\implies I(X;Z) \\le I(X;Y)$",
+                nodeId: "s1-n7",
                 def: "No local deterministic or stochastic manipulation of data Y can increase the information it contains about source X."
               },
               {
                 term: "Asymptotic Equipartition (AEP)",
                 formula: "$|A_\\epsilon^{(n)}| \\approx 2^{n H(X)}$",
+                nodeId: "s1-n8",
                 def: "Law of large numbers for information: long i.i.d. sequences concentrate on a typical set of size 2^{nH(X)} with near-uniform probability 2^{-nH(X)}."
               },
               {
                 term: "Shannon Noisy Channel Capacity",
                 formula: "$C = \\max_{p(x)} I(X;Y)$",
+                nodeId: "s1-n8",
                 def: "Supremum of rates R < C at which information can be transmitted across a noisy memoryless channel with vanishing error probability as blocklength n -> infinity."
               }
             ]
@@ -1225,6 +1661,7 @@
       },
       {
         domain: "III. Hilbert Space & Quantum Substrate",
+        stage: "STAGE II",
         open: false,
         subdomains: [
           {
@@ -1233,21 +1670,25 @@
               {
                 term: "Qubit & Bloch Sphere Representation",
                 formula: "$|\\psi\\rangle = \\cos(\\tfrac{\\theta}{2})|0\\rangle + e^{i\\phi}\\sin(\\tfrac{\\theta}{2})|1\\rangle$",
+                nodeId: "s2-n2",
                 def: "Unit vector in C^2 modulo global phase, bijectively mapped to the surface of the 3D unit ball via expectation values of Pauli operators."
               },
               {
                 term: "Tensor Product & Entanglement",
                 formula: "$|\\Psi\\rangle \\in \\mathcal{H}_A \\otimes \\mathcal{H}_B,\\quad |\\Psi\\rangle \\neq |\\psi_A\\rangle \\otimes |\\psi_B\\rangle$",
+                nodeId: "s2-n4",
                 def: "Multiplicative state-space composition whose non-factorizable vectors exhibit non-classical correlations across subsystems."
               },
               {
                 term: "Spectral Theorem for Normal Operators",
                 formula: "$M M^\\dagger = M^\\dagger M \\iff M = \\sum_i \\lambda_i |i\\rangle\\langle i|$",
+                nodeId: "s2-n3",
                 def: "Guarantees that unitary and Hermitian operators are diagonalizable in an orthonormal eigenbasis with real or unit-modulus eigenvalues."
               },
               {
                 term: "Schmidt Decomposition",
                 formula: "$|\\psi_{AB}\\rangle = \\sum_{i=1}^r \\sigma_i |u_i\\rangle_A \\otimes |v_i\\rangle_B$",
+                nodeId: "s2-n5",
                 def: "Canonical bipartite representation derived from SVD; a pure state is entangled iff its Schmidt rank r > 1."
               }
             ]
@@ -1258,21 +1699,25 @@
               {
                 term: "Projective (Von Neumann) Measurement",
                 formula: "$p(m) = \\langle\\psi|\\Pi_m|\\psi\\rangle,\\quad \\sum_m \\Pi_m = I$",
+                nodeId: "s2-n6",
                 def: "Orthogonal projector measurement yielding outcome m with Born probability p(m) and post-measurement state Pi_m|psi>/sqrt(p(m))."
               },
               {
                 term: "POVM (General Measurement)",
                 formula: "$\\{F_m\\}_{m},\\quad F_m \\succeq 0,\\quad \\sum_m F_m = I$",
+                nodeId: "s2-n6",
                 def: "Positive Operator-Valued Measure describing the most general measurement statistics achievable by coupling to an ancilla and performing a projective measurement."
               },
               {
                 term: "Wootters–Zurek No-Cloning Theorem",
                 formula: "$U|\\psi\\rangle|0\\rangle = |\\psi\\rangle|\\psi\\rangle \\implies \\langle\\psi|\\phi\\rangle \\in \\{0,1\\}$",
+                nodeId: "s2-n7",
                 def: "Impossibility of copying an unknown quantum state reliably; follows from linearity/unitarity and protects relativistic causality from superluminal signaling."
               },
               {
                 term: "Bell / CHSH Non-Local Game",
                 formula: "$S_{\\text{classical}} \\le 2 < S_{\\text{quantum}} = 2\\sqrt{2}$",
+                nodeId: "s2-n8",
                 def: "Information-theoretic game proving that shared entanglement achieves correlation win rate cos^2(pi/8) ≈ 85.4%, impossible under any local hidden variable theory (≤ 75%)."
               }
             ]
@@ -1281,6 +1726,7 @@
       },
       {
         domain: "IV. Quantum Circuits & Algorithms",
+        stage: "STAGE III",
         open: false,
         subdomains: [
           {
@@ -1289,16 +1735,19 @@
               {
                 term: "Pauli Group & Clifford Gates",
                 formula: "$X = \\begin{pmatrix}0&1\\\\1&0\\end{pmatrix},\\; Z = \\begin{pmatrix}1&0\\\\0&-1\\end{pmatrix},\\; H = \\frac{X+Z}{\\sqrt{2}}$",
+                nodeId: "s3-n1",
                 def: "Fundamental discrete operators generating bit flips (X), phase flips (Z), superpositions (H), and two-qubit entanglement (CNOT)."
               },
               {
                 term: "Phase Kickback",
                 formula: "$C\\text{-}U(|+\\rangle \\otimes |u\\rangle) = \\frac{|0\\rangle + e^{i\\phi}|1\\rangle}{\\sqrt{2}} \\otimes |u\\rangle$",
+                nodeId: "s3-n3",
                 def: "Core quantum primitive where applying a controlled unitary to an eigenstate transfers the eigenvalue phase back onto the control register."
               },
               {
                 term: "Solovay–Kitaev Theorem",
                 formula: "$L(\\epsilon) = \\mathcal{O}(\\log^c(1/\\epsilon))$",
+                nodeId: "s3-n2",
                 def: "Establishes that a finite universal gate set (such as Clifford + T) approximates any continuous unitary in SU(2) with polylogarithmic gate overhead."
               }
             ]
@@ -1309,21 +1758,25 @@
               {
                 term: "Deutsch–Jozsa & Bernstein–Vazirani",
                 formula: "$H^{\\otimes n} U_f H^{\\otimes n}|0\\rangle^{\\otimes n} = |s\\rangle$",
+                nodeId: "s3-n4",
                 def: "Oracle algorithms extracting global parity or hidden linear string s in a single quantum query via constructive/destructive interference."
               },
               {
                 term: "Simon's Periodicity Algorithm",
                 formula: "$f(x) = f(y) \\iff y = x \\oplus s$",
+                nodeId: "s3-n5",
                 def: "Samples random vectors orthogonal to hidden period s in O(n) quantum queries versus Omega(2^{n/2}) classical randomized queries."
               },
               {
                 term: "Quantum Fourier Transform & Shor's Algorithm",
                 formula: "$\\text{QFT}|x\\rangle = \\frac{1}{\\sqrt{N}}\\sum_{k=0}^{N-1} e^{2\\pi i x k / N}|k\\rangle$",
+                nodeId: "s3-n6",
                 def: "Executes discrete Fourier transform on 2^n amplitudes in O(n^2) gates, enabling polynomial-time order finding and integer factorization."
               },
               {
                 term: "Grover's Amplitude Amplification",
                 formula: "$G = (2|\\psi\\rangle\\langle\\psi| - I) O_f,\\quad T = \\Theta(\\sqrt{N})$",
+                nodeId: "s3-n8",
                 def: "Iteratively rotates the state vector toward marked target states in a 2D subspace, achieving provably optimal quadratic speedup for unstructured search."
               }
             ]
@@ -1332,6 +1785,7 @@
       },
       {
         domain: "V. Quantum Information & Fault Tolerance",
+        stage: "STAGE IV",
         open: false,
         subdomains: [
           {
@@ -1340,21 +1794,25 @@
               {
                 term: "Density Operator & Purity",
                 formula: "$\\rho = \\sum_i p_i |\\psi_i\\rangle\\langle\\psi_i|,\\quad \\operatorname{Tr}(\\rho^2) \\le 1$",
+                nodeId: "s4-n1",
                 def: "Positive semidefinite trace-1 operator encoding both classical statistical uncertainty and quantum coherence in a single mathematical object."
               },
               {
                 term: "Partial Trace & Purification",
                 formula: "$\\rho_A = \\operatorname{Tr}_B(|\\Psi_{AB}\\rangle\\langle\\Psi_{AB}|)$",
+                nodeId: "s4-n2",
                 def: "Marginalization over environment B turns a pure entangled state into a mixed state; conversely, any mixed state admits a pure extension."
               },
               {
                 term: "CPTP Quantum Channel & Kraus Operators",
                 formula: "$\\mathcal{E}(\\rho) = \\sum_k E_k \\rho E_k^\\dagger,\\quad \\sum_k E_k^\\dagger E_k = I$",
+                nodeId: "s4-n3",
                 def: "Completely Positive Trace-Preserving linear map modeling decoherence, noise, measurements, and open-system dynamics."
               },
               {
                 term: "Stinespring Dilation Theorem",
                 formula: "$\\mathcal{E}(\\rho) = \\operatorname{Tr}_E\\!\\left(U (\\rho \\otimes |0\\rangle\\langle 0|_E) U^\\dagger\\right)$",
+                nodeId: "s4-n4",
                 def: "Proves that every noisy quantum channel is simply reversible unitary evolution on a larger system-plus-environment Hilbert space."
               }
             ]
@@ -1365,21 +1823,25 @@
               {
                 term: "Von Neumann Entropy",
                 formula: "$S(\\rho) = -\\operatorname{Tr}(\\rho \\log_2 \\rho) = -\\sum_i \\lambda_i \\log_2 \\lambda_i$",
+                nodeId: "s4-n5",
                 def: "Quantum operational entropy equal to the Shannon entropy of the eigenvalue spectrum; vanishes for pure states and can yield negative conditional entropy S(A|B) < 0."
               },
               {
                 term: "Strong Subadditivity (SSA)",
                 formula: "$S(\\rho_{ABC}) + S(\\rho_B) \\le S(\\rho_{AB}) + S(\\rho_{BC})$",
+                nodeId: "s4-n6",
                 def: "Deepest inequality of quantum information theory (Lieb–Ruskai), equivalent to the data processing inequality I(A;BC) >= I(A;B) for quantum states."
               },
               {
                 term: "Holevo's Bound (Accessible Information)",
                 formula: "$I(X;Y) \\le S\\!\\left(\\sum_x p_x \\rho_x\\right) - \\sum_x p_x S(\\rho_x) = \\chi$",
+                nodeId: "s4-n8",
                 def: "Upper-bounds the classical information extractable from a quantum ensemble; implies n qubits cannot transmit more than n classical bits without shared entanglement."
               },
               {
                 term: "Schumacher Quantum Compression",
                 formula: "$R_{\\text{min}} = S(\\rho)\\text{ qubits per state}$",
+                nodeId: "s4-n7",
                 def: "Quantum analog of Shannon's noiseless coding theorem: projects an i.i.d. tensor-power state onto its typical subspace of dimension 2^{nS(rho)}."
               }
             ]
@@ -1390,21 +1852,25 @@
               {
                 term: "Stabilizer Formalism & Syndrome Decoding",
                 formula: "$\\mathcal{S} \\subset \\mathcal{P}_n,\\quad g|\\overline{\\psi}\\rangle = +|\\overline{\\psi}\\rangle\\;\\forall g \\in \\mathcal{S}$",
+                nodeId: "s5-n3",
                 def: "Encodes logical qubits in the simultaneous +1 eigenspace of an Abelian Pauli subgroup, allowing discrete error syndromes to be measured without destroying superposition."
               },
               {
                 term: "Gottesman–Knill Theorem",
                 formula: "$\\text{Clifford}_n + \\text{Pauli Meas.} \\in \\mathsf{P}$",
+                nodeId: "s5-n4",
                 def: "Proves that entanglement and superposition alone do not suffice for quantum speedup: stabilizer circuits are efficiently simulable classically by tracking 2n Pauli generators."
               },
               {
                 term: "Fault-Tolerant Threshold Theorem",
                 formula: "$p_{\\text{phys}} < p_{\\text{th}} \\implies \\epsilon_{\\text{logical}} \\to 0$",
+                nodeId: "s5-n6",
                 def: "Guarantees that once physical gate error falls below a constant threshold, concatenated or topological surface codes enable arbitrarily long quantum computations."
               },
               {
                 term: "Complexity Classes BQP and QMA",
                 formula: "$k\\text{-Local Hamiltonian} \\in \\mathsf{QMA}\\text{-Complete}$",
+                nodeId: "s5-n7",
                 def: "BQP captures efficient quantum decision problems; QMA is the quantum analog of NP where the verifier checks an entangled quantum witness state."
               }
             ]
@@ -1421,12 +1887,12 @@
           {
             q: "Is computability a purely mathematical truth or a contingent law of physics?",
             body: "Classical computer science treats the Church–Turing thesis as a mathematical axiom independent of hardware. Yet Shor's algorithm and the extended Church–Turing–Deutsch principle show that what is efficiently computable (BPP vs. BQP) depends directly on the physical laws governing our universe.",
-            anchor: "Syllabus Anchor: Stage I (MOD-101) & Stage III"
+            anchor: "Concept Map Anchor: Stage I (S1-N1) & Stage III (S3-N7)"
           },
           {
             q: "Why does logical erasure carry an unavoidable thermodynamic cost?",
             body: "Before Landauer and Bennett, logic gates were viewed as Platonic mappings detached from thermodynamics. If erasing a single bit must dump k_B T ln(2) of heat into the environment, is information a physical substance on par with energy?",
-            anchor: "Syllabus Anchor: Stage I (Landauer & Toffoli)"
+            anchor: "Concept Map Anchor: Stage I (S1-N3 & S1-N5)"
           }
         ]
       },
@@ -1436,12 +1902,12 @@
           {
             q: "What separates epistemic ignorance (classical probability) from ontic indeterminacy (quantum superposition)?",
             body: "A classical coin distribution p = (1/2, 1/2) has Shannon entropy H(X) = 1 bit because we lack knowledge of a definite hidden state. A pure quantum state |+⟩ has Von Neumann entropy S(|+⟩⟨+|) = 0—representing complete maximal knowledge—yet still produces random outcomes upon Z-basis measurement.",
-            anchor: "Syllabus Anchor: Stage I & Stage IV (S(ρ) vs H(X))"
+            anchor: "Concept Map Anchor: Stage I (S1-N6) & Stage IV (S4-N5)"
           },
           {
             q: "Why does nature single out the complex L2 norm over L1 probability vectors?",
             body: "Scott Aaronson frames quantum mechanics as 'probability theory with minus signs' conserving the 2-norm ∑|α_i|^2 = 1 instead of the 1-norm ∑p_i = 1. What epistemic and operational axioms uniquely force complex Hilbert space?",
-            anchor: "Syllabus Anchor: Stage II (MOD-201)"
+            anchor: "Concept Map Anchor: Stage II (S2-N1 & S2-N3)"
           }
         ]
       },
@@ -1451,12 +1917,12 @@
           {
             q: "Where does exponential quantum information reside if Holevo's bound restricts extraction to n bits?",
             body: "Describing an n-qubit state vector requires 2^n - 1 continuous complex amplitudes, yet Holevo's theorem proves no measurement can extract more than n classical bits. In what sense does a quantum computer 'process' information that can never be directly read out?",
-            anchor: "Syllabus Anchor: Stage IV (Holevo Bound χ)"
+            anchor: "Concept Map Anchor: Stage IV (S4-N8 Holevo Bound)"
           },
           {
             q: "How can we possess complete knowledge of a composite whole while having zero knowledge of its parts?",
             body: "In Classical Information Theory, H(A,B) >= H(A): knowing the whole system always bounds our uncertainty about its parts. For an entangled Bell pair, global entropy is S(AB) = 0 while marginal entropy is S(A) = 1, yielding negative conditional entropy S(A|B) = -1 and overturning classical reductionism.",
-            anchor: "Syllabus Anchor: Stage IV (Entanglement & SSA)"
+            anchor: "Concept Map Anchor: Stage IV (S4-N5 & S4-N6)"
           }
         ]
       },
@@ -1466,110 +1932,651 @@
           {
             q: "Does a non-clonable quantum witness (QMA) constitute mathematical justification?",
             body: "A classical NP proof is a static bit-string that any mathematician can copy, broadcast, and inspect deterministically. A QMA witness is a fragile entangled state |ψ⟩ that cannot be cloned and is irreversibly disturbed by verification.",
-            anchor: "Syllabus Anchor: Stage V (BQP vs QMA)"
+            anchor: "Concept Map Anchor: Stage V (S5-N7 & S5-N8)"
           },
           {
             q: "What distinguishes genuine human epistemic mastery from AI-assisted fluency?",
-            body: "In an era where language models generate fluent mathematical prose instantaneously, passive reading creates an illusion of competence. True epistemic ownership requires surviving closed-book derivations, adversarial Socratic questioning, and building working simulations from first principles.",
-            anchor: "Syllabus Anchor: Istignet AI-Age Protocol"
+            body: "In an era where language models generate fluent mathematical prose instantaneously, passive reading creates an illusion of competence. True epistemic ownership requires constructing your own concept maps, surviving closed-book derivations, and verifying proofs from first principles.",
+            anchor: "Concept Map Anchor: Istignet Self-Guided Framework"
           }
         ]
       }
     ];
 
-    /* 3. VLOG EPISODES DATA (CENTER COLUMN) */
-    const episodes = [
-      {
-        id: "ep-03",
-        code: "VOL. I, LECTURE 03",
-        stage: "STAGE I",
-        module: "MOD-102 · SHANNON INFORMATION THEORY",
-        date: "Oct 20, 2026",
-        duration: "28:15",
-        title: "Surprisal, Additivity, and Why Shannon Entropy Must Be Logarithmic",
-        equation: "$$H(p_1, p_2, p_3) = H(p_1, p_2 + p_3) + (p_2 + p_3)\\,H\\!\\left(\\frac{p_2}{p_2+p_3}, \\frac{p_3}{p_2+p_3}\\right)$$",
-        abstract: "In this lecture vlog, I derive the functional form of Shannon entropy from scratch on the blackboard using Khinchin's four axioms, focusing on why recursive branching forces the logarithm.",
-        theoremLabel: "Theorem 1.2 (Khinchin Uniqueness).",
-        theoremBody: "If $H_n(p_1, \\dots, p_n)$ is continuous, symmetric, maximized at the uniform distribution $(1/n, \\dots, 1/n)$, and satisfies the recursive branching axiom, then $H_n(p) = -k \\sum_{i=1}^n p_i \\log p_i$ for $k > 0$.",
-        friction: "At the start of my recording, I tried to justify the logarithm merely by citing independent additivity. While filming the proof, I realized additivity on uniform distributions only gives f(mn) = f(m)+f(n) on integers—it is the conditional branching axiom that bridges rational probabilities to continuous real distributions.",
-        aiBadge: "Socratic Referee",
-        aiAudit: "After filming my blackboard proof, I transcribed my steps and prompted AI to act as a hostile mathematical referee. It flagged that I implicitly assumed differentiability of f(x) when moving from rationals to reals, whereas continuity + monotonicity suffices.",
-        chapters: [
-          { time: "00:00", pct: 8, label: "§1. Epistemic Motivation: Why Not Variance?", eq: "$$i(x) = -\\log_2 p(x) \\quad (\\text{Self-Information / Surprisal})$$" },
-          { time: "05:42", pct: 28, label: "§2. Blackboard Proof: The Branching Axiom", eq: "$$H(p_1, p_2, p_3) = H(p_1, p_2 + p_3) + (p_2 + p_3)\\,H\\!\\left(\\frac{p_2}{p_2+p_3}, \\frac{p_3}{p_2+p_3}\\right)$$" },
-          { time: "15:10", pct: 58, label: "§3. Epistemic Friction: From Rationals to Reals", eq: "$$f(m^k) = k\\,f(m) \\implies f(n) = c\\,\\log_2(n)$$" },
-          { time: "22:30", pct: 84, label: "§4. AI Proof Audit & Preview of Von Neumann Entropy", eq: "$$H(p) \\longrightarrow S(\\rho) = -\\operatorname{Tr}(\\rho \\log_2 \\rho)$$" }
+    /* 3. CANONICAL EDITABLE CONCEPT MAPS FOR ALL 5 STAGES */
+    const STORAGE_KEY = "istignet_curriculum_map_v1";
+
+    const defaultStageMaps = {
+      "STAGE I": {
+        badge: "STAGE I · CLASSICAL COMPUTATION & SHANNON INFORMATION THEORY",
+        nodes: [
+          {
+            id: "s1-n1",
+            code: "S1-N1",
+            title: "Turing Computability",
+            formula: "M = (Q, Σ, δ, q0, F)",
+            status: "✓ MASTERED",
+            x: 130,
+            y: 95,
+            notes: "Establishes what is effectively computable via discrete state transitions on an unbounded tape, alongside undecidability of the Halting Problem via diagonalization.",
+            theorem: "The Halting language $\\text{HALT} = \\{\\langle M, x \\rangle \\mid M(x)\\text{ halts}\\}$ is undecidable; no physical or algorithmic procedure can universally decide program termination."
+          },
+          {
+            id: "s1-n2",
+            code: "S1-N2",
+            title: "Boolean Circuits & BPP",
+            formula: "P ⊆ BPP ⊆ PSPACE",
+            status: "✓ MASTERED",
+            x: 130,
+            y: 255,
+            notes: "Models finite computation as directed acyclic graphs of Boolean gates and introduces randomized polynomial time (BPP) as the classical baseline prior to quantum interference.",
+            theorem: "Every language in $\\mathsf{P}$ has polynomial-size Boolean circuits, while $\\mathsf{BPP}$ captures efficient classical probabilistic computation with error $\\le 1/3$."
+          },
+          {
+            id: "s1-n3",
+            code: "S1-N3",
+            title: "Landauer Erasure Bound",
+            formula: "ΔQ ≥ k_B T ln 2",
+            status: "◆ AXIOM / CORE",
+            x: 385,
+            y: 95,
+            notes: "Links logical irreversibility (such as 2-to-1 AND/OR gates) to thermodynamic phase-space compression: erasing 1 bit must dissipate at least k_B T ln(2) of heat.",
+            theorem: "Irreversible resetting of a 1-bit register in thermal equilibrium at temperature $T$ increases environmental entropy by $\\Delta S_{\\text{env}} \\ge k_B \\ln 2$."
+          },
+          {
+            id: "s1-n4",
+            code: "S1-N4",
+            title: "Toffoli Reversible Logic",
+            formula: "|a,b,c⟩ ↦ |a,b,c⊕ab⟩",
+            status: "✓ MASTERED",
+            x: 385,
+            y: 255,
+            notes: "Demonstrates that bijective 3-bit gates (Toffoli CCNOT and Fredkin CSWAP) can simulate any classical Boolean circuit with zero fundamental thermodynamic erasure cost.",
+            theorem: "The 3-bit Toffoli gate $(a,b,c) \\mapsto (a, b, c \\oplus (a \\wedge b))$ is universal for reversible classical computation and embeds directly as a unitary permutation matrix."
+          },
+          {
+            id: "s1-n5",
+            code: "S1-N5",
+            title: "Bennett Uncomputation",
+            formula: "U_f† clears ancilla |g(x)⟩",
+            status: "◆ AXIOM / CORE",
+            x: 385,
+            y: 410,
+            notes: "Crucial bridge to quantum computing: leftover ancilla garbage bits |g(x)⟩ entangle with the answer register and destroy quantum interference unless uncomputed via Compute–Copy–Uncompute.",
+            theorem: "Any irreversible circuit of size $T$ can be converted into a clean reversible circuit $|x, 0, 0\\rangle \\mapsto |x, f(x), 0\\rangle$ in time $\\mathcal{O}(T)$."
+          },
+          {
+            id: "s1-n6",
+            code: "S1-N6",
+            title: "Shannon Entropy H(X)",
+            formula: "H(X) = -∑ p(x) log₂ p(x)",
+            status: "◆ AXIOM / CORE",
+            x: 660,
+            y: 95,
+            notes: "Quantifies expected surprisal and operational compressibility of a classical source; forms the commutative (diagonal density matrix) limit of Von Neumann entropy S(ρ).",
+            theorem: "By Khinchin's Uniqueness Theorem, continuity, symmetry, maximal uniformity, and the recursive branching axiom uniquely force $H(X) = -\\sum_x p(x)\\log_2 p(x)$."
+          },
+          {
+            id: "s1-n7",
+            code: "S1-N7",
+            title: "KL Divergence & Mutual Info",
+            formula: "I(X;Y) = D(p(x,y) ∥ p(x)p(y))",
+            status: "◐ IN PROGRESS",
+            x: 660,
+            y: 255,
+            notes: "Measures operational distinguishability between probability distributions and obeys the Data Processing Inequality under any stochastic Markov map.",
+            theorem: "For any Markov chain $X \\to Y \\to Z$, mutual information satisfies the Data Processing Inequality $I(X; Z) \\le I(X; Y)$."
+          },
+          {
+            id: "s1-n8",
+            code: "S1-N8",
+            title: "Typicality & Channel Capacity",
+            formula: "C = max_{p(x)} I(X;Y)",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 410,
+            notes: "Asymptotic Equipartition (AEP) concentrates long i.i.d. sequences onto 2^{nH(X)} typical strings, establishing noiseless source coding and noisy channel capacity.",
+            theorem: "A discrete memoryless channel achieves reliable transmission with vanishing block error iff the rate satisfies $R < C = \\max_{p(x)} I(X; Y)$."
+          }
+        ],
+        edges: [
+          { from: "s1-n1", to: "s1-n2", label: "bounds finite circuits" },
+          { from: "s1-n2", to: "s1-n3", label: "2-to-1 gate erasure" },
+          { from: "s1-n3", to: "s1-n4", label: "requires bijection" },
+          { from: "s1-n2", to: "s1-n4", label: "reversible embedding" },
+          { from: "s1-n4", to: "s1-n5", label: "clears ancillas" },
+          { from: "s1-n3", to: "s1-n6", label: "Boltzmann–Shannon link" },
+          { from: "s1-n6", to: "s1-n7", label: "joint uncertainty" },
+          { from: "s1-n7", to: "s1-n8", label: "random coding bound" }
         ]
       },
-      {
-        id: "ep-02",
-        code: "VOL. I, LECTURE 02",
-        stage: "STAGE I",
-        module: "MOD-101 · REVERSIBLE COMPUTATION & PHYSICS OF INFO",
-        date: "Oct 16, 2026",
-        duration: "31:40",
-        title: "Landauer's Principle, Toffoli Universality & Bennett's Uncomputation Trick",
-        equation: "$$\\Delta S_{\\text{env}} \\ge k_B \\ln 2 \\quad \\big| \\quad |a, b, c\\rangle \\mapsto |a, b, c \\oplus (a \\wedge b)\\rangle$$",
-        abstract: "Why does classical irreversible logic dissipate heat, and why must quantum circuits be reversible? I walk through Landauer's phase-space compression argument and build a reversible NAND circuit using Toffoli gates.",
-        theoremLabel: "Proposition 1.1 (Bennett's Uncomputation).",
-        theoremBody: "Any irreversible classical circuit computing $f: \\{0,1\\}^n \\to \\{0,1\\}^m$ in time $T$ can be simulated reversibly without leftover ancilla garbage in time $\\mathcal{O}(T)$ via compute–copy–uncompute.",
-        friction: "I initially assumed keeping ancilla 'history bits' around was harmless once the computation finished. Recording the quantum preview showed me why that fails: if ancilla garbage |g(x)⟩ remains entangled with |x, f(x)⟩, tracing out the garbage destroys quantum interference.",
-        aiBadge: "Bridge Architect",
-        aiAudit: "Co-designed a 3-stage curriculum bridge connecting Liouville's theorem in classical Hamiltonian mechanics to unitary evolution in Hilbert space.",
-        chapters: [
-          { time: "00:00", pct: 10, label: "§1. Why AND Gates Erase Information", eq: "$$H(\\text{Input}) = 2\\text{ bits} \\longrightarrow H(\\text{Output}) = 0.811\\text{ bits}$$" },
-          { time: "09:15", pct: 35, label: "§2. Landauer's Principle & Phase Space Compression", eq: "$$\\Delta Q \\ge k_B T \\ln 2 \\text{ per erased bit}$$" },
-          { time: "18:05", pct: 62, label: "§3. Universal Reversible Logic via Toffoli Gate", eq: "$$\\text{CCNOT}(a, b, 1) = (a, b, \\neg(a \\wedge b))$$" },
-          { time: "25:50", pct: 88, label: "§4. Why Garbage Bits Ruin Quantum Interference", eq: "$$\\sum_x |x\\rangle|f(x)\\rangle|g(x)\\rangle \\xrightarrow{\\text{Uncompute}} \\sum_x |x\\rangle|f(x)\\rangle|0\\rangle$$" }
+      "STAGE II": {
+        badge: "STAGE II · FINITE-DIMENSIONAL HILBERT SPACES, POSTULATES & NON-LOCALITY",
+        nodes: [
+          {
+            id: "s2-n1",
+            code: "S2-N1",
+            title: "Complex Hilbert Space",
+            formula: "ℋ ≅ ℂ^d, ⟨ψ|φ⟩",
+            status: "◆ AXIOM / CORE",
+            x: 130,
+            y: 95,
+            notes: "Replaces the classical L1 probability simplex with complex inner-product vectors conserving the L2 norm, enabling destructive amplitude interference.",
+            theorem: "Pure states correspond to rays $|\\psi\\rangle \\in \\mathcal{H}$ with $\\langle\\psi|\\psi\\rangle = 1$, where inner products determine transition and measurement probabilities."
+          },
+          {
+            id: "s2-n2",
+            code: "S2-N2",
+            title: "Qubit & Bloch Sphere",
+            formula: "cos(θ/2)|0⟩ + e^{iφ}sin(θ/2)|1⟩",
+            status: "✓ MASTERED",
+            x: 130,
+            y: 255,
+            notes: "Geometric isomorphism between single-qubit pure states in C^2 (modulo global phase) and points on the unit 2-sphere S^2 in R^3.",
+            theorem: "Every single-qubit state density matrix writes uniquely as $\\rho = \\frac{1}{2}(I + \\vec{r}\\cdot\\vec{\\sigma})$ with Bloch vector $\\|\\vec{r}\\|_2 \\le 1$."
+          },
+          {
+            id: "s2-n3",
+            code: "S2-N3",
+            title: "Spectral Theorem & Unitarity",
+            formula: "U†U = I, M = ∑ λ_i |i⟩⟨i|",
+            status: "◆ AXIOM / CORE",
+            x: 385,
+            y: 95,
+            notes: "Normal operators (MM† = M†M) unify Hermitian observables (real eigenvalues) and reversible unitary dynamics (eigenvalues on the complex unit circle).",
+            theorem: "An operator $M$ on finite-dimensional $\\mathcal{H}$ is unitary or Hermitian iff it is unitarily diagonalizable in an orthonormal basis of eigenvectors."
+          },
+          {
+            id: "s2-n4",
+            code: "S2-N4",
+            title: "Tensor Products & Bell States",
+            formula: "ℋ_A ⊗ ℋ_B, |Φ⁺⟩",
+            status: "✓ MASTERED",
+            x: 385,
+            y: 255,
+            notes: "Composite quantum systems grow multiplicatively in dimension (2^n), admitting non-separable entangled states that cannot be factored into local state vectors.",
+            theorem: "The four maximally entangled Bell states form an orthonormal basis of $\\mathbb{C}^2 \\otimes \\mathbb{C}^2$ whose marginals are maximally mixed $\\frac{1}{2}I$."
+          },
+          {
+            id: "s2-n5",
+            code: "S2-N5",
+            title: "Schmidt Decomposition",
+            formula: "|ψ_AB⟩ = ∑ σ_i |u_i⟩_A |v_i⟩_B",
+            status: "◐ IN PROGRESS",
+            x: 385,
+            y: 410,
+            notes: "Applies Singular Value Decomposition (SVD) to bipartite pure states, revealing that both subsystems share identical reduced eigenvalue spectra.",
+            theorem: "A bipartite pure state $|\\psi_{AB}\\rangle$ is entangled iff its Schmidt rank (number of non-zero singular values $\\sigma_i > 0$) strictly exceeds $1$."
+          },
+          {
+            id: "s2-n6",
+            code: "S2-N6",
+            title: "PVM & POVM Measurements",
+            formula: "∑ F_m = I, p(m) = Tr(F_m ρ)",
+            status: "◐ IN PROGRESS",
+            x: 660,
+            y: 95,
+            notes: "Generalizes orthogonal projective measurements (Von Neumann PVM) to Positive Operator-Valued Measures (POVMs) for optimal state discrimination.",
+            theorem: "By Neumark's Dilation Theorem, any POVM $\\{F_m\\}$ on $\\mathcal{H}_A$ can be realized as a projective measurement on an extended space $\\mathcal{H}_A \\otimes \\mathcal{H}_E$."
+          },
+          {
+            id: "s2-n7",
+            code: "S2-N7",
+            title: "No-Cloning Theorem",
+            formula: "⟨ψ|φ⟩ = ⟨ψ|φ⟩² ∈ {0,1}",
+            status: "✓ MASTERED",
+            x: 660,
+            y: 255,
+            notes: "Proves that unitary inner-product preservation forbids universal copying of unknown quantum states, preventing superluminal EPR signaling.",
+            theorem: "No unitary $U$ satisfies $U|\\psi\\rangle|0\\rangle = |\\psi\\rangle|\\psi\\rangle$ for non-orthogonal states; optimal universal approximate cloning achieves fidelity $F = 5/6$."
+          },
+          {
+            id: "s2-n8",
+            code: "S2-N8",
+            title: "CHSH Game & Tsirelson Bound",
+            formula: "S_cl ≤ 2 < S_Q = 2√2",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 410,
+            notes: "Recasts Bell's theorem as a cooperative information game where entangled players win with probability cos^2(pi/8) ≈ 85.4% vs 75% classical limit.",
+            theorem: "Local hidden variable models satisfy $|\\langle CHSH \\rangle| \\le 2$, whereas quantum mechanics achieves and is bounded by Tsirelson's inequality $|\\langle CHSH \\rangle| \\le 2\\sqrt{2}$."
+          }
+        ],
+        edges: [
+          { from: "s2-n1", to: "s2-n2", label: "dim 2 geometry" },
+          { from: "s2-n1", to: "s2-n3", label: "operator calculus" },
+          { from: "s2-n2", to: "s2-n4", label: "multi-qubit product" },
+          { from: "s2-n3", to: "s2-n5", label: "SVD diagonalization" },
+          { from: "s2-n4", to: "s2-n5", label: "bipartite spectrum" },
+          { from: "s2-n3", to: "s2-n6", label: "Born rule projectors" },
+          { from: "s2-n3", to: "s2-n7", label: "preserves ⟨ψ|φ⟩" },
+          { from: "s2-n4", to: "s2-n8", label: "non-local correlations" }
         ]
       },
-      {
-        id: "ep-01",
-        code: "VOL. I, LECTURE 01",
-        stage: "STAGE I",
-        module: "MOD-101 · COMPUTABILITY & COMPLEXITY SPINE",
-        date: "Oct 10, 2026",
-        duration: "24:05",
-        title: "Inaugural Vlog: Designing a Self-Guided PhD in Quantum Information Theory",
-        equation: "$$\\mathsf{P} \\subseteq \\mathsf{BPP} \\subseteq \\mathsf{BQP} \\subseteq \\mathsf{PSPACE}$$",
-        abstract: "An introduction to this open-notebook PhD vlog series: why approaching Quantum Computing through the lens of Information Theory unifies computer science and physics, and how I audit my learning in the age of AI.",
-        theoremLabel: "Curriculum Thesis (The Information Spine).",
-        theoremBody: "Quantum Mechanics is a non-commutative generalization of Classical Probability Theory in which the $\\ell_1$ probability simplex $\\Delta_n$ is replaced by the trace-$1$ positive semidefinite cone $\\mathcal{D}(\\mathcal{H})$ of density operators.",
-        friction: "Most curricula split CS (Turing machines, gates) from Physics (wavefunctions, Hamiltonians). Mapping the syllabus revealed that Shannon's source/channel theorems and Markov chains are the exact structural pre-image of open quantum systems.",
-        aiBadge: "Curriculum Architect",
-        aiAudit: "Used TOK epistemic standards to establish four strict 'Proof-of-Understanding Gates' so AI never replaces hand-worked derivations.",
-        chapters: [
-          { time: "00:00", pct: 12, label: "§1. Why Document a Self-Guided PhD on Camera?", eq: "$$\\text{Epistemic Authenticity} > \\text{AI-Generated Summaries}$$" },
-          { time: "07:30", pct: 40, label: "§2. Classical Probability vs. Quantum Amplitudes", eq: "$$\\sum_i p_i = 1 \\quad \\text{vs.} \\quad \\sum_i |\\alpha_i|^2 = 1$$" },
-          { time: "16:45", pct: 75, label: "§3. The 5-Stage Qualifying Syllabus Walkthrough", eq: "$$H(X) \\longrightarrow S(\\rho) \\longrightarrow \\text{CPTP Channels & QEC}$$" }
+      "STAGE III": {
+        badge: "STAGE III · QUANTUM CIRCUITS, ORACULAR COMPLEXITY & ALGORITHMIC SPEEDUPS",
+        nodes: [
+          {
+            id: "s3-n1",
+            code: "S3-N1",
+            title: "Clifford + T Gate Set",
+            formula: "{H, S, CNOT, T} Universal",
+            status: "◆ AXIOM / CORE",
+            x: 130,
+            y: 95,
+            notes: "Clifford gates (H, S, CNOT) generate superpositions and stabilizer entanglement, while the non-Clifford π/8 T gate unlocks full quantum universality.",
+            theorem: "The subgroup generated by $\\{H, S, \\text{CNOT}, T\\}$ is dense in $\\mathrm{SU}(2^n)$ for any number of qubits $n \\ge 1$."
+          },
+          {
+            id: "s3-n2",
+            code: "S3-N2",
+            title: "Solovay–Kitaev Theorem",
+            formula: "L(ε) = O(log^c(1/ε))",
+            status: "○ TO LEARN",
+            x: 130,
+            y: 255,
+            notes: "Guarantees that approximating continuous unitary rotations with a discrete universal gate set incurs only polylogarithmic depth overhead.",
+            theorem: "Any $U \\in \\mathrm{SU}(2)$ can be approximated within operator norm error $\\epsilon$ using $\\mathcal{O}(\\log^c(1/\\epsilon))$ gates from a finite universal instruction set."
+          },
+          {
+            id: "s3-n3",
+            code: "S3-N3",
+            title: "Phase Kickback Primitive",
+            formula: "C-U(|+⟩|u⟩) = (|0⟩+e^{iφ}|1⟩)|u⟩/√2",
+            status: "◆ AXIOM / CORE",
+            x: 385,
+            y: 95,
+            notes: "Engine behind almost all quantum algorithms: applying a controlled unitary to a target eigenstate kicks its eigenphase back into the control register's relative phase.",
+            theorem: "If $U|u\\rangle = e^{2\\pi i \\phi}|u\\rangle$, then $\\text{ctrl-}U(|+\\rangle \\otimes |u\\rangle) = \\frac{|0\\rangle + e^{2\\pi i \\phi}|1\\rangle}{\\sqrt{2}} \\otimes |u\\rangle$, leaving $|u\\rangle$ unentangled."
+          },
+          {
+            id: "s3-n4",
+            code: "S3-N4",
+            title: "Deutsch–Jozsa & BV Oracles",
+            formula: "H^{⊗n} U_f H^{⊗n}|0⟩ = |s⟩",
+            status: "◐ IN PROGRESS",
+            x: 385,
+            y: 255,
+            notes: "Uses Hadamard interference and phase kickback to extract global boolean properties or an n-bit hidden string s in a single quantum oracle query.",
+            theorem: "Bernstein–Vazirani determines $s \\in \\{0,1\\}^n$ from $f(x) = s \\cdot x \\pmod 2$ with $1$ quantum query vs $\\Omega(n)$ classical queries."
+          },
+          {
+            id: "s3-n5",
+            code: "S3-N5",
+            title: "Simon's Periodicity",
+            formula: "f(x)=f(x⊕s) ⇒ y·s = 0 (mod 2)",
+            status: "○ TO LEARN",
+            x: 385,
+            y: 410,
+            notes: "First exponential black-box separation between BQP and BPP: finds hidden XOR period s over Z_2^n and directly inspired Shor's Abelian period-finding.",
+            theorem: "Simon's algorithm finds the hidden period $s \\in \\{0,1\\}^n$ in $\\mathcal{O}(n)$ quantum queries vs $\\Omega(2^{n/2})$ classical randomized queries."
+          },
+          {
+            id: "s3-n6",
+            code: "S3-N6",
+            title: "Quantum Fourier Transform",
+            formula: "QFT|x⟩ = ∑ e^{2πixk/N}|k⟩/√N",
+            status: "◆ AXIOM / CORE",
+            x: 660,
+            y: 95,
+            notes: "Factors the 2^n-dimensional DFT into a product of n single-qubit states using only O(n^2) Hadamard and controlled-phase gates.",
+            theorem: "The $n$-qubit Quantum Fourier Transform maps computational basis states to Fourier phase states in $\\frac{n(n+1)}{2}$ elementary gates."
+          },
+          {
+            id: "s3-n7",
+            code: "S3-N7",
+            title: "Phase Estimation & Shor",
+            formula: "Order-Finding & Factoring ∈ BQP",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 255,
+            notes: "Combines modular exponentiation in superposition with the inverse QFT to estimate eigenvalues and find multiplicative orders in polynomial time.",
+            theorem: "Shor's algorithm factors an $n$-bit composite integer $N$ in $\\mathcal{O}(n^3)$ gate operations, exponentially faster than known classical sub-exponential algorithms."
+          },
+          {
+            id: "s3-n8",
+            code: "S3-N8",
+            title: "Grover Search & Optimality",
+            formula: "G = (2|ψ⟩⟨ψ| - I)O_f, Θ(√N)",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 410,
+            notes: "Amplifies target amplitudes via alternating reflections in a 2D plane; BBBV hybrid argument proves no quantum oracle algorithm can beat O(√N).",
+            theorem: "Unstructured search over $N$ items requires $\\frac{\\pi}{4}\\sqrt{N}$ quantum queries, and any quantum algorithm needs $\\Omega(\\sqrt{N})$ queries (BBBV Theorem)."
+          }
+        ],
+        edges: [
+          { from: "s3-n1", to: "s3-n2", label: "approximates SU(2)" },
+          { from: "s3-n1", to: "s3-n3", label: "controlled unitaries" },
+          { from: "s3-n3", to: "s3-n4", label: "phase oracle (−1)^f(x)" },
+          { from: "s3-n4", to: "s3-n5", label: "Abelian Z_2^n period" },
+          { from: "s3-n5", to: "s3-n6", label: "Z_N generalization" },
+          { from: "s3-n3", to: "s3-n6", label: "controlled phases" },
+          { from: "s3-n6", to: "s3-n7", label: "inverse QFT readout" },
+          { from: "s3-n3", to: "s3-n8", label: "2D reflection walk" }
         ]
       },
+      "STAGE IV": {
+        badge: "STAGE IV · QUANTUM INFORMATION THEORY: CHANNELS, ENTROPY & CAPACITIES",
+        nodes: [
+          {
+            id: "s4-n1",
+            code: "S4-N1",
+            title: "Density Operators ρ",
+            formula: "ρ = ∑ p_i |ψ_i⟩⟨ψ_i|, Tr(ρ)=1",
+            status: "◆ AXIOM / CORE",
+            x: 130,
+            y: 95,
+            notes: "Unifies classical ensembles and quantum superpositions into positive semidefinite trace-1 operators; indistinguishable ensembles share the same ρ.",
+            theorem: "An operator $\\rho$ is a valid quantum state iff $\\rho \\succeq 0$ and $\\operatorname{Tr}(\\rho) = 1$, with purity $\\operatorname{Tr}(\\rho^2) = 1$ iff $\\rho$ is pure."
+          },
+          {
+            id: "s4-n2",
+            code: "S4-N2",
+            title: "Partial Trace & Purification",
+            formula: "ρ_A = Tr_B(|Ψ_AB⟩⟨Ψ_AB|)",
+            status: "◆ AXIOM / CORE",
+            x: 130,
+            y: 255,
+            notes: "Shows that every mixed state ρ_A arises from tracing out an entangled reference system B, and any two purifications are related by a local unitary on B.",
+            theorem: "Every mixed state $\\rho_A = \\sum_i \\lambda_i |i\\rangle\\langle i|$ admits a pure bipartite extension $|\\Psi_{AR}\\rangle = \\sum_i \\sqrt{\\lambda_i}|i\\rangle_A|i\\rangle_R$."
+          },
+          {
+            id: "s4-n3",
+            code: "S4-N3",
+            title: "CPTP Channels & Kraus Maps",
+            formula: "ℰ(ρ) = ∑ E_k ρ E_k†, ∑ E_k†E_k = I",
+            status: "○ TO LEARN",
+            x: 385,
+            y: 95,
+            notes: "Models general noisy quantum evolution, decoherence, and open systems; complete positivity ensures the map remains valid when acting on half an entangled state.",
+            theorem: "A linear map $\\mathcal{E}$ is Completely Positive and Trace-Preserving (CPTP) iff it admits an operator-sum representation $\\mathcal{E}(\\rho) = \\sum_k E_k \\rho E_k^\\dagger$."
+          },
+          {
+            id: "s4-n4",
+            code: "S4-N4",
+            title: "Stinespring Dilation",
+            formula: "ℰ(ρ) = Tr_E(U(ρ ⊗ |0⟩⟨0|_E)U†)",
+            status: "○ TO LEARN",
+            x: 385,
+            y: 255,
+            notes: "Church of the Larger Hilbert Space: proves that every irreversible noisy quantum channel is simply reversible unitary evolution coupled to an environment E.",
+            theorem: "Every CPTP channel $\\mathcal{E}: \\mathcal{L}(\\mathcal{H}_A) \\to \\mathcal{L}(\\mathcal{H}_B)$ dilates to an isometry $V: \\mathcal{H}_A \\to \\mathcal{H}_B \\otimes \\mathcal{H}_E$ with $\\dim \\mathcal{H}_E \\le \\dim \\mathcal{H}_A \\dim \\mathcal{H}_B$."
+          },
+          {
+            id: "s4-n5",
+            code: "S4-N5",
+            title: "Von Neumann Entropy S(ρ)",
+            formula: "S(ρ) = -Tr(ρ log₂ ρ)",
+            status: "◆ AXIOM / CORE",
+            x: 385,
+            y: 410,
+            notes: "Non-commutative generalization of Shannon entropy equal to H(λ) of the eigenvalue spectrum; permits negative conditional entropy S(A|B) < 0 for entangled states.",
+            theorem: "For a pure bipartite state $|\\Psi_{AB}\\rangle$, $S(AB) = 0$ while $S(A) = S(B) \\ge 0$, so $S(A|B) = S(AB) - S(B) = -S(B) < 0$ iff entangled."
+          },
+          {
+            id: "s4-n6",
+            code: "S4-N6",
+            title: "Strong Subadditivity (SSA)",
+            formula: "S(ABC) + S(B) ≤ S(AB) + S(BC)",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 95,
+            notes: "Lieb–Ruskai theorem and monotonicity of quantum relative entropy D(ρ∥σ) >= D(ℰ(ρ)∥ℰ(σ)) form the master inequalities of quantum information theory.",
+            theorem: "Conditioning reduces quantum conditional entropy: $S(A|BC) \\le S(A|B)$, equivalent to quantum mutual information monotonicity $I(A;B) \\le I(A;BC)$."
+          },
+          {
+            id: "s4-n7",
+            code: "S4-N7",
+            title: "Schumacher Compression",
+            formula: "R_min = S(ρ) qubits / state",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 255,
+            notes: "Operational meaning of Von Neumann entropy: projects n i.i.d. copies ρ^{⊗n} onto a typical subspace of 2^{nS(ρ)} dimensions with fidelity → 1.",
+            theorem: "An i.i.d. quantum source $\\rho^{\\otimes n}$ can be compressed with asymptotically vanishing trace-distance error iff the rate exceeds $S(\\rho)$ qubits per emission."
+          },
+          {
+            id: "s4-n8",
+            code: "S4-N8",
+            title: "Holevo χ & Channel Capacity",
+            formula: "I(X;Y) ≤ χ, Q(𝒩) = lim I_c/n",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 410,
+            notes: "Holevo's χ bounds accessible classical info from quantum states (HSW classical capacity), while regularized coherent information governs LSD quantum capacity.",
+            theorem: "For ensemble $\\{p_x, \\rho_x\\}$ and any POVM outcome $Y$, $I(X;Y) \\le S(\\sum_x p_x \\rho_x) - \\sum_x p_x S(\\rho_x) = \\chi$."
+          }
+        ],
+        edges: [
+          { from: "s4-n1", to: "s4-n2", label: "marginal trace" },
+          { from: "s4-n1", to: "s4-n3", label: "open evolution" },
+          { from: "s4-n2", to: "s4-n4", label: "environment extension" },
+          { from: "s4-n3", to: "s4-n4", label: "isometric dilation" },
+          { from: "s4-n1", to: "s4-n5", label: "spectral entropy" },
+          { from: "s4-n5", to: "s4-n6", label: "monotonicity D(ρ∥σ)" },
+          { from: "s4-n5", to: "s4-n7", label: "typical subspace" },
+          { from: "s4-n6", to: "s4-n8", label: "bounds accessible info" }
+        ]
+      },
+      "STAGE V": {
+        badge: "STAGE V · QUANTUM ERROR CORRECTION, FAULT TOLERANCE & COMPLEXITY (BQP/QMA)",
+        nodes: [
+          {
+            id: "s5-n1",
+            code: "S5-N1",
+            title: "Error Discretization",
+            formula: "Continuous Noise → {I, X, Y, Z}",
+            status: "◆ AXIOM / CORE",
+            x: 130,
+            y: 95,
+            notes: "Why continuous analog quantum errors can be corrected: expanding Kraus operators in the Pauli basis allows syndrome measurement to project noise onto discrete bit/phase flips.",
+            theorem: "If a quantum code corrects discrete Pauli errors $\\{I, X_i, Z_i, X_i Z_i\\}$, linearity ensures it corrects any arbitrary continuous CPTP channel supported on those Kraus terms."
+          },
+          {
+            id: "s5-n2",
+            code: "S5-N2",
+            title: "Shor [[9,1,3]] & CSS Codes",
+            formula: "C₂^⊥ ⊂ C₁ Dual Linear Codes",
+            status: "○ TO LEARN",
+            x: 130,
+            y: 255,
+            notes: "Calderbank–Shor–Steane (CSS) construction pairs two classical linear codes to independently correct bit-flip (X) and phase-flip (Z) errors, exemplified by Steane's 7-qubit code.",
+            theorem: "Given classical linear codes $C_2 \\subset C_1$ where $C_1$ and $C_2^\\perp$ have distance $\\ge d$, the CSS code encodes $k = k_1 - k_2$ logical qubits with distance $\\ge d$."
+          },
+          {
+            id: "s5-n3",
+            code: "S5-N3",
+            title: "Pauli Stabilizer Formalism",
+            formula: "𝒮 ⊂ 𝒫_n, g|ψ̄⟩ = +|ψ̄⟩",
+            status: "◆ AXIOM / CORE",
+            x: 385,
+            y: 95,
+            notes: "Gottesman's compact algebraic framework: defines an [[n,k,d]] code space as the simultaneous +1 eigenspace of n-k commuting Pauli generators.",
+            theorem: "An error $E \\in \\mathcal{P}_n$ is detectable by stabilizer $\\mathcal{S}$ if $E$ anticommutes with at least one generator $g \\in \\mathcal{S}$ (yielding syndrome $-1$) or lies in $\\mathcal{S}$."
+          },
+          {
+            id: "s5-n4",
+            code: "S5-N4",
+            title: "Gottesman–Knill Theorem",
+            formula: "Clifford_n + Pauli Meas ∈ P",
+            status: "○ TO LEARN",
+            x: 385,
+            y: 255,
+            notes: "Proves that stabilizer circuits—despite generating massive entanglement and Bell violations—can be simulated efficiently in O(n^2) classical time.",
+            theorem: "Tracking the $2n$ Pauli stabilizer/destabilizer generators under conjugation $g \\mapsto U g U^\\dagger$ simulates any $n$-qubit Clifford circuit in polynomial classical time."
+          },
+          {
+            id: "s5-n5",
+            code: "S5-N5",
+            title: "Topological Surface Codes",
+            formula: "A_v = ∏ X_i, B_p = ∏ Z_j",
+            status: "○ TO LEARN",
+            x: 385,
+            y: 410,
+            notes: "Arranges qubits on a 2D lattice where stabilizer checks require only nearest-neighbor 4-body interactions and logical operators are non-contractible topological loops.",
+            theorem: "Kitaev's surface code achieves code distance $d = \\mathcal{O}(L)$ on an $L \\times L$ planar grid using strictly geometrically local weight-4 checks."
+          },
+          {
+            id: "s5-n6",
+            code: "S5-N6",
+            title: "Fault-Tolerant Threshold",
+            formula: "p_phys < p_th ⇒ ε_log → 0",
+            status: "◆ AXIOM / CORE",
+            x: 660,
+            y: 95,
+            notes: "Aharonov–Ben-Or / Knill–Laflamme–Zurek theorem: defeats the analog-noise objection to quantum computing via concatenated or surface-code fault tolerance.",
+            theorem: "If physical gate and measurement error rates satisfy $p < p_{\\text{th}}$, a quantum circuit of size $T$ can be simulated fault-tolerantly with polylogarithmic overhead $\\mathcal{O}(\\operatorname{polylog}(T/\\epsilon))$."
+          },
+          {
+            id: "s5-n7",
+            code: "S5-N7",
+            title: "Complexity Classes BQP & QMA",
+            formula: "P ⊆ BPP ⊆ BQP ⊆ QMA ⊆ PSPACE",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 255,
+            notes: "Situates efficient quantum computation (BQP) and quantum verification of entangled witnesses (QMA, the quantum analog of NP) within classical complexity theory.",
+            theorem: "Feynman path-integral sum-over-histories proves $\\mathsf{BQP} \\subseteq \\mathsf{AWPP} \\subseteq \\mathsf{PP} \\subseteq \\mathsf{PSPACE}$."
+          },
+          {
+            id: "s5-n8",
+            code: "S5-N8",
+            title: "k-Local Hamiltonian (QMA)",
+            formula: "H = ∑ H_a Ground Energy ∈ QMA-C",
+            status: "○ TO LEARN",
+            x: 660,
+            y: 410,
+            notes: "Kitaev's quantum Cook–Levin theorem: uses a Feynman–Kitaev clock Hamiltonian to prove that estimating ground-state energy of local quantum spin systems is QMA-complete.",
+            theorem: "Deciding whether the ground-state energy $\\lambda_0(H)$ of a $k$-local Hamiltonian ($k \\ge 2$) is $\\le a$ or $\\ge b$ (with $b - a \\ge 1/\\operatorname{poly}(n)$) is $\\mathsf{QMA}$-complete."
+          }
+        ],
+        edges: [
+          { from: "s5-n1", to: "s5-n2", label: "X/Z syndrome split" },
+          { from: "s5-n2", to: "s5-n3", label: "Abelian Pauli group" },
+          { from: "s5-n3", to: "s5-n4", label: "tableau simulation" },
+          { from: "s5-n3", to: "s5-n5", label: "2D local checks" },
+          { from: "s5-n5", to: "s5-n6", label: "high threshold ~1%" },
+          { from: "s5-n6", to: "s5-n7", label: "scales BQP physically" },
+          { from: "s5-n4", to: "s5-n7", label: "requires non-Clifford T" },
+          { from: "s5-n7", to: "s5-n8", label: "Feynman–Kitaev clock" }
+        ]
+      }
+    };
+
+    /* 4. CURRICULUM PATHWAY MODULES FOR SECTION 2 */
+    const pathwayModules = [
       {
-        id: "ep-04",
-        code: "VOL. II, LECTURE 01",
+        code: "STAGE I · MOD-101",
+        stage: "STAGE I",
+        nodeId: "s1-n5",
+        title: "Computability, Landauer's Erasure Bound & Reversible Logic",
+        summary: "From Turing machines and Boolean circuits to Landauer's k_B T ln(2) thermodynamic bound, Toffoli universality, and Bennett's uncomputation protocol."
+      },
+      {
+        code: "STAGE I · MOD-102",
+        stage: "STAGE I",
+        nodeId: "s1-n6",
+        title: "Shannon Entropy, KL Divergence & Noisy Channel Capacity",
+        summary: "Khinchin's uniqueness axioms for H(X), relative entropy D(p∥q), the Data Processing Inequality, Typicality (AEP), and Shannon's coding theorems."
+      },
+      {
+        code: "STAGE II · MOD-201",
         stage: "STAGE II",
-        module: "MOD-201 · HILBERT SPACES & QUANTUM POSTULATES",
-        date: "Oct 19, 2026",
-        duration: "26:50",
-        title: "The No-Cloning Theorem, Inner-Product Preservation & No-Signaling",
-        equation: "$$\\langle\\psi|\\phi\\rangle = (\\langle\\psi|\\phi\\rangle)^2 \\implies \\langle\\psi|\\phi\\rangle \\in \\{0, 1\\}$$",
-        abstract: "A blackboard derivation of the Wootters-Zurek No-Cloning Theorem using unitary inner-product preservation, followed by a thought experiment showing how a hypothetical cloner would violate relativistic causality.",
-        theoremLabel: "Theorem 2.1 (Wootters–Zurek No-Cloning).",
-        theoremBody: "There exists no unitary operator $U$ on $\\mathcal{H} \\otimes \\mathcal{H}$ and fiducial state $|0\\rangle$ such that $U(|\\psi\\rangle \\otimes |0\\rangle) = e^{i\\theta(\\psi)}|\\psi\\rangle \\otimes |\\psi\\rangle$ for all normalized states $|\\psi\\rangle \\in \\mathcal{H}$.",
-        friction: "Tested whether a non-unitary CPTP quantum channel (using ancillas and measurements) could bypass the unitary proof. Proved via Stinespring Dilation that any channel is a unitary on a larger space, which still forces orthogonality.",
-        aiBadge: "Counterexample Generator",
-        aiAudit: "Challenged AI to construct an EPR superluminal signaling protocol assuming a hypothetical 1→2 cloner, then calculated the exact fidelity limit (F = 5/6) of an optimal Bužek-Hillery approximate cloner.",
-        chapters: [
-          { time: "00:00", pct: 10, label: "§1. Classical Fan-Out vs. Quantum Superposition", eq: "$$\\text{CNOT}(\\alpha|0\\rangle + \\beta|1\\rangle)|0\\rangle = \\alpha|00\\rangle + \\beta|11\\rangle \\neq |\\psi\\rangle|\\psi\\rangle$$" },
-          { time: "06:20", pct: 38, label: "§2. Two-Line Unitarity Proof on the Blackboard", eq: "$$\\langle\\psi|\\phi\\rangle = \\langle\\psi|\\phi\\rangle^2 \\implies \\langle\\psi|\\phi\\rangle \\in \\{0, 1\\}$$" },
-          { time: "14:50", pct: 66, label: "§3. Why Cloning Implies Faster-Than-Light Signaling", eq: "$$\\rho_A = \\operatorname{Tr}_B(|\\Phi^+\\rangle\\langle\\Phi^+|) = \\frac{1}{2}I$$" },
-          { time: "21:15", pct: 86, label: "§4. Optimal Approximate Cloning Fidelity (F = 5/6)", eq: "$$F = \\frac{5}{6} \\quad (\\text{Bu\\v{z}ek–Hillery Bound})$$" }
-        ]
+        nodeId: "s2-n3",
+        title: "Hilbert Space Geometry, Spectral Theorem & Schmidt Decomposition",
+        summary: "Complex L2 inner-product spaces, Bloch sphere geometry, normal/unitary operators, tensor products, and bipartite entanglement rank via SVD."
+      },
+      {
+        code: "STAGE II · MOD-202",
+        stage: "STAGE II",
+        nodeId: "s2-n8",
+        title: "POVMs, Wootters–Zurek No-Cloning & Bell/CHSH Non-Local Games",
+        summary: "Neumark dilation for general measurements, inner-product proof of No-Cloning, No-Signaling causality, and Tsirelson's 2√2 quantum correlation bound."
+      },
+      {
+        code: "STAGE III · MOD-301",
+        stage: "STAGE III",
+        nodeId: "s3-n3",
+        title: "Universal Gate Sets, Solovay–Kitaev & Phase Kickback Oracles",
+        summary: "Clifford + T universality, polylogarithmic SU(2) gate approximation, phase kickback, Deutsch–Jozsa, Bernstein–Vazirani, and Simon's periodicity."
+      },
+      {
+        code: "STAGE III · MOD-302",
+        stage: "STAGE III",
+        nodeId: "s3-n7",
+        title: "Quantum Fourier Transform, Shor's Factoring & Grover Optimality",
+        summary: "O(n^2) circuit factorization of the QFT, quantum phase estimation, order-finding in BQP, and the BBBV hybrid lower bound for unstructured search."
+      },
+      {
+        code: "STAGE IV · MOD-401",
+        stage: "STAGE IV",
+        nodeId: "s4-n4",
+        title: "Density Operators, Purifications, CPTP Channels & Stinespring Dilation",
+        summary: "Statistical ensembles, partial trace marginalization, Kraus operator-sum representations, and unitary dilation in the Church of the Larger Hilbert Space."
+      },
+      {
+        code: "STAGE IV · MOD-402",
+        stage: "STAGE IV",
+        nodeId: "s4-n6",
+        title: "Von Neumann Entropy, Strong Subadditivity, Schumacher & Holevo Bounds",
+        summary: "Spectral entropy S(ρ), negative conditional entropy S(A|B) < 0, Lieb–Ruskai Strong Subadditivity, typical subspaces, and Holevo's accessible information χ."
+      },
+      {
+        code: "STAGE V · MOD-501",
+        stage: "STAGE V",
+        nodeId: "s5-n3",
+        title: "Pauli Stabilizer Formalism, Topological Surface Codes & Threshold Theorem",
+        summary: "Error discretization, CSS codes, Gottesman stabilizer groups, Gottesman–Knill classical simulation, Kitaev's toric/surface code, and fault tolerance."
+      },
+      {
+        code: "STAGE V · MOD-502",
+        stage: "STAGE V",
+        nodeId: "s5-n8",
+        title: "Quantum Complexity Theory (BQP vs. QMA) & Local Hamiltonians",
+        summary: "Path-integral inclusion BQP ⊆ PSPACE, non-clonable quantum proofs (QMA), and Kitaev's Feynman-clock proof of k-Local Hamiltonian QMA-completeness."
       }
     ];
 
-    let currentEpisode = episodes[0];
-    let isPlaying = false;
+    /* STATE MANAGEMENT */
+    let stageMaps = loadInitialMaps();
+    let currentStageKey = "STAGE I";
+    let selectedNodeId = "s1-n6";
+    let isLinkMode = false;
+    let linkSourceNodeId = null;
+    let draggingState = null;
+
+    function cloneDefaultMaps() {
+      return JSON.parse(JSON.stringify(defaultStageMaps));
+    }
+
+    function loadInitialMaps() {
+      try {
+        const raw = localStorage.getItem(STORAGE_KEY);
+        if (raw) {
+          const parsed = JSON.parse(raw);
+          if (parsed && parsed["STAGE I"] && Array.isArray(parsed["STAGE I"].nodes)) {
+            return parsed;
+          }
+        }
+      } catch (err) {
+        console.warn("Could not read saved map from localStorage:", err);
+      }
+      return cloneDefaultMaps();
+    }
+
+    function saveMapsToStorage() {
+      try {
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(stageMaps));
+      } catch (err) {
+        console.warn("Could not save map to localStorage:", err);
+      }
+    }
+
+    function announceStatus(message) {
+      const el = document.getElementById("map-status-msg");
+      if (el) el.textContent = message;
+    }
 
     function typesetMath() {
       if (window.MathJax && window.MathJax.typesetPromise) {
@@ -1577,11 +2584,528 @@
       }
     }
 
-    function renderGlossary(query = '') {
-      const q = query.trim().toLowerCase();
-      const treeEl = document.getElementById('glossary-tree');
+    /* SVG CONCEPT MAP RENDERER (SAFE DOM CREATION) */
+    const SVG_NS = "http://www.w3.org/2000/svg";
+    const NODE_WIDTH = 220;
+    const NODE_HEIGHT = 76;
 
-      treeEl.innerHTML = glossaryData.map(dom => {
+    function renderConceptMap() {
+      const stageData = stageMaps[currentStageKey];
+      if (!stageData) return;
+
+      document.getElementById("map-stage-badge").textContent = stageData.badge;
+      document.getElementById("active-stage-code").textContent = `${currentStageKey} OF V`;
+      document.getElementById("active-stage-summary").textContent = `${stageData.nodes.length} Concept Nodes · ${stageData.edges.length} Prerequisite Edges`;
+      document.getElementById("map-stats-indicator").textContent = `${stageData.nodes.length} NODES · ${stageData.edges.length} EDGES · AUTO-SAVED LOCALLY`;
+      document.getElementById("map-svg-title").textContent = `Interactive Editable Concept Map for ${stageData.badge}`;
+
+      const edgesLayer = document.getElementById("map-edges-layer");
+      const nodesLayer = document.getElementById("map-nodes-layer");
+      edgesLayer.replaceChildren();
+      nodesLayer.replaceChildren();
+
+      // Ensure selectedNodeId exists in current stage
+      if (!stageData.nodes.some(n => n.id === selectedNodeId)) {
+        selectedNodeId = stageData.nodes[0] ? stageData.nodes[0].id : null;
+      }
+
+      // 1. Render Directed Edges
+      stageData.edges.forEach((edge, eIdx) => {
+        const fromNode = stageData.nodes.find(n => n.id === edge.from);
+        const toNode = stageData.nodes.find(n => n.id === edge.to);
+        if (!fromNode || !toNode) return;
+
+        const isHighlighted = (edge.from === selectedNodeId || edge.to === selectedNodeId);
+        const pts = computeRectBoundaryPoints(fromNode, toNode);
+
+        const g = document.createElementNS(SVG_NS, "g");
+
+        const line = document.createElementNS(SVG_NS, "line");
+        line.setAttribute("x1", String(pts.x1));
+        line.setAttribute("y1", String(pts.y1));
+        line.setAttribute("x2", String(pts.x2));
+        line.setAttribute("y2", String(pts.y2));
+        line.setAttribute("class", isHighlighted ? "map-edge-line highlighted" : "map-edge-line");
+        line.setAttribute("marker-end", isHighlighted ? "url(#arrow-active)" : "url(#arrow-default)");
+        g.appendChild(line);
+
+        if (edge.label) {
+          const midX = (pts.x1 + pts.x2) / 2;
+          const midY = (pts.y1 + pts.y2) / 2 - 5;
+          const label = document.createElementNS(SVG_NS, "text");
+          label.setAttribute("x", String(midX));
+          label.setAttribute("y", String(midY));
+          label.setAttribute("text-anchor", "middle");
+          label.setAttribute("class", "map-edge-label");
+          if (isHighlighted) label.setAttribute("fill", "#39ff14");
+          label.textContent = edge.label;
+          g.appendChild(label);
+        }
+
+        edgesLayer.appendChild(g);
+      });
+
+      // 2. Render Draggable Concept Nodes
+      stageData.nodes.forEach(node => {
+        const g = document.createElementNS(SVG_NS, "g");
+        let cls = "map-node-group";
+        if (node.id === selectedNodeId) cls += " selected";
+        if (isLinkMode && node.id === linkSourceNodeId) cls += " link-source";
+        g.setAttribute("class", cls);
+        g.setAttribute("transform", `translate(${node.x - NODE_WIDTH / 2}, ${node.y - NODE_HEIGHT / 2})`);
+        g.dataset.nodeId = node.id;
+
+        const rect = document.createElementNS(SVG_NS, "rect");
+        rect.setAttribute("width", String(NODE_WIDTH));
+        rect.setAttribute("height", String(NODE_HEIGHT));
+        rect.setAttribute("rx", "2");
+        rect.setAttribute("class", "map-node-rect");
+        g.appendChild(rect);
+
+        // Top meta row: Code on left, Mastery status on right
+        const codeText = document.createElementNS(SVG_NS, "text");
+        codeText.setAttribute("x", "10");
+        codeText.setAttribute("y", "17");
+        codeText.setAttribute("class", "map-node-code");
+        codeText.textContent = node.code;
+        g.appendChild(codeText);
+
+        const statusText = document.createElementNS(SVG_NS, "text");
+        statusText.setAttribute("x", String(NODE_WIDTH - 10));
+        statusText.setAttribute("y", "17");
+        statusText.setAttribute("text-anchor", "end");
+        statusText.setAttribute("class", "map-node-status");
+        statusText.setAttribute("fill", getStatusColor(node.status));
+        statusText.textContent = node.status;
+        g.appendChild(statusText);
+
+        // Divider hairline inside node
+        const divider = document.createElementNS(SVG_NS, "line");
+        divider.setAttribute("x1", "10");
+        divider.setAttribute("y1", "23");
+        divider.setAttribute("x2", String(NODE_WIDTH - 10));
+        divider.setAttribute("y2", "23");
+        divider.setAttribute("stroke", "rgba(252, 248, 250, 0.12)");
+        divider.setAttribute("stroke-width", "1");
+        g.appendChild(divider);
+
+        // Concept Title
+        const titleText = document.createElementNS(SVG_NS, "text");
+        titleText.setAttribute("x", "10");
+        titleText.setAttribute("y", "43");
+        titleText.setAttribute("class", "map-node-title");
+        titleText.textContent = truncateText(node.title, 26);
+        g.appendChild(titleText);
+
+        // Compact Mathematical Formula
+        const formulaText = document.createElementNS(SVG_NS, "text");
+        formulaText.setAttribute("x", "10");
+        formulaText.setAttribute("y", "63");
+        formulaText.setAttribute("class", "map-node-formula");
+        formulaText.textContent = truncateText(node.formula, 31);
+        g.appendChild(formulaText);
+
+        // Pointer Events for Dragging & Clicking
+        g.addEventListener("pointerdown", (e) => onNodePointerDown(e, node.id));
+        g.addEventListener("dblclick", () => {
+          const titleInput = document.getElementById("edit-node-title");
+          if (titleInput) {
+            titleInput.focus();
+            titleInput.select();
+          }
+        });
+
+        nodesLayer.appendChild(g);
+      });
+
+      renderNodeIndexButtons();
+      populateInspectorAndForm();
+    }
+
+    function getStatusColor(status) {
+      if (!status) return "#d8c8eb";
+      if (status.includes("MASTERED") || status.includes("AXIOM")) return "#39ff14";
+      if (status.includes("PROGRESS")) return "#8be0ff";
+      return "#c5b4db";
+    }
+
+    function truncateText(str, maxLen) {
+      if (!str) return "";
+      return str.length > maxLen ? str.slice(0, maxLen - 1) + "…" : str;
+    }
+
+    function computeRectBoundaryPoints(n1, n2) {
+      const dx = n2.x - n1.x;
+      const dy = n2.y - n1.y;
+      if (dx === 0 && dy === 0) {
+        return { x1: n1.x, y1: n1.y, x2: n2.x, y2: n2.y };
+      }
+      const hw = NODE_WIDTH / 2 + 4;
+      const hh = NODE_HEIGHT / 2 + 4;
+
+      const scale1 = 1 / Math.max(Math.abs(dx) / hw, Math.abs(dy) / hh);
+      const scale2 = 1 / Math.max(Math.abs(dx) / hw, Math.abs(dy) / hh);
+
+      return {
+        x1: n1.x + dx * scale1,
+        y1: n1.y + dy * scale1,
+        x2: n2.x - dx * scale2,
+        y2: n2.y - dy * scale2
+      };
+    }
+
+    /* DRAG AND CLICK HANDLERS ON SVG NODES */
+    function getSvgPoint(clientX, clientY) {
+      const svg = document.getElementById("concept-map-svg");
+      const pt = svg.createSVGPoint();
+      pt.x = clientX;
+      pt.y = clientY;
+      const ctm = svg.getScreenCTM();
+      return ctm ? pt.matrixTransform(ctm.inverse()) : { x: 0, y: 0 };
+    }
+
+    function onNodePointerDown(e, nodeId) {
+      e.stopPropagation();
+      const stageData = stageMaps[currentStageKey];
+      const node = stageData.nodes.find(n => n.id === nodeId);
+      if (!node) return;
+
+      // Handle Edge-Linking Mode
+      if (isLinkMode) {
+        if (!linkSourceNodeId) {
+          linkSourceNodeId = nodeId;
+          selectedNodeId = nodeId;
+          announceStatus(`SOURCE NODE [${node.code}] SELECTED · NOW CLICK TARGET NODE TO TOGGLE PREREQUISITE EDGE`);
+          renderConceptMap();
+          return;
+        } else if (linkSourceNodeId === nodeId) {
+          linkSourceNodeId = null;
+          announceStatus("LINK SOURCE CLEARED · CLICK ANY NODE TO SELECT");
+          renderConceptMap();
+          return;
+        } else {
+          toggleDirectedEdge(linkSourceNodeId, nodeId, "leads to");
+          linkSourceNodeId = null;
+          isLinkMode = false;
+          document.getElementById("link-mode-btn").setAttribute("aria-pressed", "false");
+          renderConceptMap();
+          return;
+        }
+      }
+
+      selectedNodeId = nodeId;
+      const svgPt = getSvgPoint(e.clientX, e.clientY);
+      draggingState = {
+        nodeId,
+        offsetX: svgPt.x - node.x,
+        offsetY: svgPt.y - node.y,
+        moved: false
+      };
+
+      renderConceptMap();
+    }
+
+    window.addEventListener("pointermove", (e) => {
+      if (!draggingState) return;
+      const stageData = stageMaps[currentStageKey];
+      const node = stageData.nodes.find(n => n.id === draggingState.nodeId);
+      if (!node) return;
+
+      const svgPt = getSvgPoint(e.clientX, e.clientY);
+      const nextX = Math.max(NODE_WIDTH / 2 + 8, Math.min(920 - NODE_WIDTH / 2 - 8, Math.round(svgPt.x - draggingState.offsetX)));
+      const nextY = Math.max(NODE_HEIGHT / 2 + 8, Math.min(500 - NODE_HEIGHT / 2 - 8, Math.round(svgPt.y - draggingState.offsetY)));
+
+      if (Math.abs(nextX - node.x) > 1 || Math.abs(nextY - node.y) > 1) {
+        draggingState.moved = true;
+        node.x = nextX;
+        node.y = nextY;
+        renderConceptMap();
+      }
+    });
+
+    window.addEventListener("pointerup", () => {
+      if (!draggingState) return;
+      if (draggingState.moved) {
+        saveMapsToStorage();
+        announceStatus(`NODE REPOSITIONED · SAVED PERSONAL ${currentStageKey} LAYOUT`);
+      }
+      draggingState = null;
+    });
+
+    /* NODE INDEX STRIP & INLINE FORM SYNCHRONIZATION */
+    function renderNodeIndexButtons() {
+      const stageData = stageMaps[currentStageKey];
+      const container = document.getElementById("node-index-buttons");
+      container.replaceChildren();
+
+      stageData.nodes.forEach(node => {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = node.id === selectedNodeId ? "node-index-btn active" : "node-index-btn";
+        btn.addEventListener("click", () => {
+          selectedNodeId = node.id;
+          announceStatus(`SELECTED ${node.code}: ${node.title.toUpperCase()}`);
+          renderConceptMap();
+        });
+
+        const codeSpan = document.createElement("span");
+        codeSpan.className = "node-code-tag";
+        codeSpan.textContent = node.code;
+
+        const titleSpan = document.createElement("span");
+        titleSpan.textContent = node.title;
+
+        btn.append(codeSpan, titleSpan);
+        container.appendChild(btn);
+      });
+    }
+
+    function populateInspectorAndForm() {
+      const stageData = stageMaps[currentStageKey];
+      const node = stageData.nodes.find(n => n.id === selectedNodeId);
+      if (!node) return;
+
+      document.getElementById("inspector-node-code").textContent = `${currentStageKey} · NODE ${node.code} · ${node.status}`;
+      document.getElementById("inspector-node-title").textContent = node.title;
+      document.getElementById("inspector-math-preview").textContent = `$$${node.formula}$$`;
+      document.getElementById("inspector-node-notes").textContent = node.notes;
+      document.getElementById("inspector-node-theorem").textContent = node.theorem;
+
+      // Populate form controls without clobbering active typing
+      const activeEl = document.activeElement;
+      const titleInput = document.getElementById("edit-node-title");
+      const formulaInput = document.getElementById("edit-node-formula");
+      const notesInput = document.getElementById("edit-node-notes");
+      const theoremInput = document.getElementById("edit-node-theorem");
+
+      if (activeEl !== titleInput) titleInput.value = node.title;
+      if (activeEl !== formulaInput) formulaInput.value = node.formula;
+      if (activeEl !== notesInput) notesInput.value = node.notes;
+      if (activeEl !== theoremInput) theoremInput.value = node.theorem;
+
+      document.querySelectorAll('input[name="nodeStatus"]').forEach(radio => {
+        radio.checked = (radio.value === node.status);
+      });
+
+      // Populate Edge Target Select
+      const edgeSelect = document.getElementById("edge-target-select");
+      if (activeEl !== edgeSelect) {
+        edgeSelect.replaceChildren();
+        stageData.nodes.filter(n => n.id !== node.id).forEach(other => {
+          const opt = document.createElement("option");
+          opt.value = other.id;
+          const exists = stageData.edges.some(e => e.from === node.id && e.to === other.id);
+          opt.textContent = `${other.code}: ${other.title}${exists ? " (Linked ✓)" : ""}`;
+          edgeSelect.appendChild(opt);
+        });
+      }
+
+      typesetMath();
+    }
+
+    function updateSelectedNodeFromForm() {
+      const stageData = stageMaps[currentStageKey];
+      const node = stageData.nodes.find(n => n.id === selectedNodeId);
+      if (!node) return;
+
+      const newTitle = document.getElementById("edit-node-title").value.trim();
+      if (newTitle) node.title = newTitle;
+      node.formula = document.getElementById("edit-node-formula").value;
+      node.notes = document.getElementById("edit-node-notes").value;
+      node.theorem = document.getElementById("edit-node-theorem").value;
+
+      const checkedStatus = document.querySelector('input[name="nodeStatus"]:checked');
+      if (checkedStatus) node.status = checkedStatus.value;
+
+      saveMapsToStorage();
+      renderConceptMap();
+      announceStatus(`UPDATED NODE ${node.code} · SAVED TO PERSONAL CURRICULUM MAP`);
+    }
+
+    function handleNodeFormSubmit(e) {
+      e.preventDefault();
+      updateSelectedNodeFromForm();
+    }
+
+    /* MAP TOOLBAR ACTIONS: ADD NODE, LINK EDGES, DELETE, RESET */
+    function selectStageMap(stageKey, optionalNodeId = null) {
+      if (!stageMaps[stageKey]) return;
+      currentStageKey = stageKey;
+      isLinkMode = false;
+      linkSourceNodeId = null;
+      document.getElementById("link-mode-btn").setAttribute("aria-pressed", "false");
+
+      // Sync top radio buttons
+      document.querySelectorAll('input[name="curriculumStage"]').forEach(r => {
+        r.checked = (r.value === stageKey);
+      });
+
+      const stageData = stageMaps[stageKey];
+      if (optionalNodeId && stageData.nodes.some(n => n.id === optionalNodeId)) {
+        selectedNodeId = optionalNodeId;
+      } else if (stageData.nodes.length > 0) {
+        selectedNodeId = stageData.nodes[0].id;
+      }
+
+      renderConceptMap();
+      announceStatus(`LOADED ${stageKey} CONCEPT MAP · CLICK OR DRAG ANY NODE TO CUSTOMIZE`);
+    }
+
+    function addNewConceptNode() {
+      const stageData = stageMaps[currentStageKey];
+      const stageNum = currentStageKey.replace("STAGE ", "");
+      const nextIndex = stageData.nodes.length + 1;
+      const newId = `s-${Date.now()}`;
+      const newCode = `${stageNum}-N${nextIndex}`;
+
+      const newNode = {
+        id: newId,
+        code: newCode,
+        title: "Custom Concept Node",
+        formula: "f(x) = ∑ α_i |i⟩",
+        status: "○ TO LEARN",
+        x: 385 + ((nextIndex % 3) - 1) * 90,
+        y: 250 + ((nextIndex % 2) ? -60 : 60),
+        notes: "Describe how this concept connects to your personal curriculum pathway.",
+        theorem: "State the core mathematical definition, theorem, or verification checkpoint for this node."
+      };
+
+      stageData.nodes.push(newNode);
+      if (selectedNodeId) {
+        stageData.edges.push({
+          from: selectedNodeId,
+          to: newId,
+          label: "extends to"
+        });
+      }
+
+      selectedNodeId = newId;
+      saveMapsToStorage();
+      renderConceptMap();
+      announceStatus(`ADDED NEW NODE [${newCode}] · EDIT TITLE & FORMULA BELOW`);
+
+      const titleInput = document.getElementById("edit-node-title");
+      if (titleInput) {
+        titleInput.focus();
+        titleInput.select();
+      }
+    }
+
+    function toggleLinkMode() {
+      isLinkMode = !isLinkMode;
+      linkSourceNodeId = selectedNodeId;
+      const btn = document.getElementById("link-mode-btn");
+      btn.setAttribute("aria-pressed", String(isLinkMode));
+
+      if (isLinkMode) {
+        announceStatus("EDGE LINK MODE ACTIVE · CLICK TARGET NODE ON THE MAP TO ADD OR REMOVE AN ARROW");
+      } else {
+        linkSourceNodeId = null;
+        announceStatus("EDGE LINK MODE CANCELLED");
+      }
+      renderConceptMap();
+    }
+
+    function toggleDirectedEdge(fromId, toId, labelText) {
+      if (!fromId || !toId || fromId === toId) return;
+      const stageData = stageMaps[currentStageKey];
+      const existingIdx = stageData.edges.findIndex(
+        e => (e.from === fromId && e.to === toId) || (e.from === toId && e.to === fromId)
+      );
+
+      if (existingIdx >= 0) {
+        stageData.edges.splice(existingIdx, 1);
+        announceStatus("REMOVED PREREQUISITE EDGE BETWEEN NODES");
+      } else {
+        stageData.edges.push({
+          from: fromId,
+          to: toId,
+          label: labelText || "leads to"
+        });
+        announceStatus("ADDED DIRECTED PREREQUISITE EDGE BETWEEN NODES");
+      }
+      saveMapsToStorage();
+    }
+
+    function toggleEdgeFromForm() {
+      const targetId = document.getElementById("edge-target-select").value;
+      const labelVal = document.getElementById("edge-label-input").value.trim() || "leads to";
+      if (!selectedNodeId || !targetId) return;
+      toggleDirectedEdge(selectedNodeId, targetId, labelVal);
+      renderConceptMap();
+    }
+
+    function deleteSelectedNode() {
+      const stageData = stageMaps[currentStageKey];
+      if (stageData.nodes.length <= 1) {
+        announceStatus("CANNOT DELETE THE LAST REMAINING NODE IN A STAGE MAP");
+        return;
+      }
+      const removed = stageData.nodes.find(n => n.id === selectedNodeId);
+      stageData.nodes = stageData.nodes.filter(n => n.id !== selectedNodeId);
+      stageData.edges = stageData.edges.filter(e => e.from !== selectedNodeId && e.to !== selectedNodeId);
+      selectedNodeId = stageData.nodes[0].id;
+      saveMapsToStorage();
+      renderConceptMap();
+      if (removed) {
+        announceStatus(`DELETED NODE [${removed.code}: ${removed.title}]`);
+      }
+    }
+
+    function resetCurrentStageMap() {
+      stageMaps[currentStageKey] = JSON.parse(JSON.stringify(defaultStageMaps[currentStageKey]));
+      selectedNodeId = stageMaps[currentStageKey].nodes[0].id;
+      saveMapsToStorage();
+      renderConceptMap();
+      announceStatus(`RESTORED CANONICAL ISTIGNET MAP FOR ${currentStageKey}`);
+    }
+
+    /* EXPORT / IMPORT MODAL */
+    function openExportModal() {
+      const modal = document.getElementById("export-modal");
+      const textarea = document.getElementById("map-json-textarea");
+      textarea.value = JSON.stringify(stageMaps, null, 2);
+      modal.showModal();
+    }
+
+    function copyMapJson() {
+      const textarea = document.getElementById("map-json-textarea");
+      navigator.clipboard.writeText(textarea.value).then(() => {
+        announceStatus("COPIED CURRICULUM MAP JSON TO CLIPBOARD");
+      });
+    }
+
+    function importMapJson() {
+      const textarea = document.getElementById("map-json-textarea");
+      try {
+        const parsed = JSON.parse(textarea.value);
+        if (parsed && parsed["STAGE I"] && Array.isArray(parsed["STAGE I"].nodes)) {
+          stageMaps = parsed;
+          saveMapsToStorage();
+          renderConceptMap();
+          document.getElementById("export-modal").close();
+          announceStatus("IMPORTED CUSTOM CURRICULUM CONCEPT MAP JSON");
+        }
+      } catch (err) {
+        alert("Invalid JSON format. Please verify your concept map JSON structure.");
+      }
+    }
+
+    function resetAllStagesToDefault() {
+      stageMaps = cloneDefaultMaps();
+      saveMapsToStorage();
+      document.getElementById("map-json-textarea").value = JSON.stringify(stageMaps, null, 2);
+      renderConceptMap();
+      announceStatus("RESTORED ALL STAGES (I–V) TO CANONICAL ISTIGNET DEFAULTS");
+    }
+
+    /* LEFT FRAME GLOSSARY & RIGHT FRAME EPISTEMIC RENDERING */
+    function renderGlossary(query = "") {
+      const q = query.trim().toLowerCase();
+      const treeEl = document.getElementById("glossary-tree");
+      treeEl.replaceChildren();
+
+      glossaryData.forEach(dom => {
         const filteredSubdomains = dom.subdomains.map(sub => {
           const matchedConcepts = sub.concepts.filter(c =>
             !q ||
@@ -1591,36 +3115,71 @@
           return { ...sub, concepts: matchedConcepts };
         }).filter(sub => sub.concepts.length > 0);
 
-        if (filteredSubdomains.length === 0) return '';
+        if (filteredSubdomains.length === 0) return;
 
         const totalConcepts = filteredSubdomains.reduce((acc, s) => acc + s.concepts.length, 0);
-        const shouldOpen = q.length > 0 || dom.open;
+        const detailsDom = document.createElement("details");
+        detailsDom.className = "glossary-domain";
+        if (q.length > 0 || dom.open) detailsDom.open = true;
 
-        return `
-          <details class="glossary-domain" ${shouldOpen ? 'open' : ''}>
-            <summary>
-              <span>${dom.domain}</span>
-              <span class="domain-count">[${totalConcepts}]</span>
-            </summary>
-            <div>
-              ${filteredSubdomains.map(sub => `
-                <div class="subdomain-block">
-                  <div class="subdomain-title">${sub.title}</div>
-                  ${sub.concepts.map(c => `
-                    <details class="concept-item" ${q.length > 0 ? 'open' : ''}>
-                      <summary>${c.term}</summary>
-                      <div class="concept-def">
-                        <div>${c.def}</div>
-                        <div class="concept-formula">${c.formula}</div>
-                      </div>
-                    </details>
-                  `).join('')}
-                </div>
-              `).join('')}
-            </div>
-          </details>
-        `;
-      }).join('');
+        const summaryDom = document.createElement("summary");
+        const domTitleSpan = document.createElement("span");
+        domTitleSpan.textContent = dom.domain;
+        const domCountSpan = document.createElement("span");
+        domCountSpan.className = "domain-count";
+        domCountSpan.textContent = `[${totalConcepts}]`;
+        summaryDom.append(domTitleSpan, domCountSpan);
+        detailsDom.appendChild(summaryDom);
+
+        const bodyWrap = document.createElement("div");
+        filteredSubdomains.forEach(sub => {
+          const subBlock = document.createElement("div");
+          subBlock.className = "subdomain-block";
+
+          const subTitle = document.createElement("div");
+          subTitle.className = "subdomain-title";
+          subTitle.textContent = sub.title;
+          subBlock.appendChild(subTitle);
+
+          sub.concepts.forEach(c => {
+            const cDetails = document.createElement("details");
+            cDetails.className = "concept-item";
+            if (q.length > 0) cDetails.open = true;
+
+            const cSummary = document.createElement("summary");
+            cSummary.textContent = c.term;
+            cDetails.appendChild(cSummary);
+
+            const cDefWrap = document.createElement("div");
+            cDefWrap.className = "concept-def";
+
+            const defText = document.createElement("div");
+            defText.textContent = c.def;
+
+            const formulaText = document.createElement("div");
+            formulaText.className = "concept-formula";
+            formulaText.textContent = c.formula;
+
+            const jumpBtn = document.createElement("button");
+            jumpBtn.type = "button";
+            jumpBtn.className = "glossary-map-jump";
+            jumpBtn.textContent = `Locate in ${dom.stage} Concept Map →`;
+            jumpBtn.addEventListener("click", () => {
+              selectStageMap(dom.stage, c.nodeId);
+              document.getElementById("concept-map-section").scrollIntoView({ behavior: "smooth" });
+            });
+
+            cDefWrap.append(defText, formulaText, jumpBtn);
+            cDetails.appendChild(cDefWrap);
+            subBlock.appendChild(cDetails);
+          });
+
+          bodyWrap.appendChild(subBlock);
+        });
+
+        detailsDom.appendChild(bodyWrap);
+        treeEl.appendChild(detailsDom);
+      });
 
       typesetMath();
     }
@@ -1630,131 +3189,114 @@
     }
 
     function renderEpistemicQuestions() {
-      const container = document.getElementById('epistemic-list');
-      container.innerHTML = epistemicData.map((group, gIdx) => `
-        <div class="epistemic-theme">
-          <div class="epistemic-theme-header">${group.theme}</div>
-          ${group.questions.map((item, qIdx) => `
-            <details class="epistemic-q" ${gIdx === 0 && qIdx === 0 ? 'open' : ''}>
-              <summary>${item.q}</summary>
-              <div class="epistemic-body">
-                <p>${item.body}</p>
-                <div class="epistemic-anchor">${item.anchor}</div>
-              </div>
-            </details>
-          `).join('')}
-        </div>
-      `).join('');
-    }
+      const container = document.getElementById("epistemic-list");
+      container.replaceChildren();
 
-    function loadEpisode(epId) {
-      const found = episodes.find(e => e.id === epId);
-      if (!found) return;
-      currentEpisode = found;
-      isPlaying = false;
+      epistemicData.forEach((group, gIdx) => {
+        const themeDiv = document.createElement("div");
+        themeDiv.className = "epistemic-theme";
 
-      document.getElementById('active-ep-code').textContent = found.code;
-      document.getElementById('active-ep-date').textContent = found.date;
-      document.getElementById('active-ep-duration').textContent = found.duration;
-      document.getElementById('video-stage-badge').textContent = `${found.stage} · ${found.module.split('·')[1].trim()}`;
-      document.getElementById('video-title-overlay').textContent = found.title;
-      document.getElementById('play-btn').textContent = '▶ PLAY LECTURE RECORDING';
+        const headerDiv = document.createElement("div");
+        headerDiv.className = "epistemic-theme-header";
+        headerDiv.textContent = group.theme;
+        themeDiv.appendChild(headerDiv);
 
-      document.getElementById('dossier-module').textContent = found.module;
-      document.getElementById('dossier-title').textContent = found.title;
-      document.getElementById('dossier-abstract').textContent = found.abstract;
-      document.getElementById('dossier-theorem-label').textContent = found.theoremLabel;
-      document.getElementById('dossier-theorem-body').innerHTML = found.theoremBody;
-      document.getElementById('dossier-friction').textContent = found.friction;
-      document.getElementById('dossier-ai-badge').textContent = found.aiBadge;
-      document.getElementById('dossier-ai-audit').textContent = found.aiAudit;
+        group.questions.forEach((item, qIdx) => {
+          const d = document.createElement("details");
+          d.className = "epistemic-q";
+          if (gIdx === 0 && qIdx === 0) d.open = true;
 
-      const chEl = document.getElementById('chapter-buttons');
-      chEl.innerHTML = found.chapters.map((ch, idx) => `
-        <button type="button" id="ch-btn-${idx}" class="timestamp-row" onclick="seekChapter(${idx})">
-          <span class="ts-time">${ch.time}</span>
-          <span>${ch.label}</span>
-        </button>
-      `).join('');
+          const s = document.createElement("summary");
+          s.textContent = item.q;
+          d.appendChild(s);
 
-      seekChapter(1);
-    }
+          const bodyDiv = document.createElement("div");
+          bodyDiv.className = "epistemic-body";
 
-    function seekChapter(chIdx) {
-      const ch = currentEpisode.chapters[chIdx] || currentEpisode.chapters[0];
-      document.getElementById('video-time-indicator').textContent = `${ch.time} / ${currentEpisode.duration}`;
-      document.getElementById('video-chapter-label').textContent = ch.label.toUpperCase();
-      document.getElementById('video-equation-overlay').innerHTML = ch.eq;
-      document.getElementById('scrubber-fill').style.inlineSize = `${ch.pct}%`;
-      document.getElementById('scrubber-status').textContent = `SEEKED TO ${ch.time} · ${ch.label}`;
+          const p = document.createElement("p");
+          p.textContent = item.body;
 
-      currentEpisode.chapters.forEach((_, i) => {
-        const btn = document.getElementById(`ch-btn-${i}`);
-        if (btn) btn.classList.toggle('active', i === chIdx);
+          const anchorDiv = document.createElement("div");
+          anchorDiv.className = "epistemic-anchor";
+          anchorDiv.textContent = item.anchor;
+
+          bodyDiv.append(p, anchorDiv);
+          d.appendChild(bodyDiv);
+          themeDiv.appendChild(d);
+        });
+
+        container.appendChild(themeDiv);
       });
-
-      typesetMath();
     }
 
-    function togglePlaySimulation() {
-      isPlaying = !isPlaying;
-      const btn = document.getElementById('play-btn');
-      const status = document.getElementById('scrubber-status');
-      if (isPlaying) {
-        btn.textContent = '⏸ PAUSE LECTURE RECORDING';
-        status.textContent = 'PLAYING LECTURE STREAM · SYNCHRONIZED NOTES ACTIVE';
-      } else {
-        btn.textContent = '▶ RESUME LECTURE RECORDING';
-        status.textContent = 'PAUSED · SELECT A TIMESTAMP BELOW TO SEEK';
-      }
+    /* SECTION 2: PATHWAY MODULES RENDERING */
+    function renderPathwayModules(stageFilter = "ALL") {
+      const grid = document.getElementById("pathway-grid");
+      grid.replaceChildren();
+
+      const filtered = stageFilter === "ALL"
+        ? pathwayModules
+        : pathwayModules.filter(m => m.stage === stageFilter);
+
+      filtered.forEach(mod => {
+        const article = document.createElement("article");
+        article.className = "archive-item";
+
+        const metaCol = document.createElement("div");
+        metaCol.style.fontFamily = "var(--font-mono)";
+        metaCol.style.fontSize = "0.72rem";
+        metaCol.style.color = "var(--ink-violet-muted)";
+        const codeStrong = document.createElement("div");
+        codeStrong.style.color = "var(--ink-violet)";
+        codeStrong.style.fontWeight = "600";
+        codeStrong.textContent = mod.code;
+        const stageSub = document.createElement("div");
+        stageSub.textContent = `${mod.stage} Graph`;
+        metaCol.append(codeStrong, stageSub);
+
+        const bodyCol = document.createElement("div");
+        const h3 = document.createElement("h3");
+        h3.style.fontFamily = "var(--font-serif)";
+        h3.style.fontSize = "1.2rem";
+        h3.style.fontWeight = "700";
+        h3.style.color = "var(--ink-violet)";
+        h3.textContent = mod.title;
+        const p = document.createElement("p");
+        p.style.fontSize = "0.96rem";
+        p.style.color = "var(--ink-violet-body)";
+        p.style.marginTop = "0.2rem";
+        p.textContent = mod.summary;
+        bodyCol.append(h3, p);
+
+        const actionCol = document.createElement("div");
+        actionCol.style.fontFamily = "var(--font-mono)";
+        actionCol.style.fontSize = "0.72rem";
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "text-action-btn";
+        btn.textContent = `Open ${mod.stage} Map →`;
+        btn.addEventListener("click", () => {
+          selectStageMap(mod.stage, mod.nodeId);
+          document.getElementById("concept-map-section").scrollIntoView({ behavior: "smooth" });
+        });
+        actionCol.appendChild(btn);
+
+        article.append(metaCol, bodyCol, actionCol);
+        grid.appendChild(article);
+      });
     }
 
-    function renderEpisodeArchive(stageFilter = 'ALL') {
-      const grid = document.getElementById('episode-grid');
-      const filtered = stageFilter === 'ALL'
-        ? episodes
-        : episodes.filter(e => e.stage === stageFilter);
-
-      grid.innerHTML = filtered.map(ep => `
-        <article class="archive-item">
-          <div style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--ink-violet-muted);">
-            <div style="color: var(--ink-violet); font-weight: 600;">${ep.code}</div>
-            <div>${ep.date} &middot; ${ep.duration}</div>
-          </div>
-
-          <div>
-            <div style="font-family: var(--font-mono); font-size: 0.68rem; color: var(--accent-moon-blue); text-transform: uppercase;">
-              ${ep.module}
-            </div>
-            <h3 style="font-family: var(--font-serif); font-size: 1.22rem; font-weight: 700; color: var(--ink-violet); margin-top: 0.1rem;">
-              ${ep.title}
-            </h3>
-            <p style="font-size: 0.98rem; color: var(--ink-violet-body); margin-top: 0.2rem;">
-              ${ep.abstract}
-            </p>
-          </div>
-
-          <div style="font-family: var(--font-mono); font-size: 0.72rem;">
-            <button type="button" onclick="loadEpisode('${ep.id}'); document.getElementById('lecture-theater').scrollIntoView({behavior: 'smooth'});" style="background: none; border: none; border-bottom: 1px solid var(--ink-violet); color: var(--ink-violet); font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; cursor: pointer; padding-bottom: 0.1rem;">
-              Load Lecture &amp; Notes →
-            </button>
-          </div>
-        </article>
-      `).join('');
-
-      typesetMath();
+    function filterPathwayModules(stage, btnEl) {
+      document.querySelectorAll(".filter-link").forEach(b => b.classList.remove("active"));
+      if (btnEl) btnEl.classList.add("active");
+      renderPathwayModules(stage);
     }
 
-    function filterEpisodes(stage, btnEl) {
-      document.querySelectorAll('.filter-link').forEach(b => b.classList.remove('active'));
-      if (btnEl) btnEl.classList.add('active');
-      renderEpisodeArchive(stage);
-    }
-
-    renderGlossary('');
+    /* INITIALIZE WORKBENCH */
+    renderGlossary("");
     renderEpistemicQuestions();
-    loadEpisode('ep-03');
-    renderEpisodeArchive('ALL');
+    renderConceptMap();
+    renderPathwayModules("ALL");
   </script>
 </body>
 </html>
