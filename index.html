@@ -1171,11 +1171,11 @@
       <strong style="color: var(--ink-violet);">XTIGNET</strong> (<em>X + Istigkeit + Network</em>) &mdash; Evolving Curriculum Bubble Map &amp; Epistemic Framework
     </div>
     <nav class="running-nav" aria-label="Primary Navigation">
-      <a href="#glossary-frame">← Lexicon (122 Terms)</a>
-      <a href="#concept-map-section">§1. Evolving Bubble Map</a>
-      <a href="#doctoral-syllabus">§2. Stage I–V Maps</a>
-      <a href="#pathway-archive">§3. Module Index</a>
-      <a href="#epistemic-frame">Epistemic Inquiry (32 Qs) →</a>
+      <a href="#glossary-frame">← Lexicon</a>
+      <a href="#concept-map-section">Evolving Bubble Map</a>
+      <a href="#doctoral-syllabus">Stage 1–5 Atlas</a>
+      <a href="#pathway-archive">Stage Subtitles</a>
+      <a href="#epistemic-frame">Epistemic Inquiry →</a>
       <button type="button" onclick="openExportModal()">[Export / Fork Map JSON]</button>
     </nav>
   </header>
@@ -1244,7 +1244,7 @@
 
         <div class="author-line">
           <div>
-            <strong>Xtignet Research Collective</strong> &middot; Cumulative Evolving Bubble Maps (Stages I–V)
+            <strong>Xtignet Research Collective</strong> &middot; Cumulative Evolving Bubble Maps (Stages 1–5)
           </div>
           <div class="telemetry-inline">
             <span class="status-dot">●</span> Double-Click Any Map to Add Extra Bubbles &middot; Drag &amp; Branch Your Own Pathway
@@ -1252,12 +1252,12 @@
         </div>
       </header>
 
-      <!-- §1. MASTER EVOLVING BUBBLE CONCEPT MAP & INLINE BUBBLE EDITOR -->
+      <!-- MASTER EVOLVING BUBBLE CONCEPT MAP & INLINE BUBBLE EDITOR -->
       <section id="concept-map-section" aria-labelledby="sec-1-title">
         <div class="section-header">
-          <h2 id="sec-1-title" class="section-title">§ 1. Evolving Curriculum Bubble Map (Grows Across Stages I $\longrightarrow$ V)</h2>
+          <h2 id="sec-1-title" class="section-title">Evolving Curriculum Bubble Map (Stages 1 $\longrightarrow$ 5)</h2>
           <div class="section-meta">
-            <span id="active-stage-code">STAGE I OF V</span> &middot; <span id="active-stage-summary">6 Active Bubbles</span>
+            <span id="active-stage-code">STAGE 1</span> &middot; <span id="active-stage-summary">Subtitles a–f</span>
           </div>
         </div>
 
@@ -1266,23 +1266,23 @@
           <legend class="stage-selector-legend">Watch Map Evolve:</legend>
           <label class="stage-radio-label">
             <input type="radio" name="curriculumStage" value="STAGE I" checked onchange="selectStageMap(this.value)">
-            <span>Stage I (6 Bubbles: Classical Seed)</span>
+            <span>Stage 1: Classical Seed (a–f)</span>
           </label>
           <label class="stage-radio-label">
             <input type="radio" name="curriculumStage" value="STAGE II" onchange="selectStageMap(this.value)">
-            <span>Stage II (11 Bubbles: +Hilbert Space)</span>
+            <span>Stage 2: +Hilbert Space (a–e)</span>
           </label>
           <label class="stage-radio-label">
             <input type="radio" name="curriculumStage" value="STAGE III" onchange="selectStageMap(this.value)">
-            <span>Stage III (16 Bubbles: +Quantum Algorithms)</span>
+            <span>Stage 3: +Quantum Algorithms (a–e)</span>
           </label>
           <label class="stage-radio-label">
             <input type="radio" name="curriculumStage" value="STAGE IV" onchange="selectStageMap(this.value)">
-            <span>Stage IV (21 Bubbles: +Channels &amp; Entropy)</span>
+            <span>Stage 4: +Channels &amp; Entropy (a–e)</span>
           </label>
           <label class="stage-radio-label">
             <input type="radio" name="curriculumStage" value="STAGE V" onchange="selectStageMap(this.value)">
-            <span>Stage V (27 Bubbles: +QEC &amp; BQP/QMA)</span>
+            <span>Stage 5: +QEC &amp; BQP/QMA (a–f)</span>
           </label>
         </fieldset>
 
@@ -1294,22 +1294,22 @@
                 <div class="blackboard-stage-tabs" role="tablist" aria-label="Switch Evolving Stage Concept Map">
                   <div style="display: flex; flex-wrap: wrap; gap: 0.4rem; align-items: center;">
                     <span style="font-family: var(--font-mono); font-size: 0.64rem; color: #8be0ff; text-transform: uppercase; letter-spacing: 0.05em;">
-                      Evolution Step:
+                      Stage:
                     </span>
                     <button type="button" class="blackboard-stage-tab active" data-stage-tab="STAGE I" onclick="selectStageMap('STAGE I')">
-                      I. Classical Seed (6)
+                      Stage 1: Classical Seed
                     </button>
                     <button type="button" class="blackboard-stage-tab" data-stage-tab="STAGE II" onclick="selectStageMap('STAGE II')">
-                      II. +Hilbert Space (11)
+                      Stage 2: +Hilbert Space
                     </button>
                     <button type="button" class="blackboard-stage-tab" data-stage-tab="STAGE III" onclick="selectStageMap('STAGE III')">
-                      III. +Quantum Circuits (16)
+                      Stage 3: +Quantum Circuits
                     </button>
                     <button type="button" class="blackboard-stage-tab" data-stage-tab="STAGE IV" onclick="selectStageMap('STAGE IV')">
-                      IV. +Open Channels (21)
+                      Stage 4: +Open Channels
                     </button>
                     <button type="button" class="blackboard-stage-tab" data-stage-tab="STAGE V" onclick="selectStageMap('STAGE V')">
-                      V. +Full Synthesis (27)
+                      Stage 5: +Full Synthesis
                     </button>
                   </div>
 
@@ -1319,7 +1319,7 @@
                 </div>
 
                 <div class="map-top-bar">
-                  <span id="map-stage-badge">STAGE I &middot; CLASSICAL COMPUTATION &amp; SHANNON SEED</span>
+                  <span id="map-stage-badge">STAGE 1 &middot; CLASSICAL COMPUTATION &amp; SHANNON SEED (SUBTITLES a–f)</span>
                   <div class="map-toolbar" role="toolbar" aria-label="Bubble Map Editing Actions">
                     <button type="button" class="map-tool-btn primary-action" onclick="addNewConceptNode()">
                       [+ Add Extra Bubble]
@@ -1407,13 +1407,13 @@
                 </div>
               </div>
               <figcaption class="figure-caption">
-                <strong>Figure 1.</strong> Cumulative evolving curriculum bubble map. As you advance from <strong>Stage I $\to$ Stage V</strong>, earlier foundational bubbles remain as connected memory seeds while new quantum bubbles branch outward. Double-click anywhere on the dark canvas (or click <code>[+ Add Extra Bubble]</code>) to add your own bubbles.
+                Cumulative evolving curriculum bubble map. As you advance from <strong>Stage 1 $\to$ Stage 5</strong>, earlier foundational bubbles remain as connected memory seeds while new quantum bubbles branch outward. Double-click anywhere on the dark canvas (or click <code>[+ Add Extra Bubble]</code>) to add your own bubbles.
               </figcaption>
             </figure>
 
             <!-- Quick Node Selector Strip -->
             <div class="node-index-strip">
-              <div class="node-index-heading">Bubbles in Current Stage (Click to Focus &amp; Edit)</div>
+              <div class="node-index-heading">Stage Subtitles &amp; Bubbles (a, b, c, … &mdash; Click to Focus &amp; Edit)</div>
               <div id="node-index-buttons" class="node-index-list"></div>
             </div>
           </div>
@@ -1423,7 +1423,7 @@
             <div class="companion-header-line">
               <div>
                 <div id="inspector-node-code" style="font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue); text-transform: uppercase; letter-spacing: 0.05em;">
-                  STAGE I &middot; BUBBLE S1-N6 &middot; CORE AXIOM
+                  STAGE 1 &middot; SUBTITLE f. &middot; CORE AXIOM
                 </div>
                 <h3 id="inspector-node-title" class="monograph-entry-title">
                   Shannon Entropy &amp; Channel Capacity
@@ -1554,28 +1554,28 @@
         </div>
       </section>
 
-      <!-- §2. DOCTORAL QUALIFYING FRAMEWORK WITH EVOLVING CONCEPT MAPS FOR ALL 5 STAGES -->
+      <!-- DOCTORAL QUALIFYING FRAMEWORK WITH EVOLVING CONCEPT MAPS FOR ALL 5 STAGES -->
       <section id="doctoral-syllabus" aria-labelledby="sec-2-title" style="margin-bottom: 3rem;">
         <div class="section-header">
-          <h2 id="sec-2-title" class="section-title">§ 2. Progressive Five-Stage Curriculum Atlas (Stages I $\longrightarrow$ V Evolving Bubble Maps)</h2>
-          <div class="section-meta">Each stage below shows how the concept network grows, branches, and evolves</div>
+          <h2 id="sec-2-title" class="section-title">Progressive Five-Stage Curriculum Atlas (Stages 1 $\longrightarrow$ 5)</h2>
+          <div class="section-meta">Each numbered stage (1–5) expands into lettered subtitles (a, b, c, …)</div>
         </div>
 
         <div id="all-stages-atlas" class="syllabus-list"></div>
       </section>
 
-      <!-- §3. CURRICULUM PATHWAY MODULES ACROSS STAGES I–V -->
+      <!-- CURRICULUM PATHWAY SUBTITLES ACROSS STAGES 1–5 -->
       <section id="pathway-archive" aria-labelledby="sec-3-title">
         <div class="section-header">
-          <h2 id="sec-3-title" class="section-title">§ 3. Stage-by-Stage Curriculum Modules &amp; Prerequisite Bridges</h2>
-          <search aria-label="Filter curriculum modules by stage">
+          <h2 id="sec-3-title" class="section-title">Stage Subtitles &amp; Prerequisite Bridges</h2>
+          <search aria-label="Filter stage subtitles by stage">
             <div class="filter-bar">
-              <button type="button" class="filter-link active" onclick="filterPathwayModules('ALL', this)">All Stages (10)</button>
-              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE I', this)">Stage I</button>
-              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE II', this)">Stage II</button>
-              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE III', this)">Stage III</button>
-              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE IV', this)">Stage IV</button>
-              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE V', this)">Stage V</button>
+              <button type="button" class="filter-link active" onclick="filterPathwayModules('ALL', this)">All Stages</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE I', this)">Stage 1</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE II', this)">Stage 2</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE III', this)">Stage 3</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE IV', this)">Stage 4</button>
+              <button type="button" class="filter-link" onclick="filterPathwayModules('STAGE V', this)">Stage 5</button>
             </div>
           </search>
         </div>
@@ -2134,22 +2134,38 @@
 
 
     // =========================================================================
-    // 3. EVOLVING STAGE CONCEPT MAPS (STAGES I -> V GROW & CHANGE IN TOPOLOGY)
+    // 3. EVOLVING STAGE CONCEPT MAPS (STAGES 1 -> 5 WITH LETTERED SUBTITLES a, b, c...)
     // =========================================================================
     const STAGE_ORDER = ["STAGE I", "STAGE II", "STAGE III", "STAGE IV", "STAGE V"];
+    const STAGE_DISPLAY_NAME = {
+      "STAGE I": "Stage 1",
+      "STAGE II": "Stage 2",
+      "STAGE III": "Stage 3",
+      "STAGE IV": "Stage 4",
+      "STAGE V": "Stage 5"
+    };
+
+    function formatStageLabel(stageKey) {
+      return STAGE_DISPLAY_NAME[stageKey] || stageKey;
+    }
+
+    function indexToLetterCode(idxZeroBased) {
+      const letter = String.fromCharCode(97 + (idxZeroBased % 26));
+      return `${letter}.`;
+    }
 
     const defaultStageMaps = {
       "STAGE I": {
-        code: "STAGE I OF V",
-        badge: "STAGE I · CLASSICAL COMPUTATION, REVERSIBILITY & SHANNON SEED (6 BUBBLES)",
-        subtitle: "6 Foundational Seed Bubbles · Classical Computability, Thermodynamics & Shannon Theory",
+        code: "Stage 1",
+        badge: "STAGE 1 · CLASSICAL COMPUTATION, REVERSIBILITY & SHANNON SEED (SUBTITLES a–f)",
+        subtitle: "Subtitles a–f · Classical Computability, Thermodynamics & Shannon Theory",
         title: "Classical Computability, Reversible Physics & Shannon Information",
-        summary: "Starts from the compact classical seed: Turing machines, polynomial complexity, Landauer’s thermal erasure bound, Toffoli reversible gates, Bennett’s uncomputation trick, and Shannon’s entropy/capacity foundations.",
+        summary: "Starts from the compact classical seed (subtitles a–f): Turing machines, polynomial complexity, Landauer’s thermal erasure bound, Toffoli reversible gates, Bennett’s uncomputation trick, and Shannon’s entropy/capacity foundations.",
         selectedNodeId: "s1-n6",
         nodes: [
           {
             id: "s1-n1",
-            code: "S1.N1",
+            code: "a.",
             stageOrigin: "STAGE I",
             title: "Turing Computability",
             formula: "M = (Q, Σ, δ), HALT ∉ R",
@@ -2161,7 +2177,7 @@
           },
           {
             id: "s1-n2",
-            code: "S1.N2",
+            code: "b.",
             stageOrigin: "STAGE I",
             title: "Boolean Circuits & BPP",
             formula: "P ⊆ BPP ⊆ P/poly",
@@ -2173,7 +2189,7 @@
           },
           {
             id: "s1-n3",
-            code: "S1.N3",
+            code: "c.",
             stageOrigin: "STAGE I",
             title: "Landauer Erasure",
             formula: "ΔQ ≥ k_B T ln 2",
@@ -2185,7 +2201,7 @@
           },
           {
             id: "s1-n4",
-            code: "S1.N4",
+            code: "d.",
             stageOrigin: "STAGE I",
             title: "Toffoli Reversibility",
             formula: "|a,b,c⟩ → |a,b,c ⊕ ab⟩",
@@ -2197,7 +2213,7 @@
           },
           {
             id: "s1-n5",
-            code: "S1.N5",
+            code: "e.",
             stageOrigin: "STAGE I",
             title: "Bennett Uncomputation",
             formula: "U_f^† CNOT U_f |x,0⟩",
@@ -2209,7 +2225,7 @@
           },
           {
             id: "s1-n6",
-            code: "S1.N6",
+            code: "f.",
             stageOrigin: "STAGE I",
             title: "Shannon Entropy & Capacity",
             formula: "H(X) = -∑ p(x) log₂ p(x)",
@@ -2231,16 +2247,16 @@
       },
 
       "STAGE II": {
-        code: "STAGE II OF V",
-        badge: "STAGE II · HILBERT SPACE, ENTANGLEMENT & NON-LOCALITY (+5 NEW BUBBLES → 11 TOTAL)",
-        subtitle: "Branches Out from Stage I Reversibility & Shannon Theory into Complex Hilbert Space",
+        code: "Stage 2",
+        badge: "STAGE 2 · HILBERT SPACE, ENTANGLEMENT & NON-LOCALITY (SUBTITLES a–e)",
+        subtitle: "Subtitles a–e · Branches Out from Stage 1 into Complex Hilbert Space",
         title: "Complex Hilbert Space, Entanglement & Non-Local Correlations",
-        summary: "Stage II grows directly out of Stage I’s reversible gates and Shannon entropy: real probability simplexes generalize to complex $\\ell_2$ Hilbert rays, Toffoli permutations generalize to unitary operators, and bipartite tensor products unlock Bell non-locality ($2\\sqrt{2}$).",
+        summary: "Stage 2 grows directly out of Stage 1’s reversible gates and Shannon entropy: real probability simplexes generalize to complex $\\ell_2$ Hilbert rays (a–b), Toffoli permutations generalize to unitary operators (c), and bipartite tensor products unlock Bell non-locality $2\\sqrt{2}$ (d–e).",
         selectedNodeId: "s2-n5",
         nodes: [
           {
             id: "s2-n1",
-            code: "S2.N1",
+            code: "a.",
             stageOrigin: "STAGE II",
             title: "Complex Hilbert Space",
             formula: "|ψ⟩ ∈ ℂ^d, ⟨ψ|ψ⟩ = 1",
@@ -2252,7 +2268,7 @@
           },
           {
             id: "s2-n2",
-            code: "S2.N2",
+            code: "b.",
             stageOrigin: "STAGE II",
             title: "Qubit & Bloch Sphere",
             formula: "ρ = ½(I + r⃗ · σ⃗), SU(2)",
@@ -2264,19 +2280,19 @@
           },
           {
             id: "s2-n3",
-            code: "S2.N3",
+            code: "c.",
             stageOrigin: "STAGE II",
             title: "Unitary & Spectral Thm",
             formula: "U^† U = I, A = ∑ λ_k |k⟩⟨k|",
             status: "✓ MASTERED",
             x: 500,
             y: 305,
-            notes: "Generalizes Stage I reversible permutations to continuous norm-preserving evolutions $U = e^{-iHt/\\hbar}$ and spectral decompositions of normal operators.",
+            notes: "Generalizes Stage 1 reversible permutations to continuous norm-preserving evolutions $U = e^{-iHt/\\hbar}$ and spectral decompositions of normal operators.",
             theorem: "An operator $A \\in \\mathrm{L}(\\mathcal{H})$ is unitarily diagonalizable in an orthonormal eigenbasis iff $A$ is normal ($A A^\\dagger = A^\\dagger A$)."
           },
           {
             id: "s2-n4",
-            code: "S2.N4",
+            code: "d.",
             stageOrigin: "STAGE II",
             title: "Tensor & Schmidt SVD",
             formula: "|Ψ⟩ = ∑ √λ_i |u_i⟩_A ⊗ |v_i⟩_B",
@@ -2288,7 +2304,7 @@
           },
           {
             id: "s2-n5",
-            code: "S2.N5",
+            code: "e.",
             stageOrigin: "STAGE II",
             title: "No-Cloning & Bell 2√2",
             formula: "|S_LHV| ≤ 2 < 2√2 (Tsirelson)",
@@ -2312,16 +2328,16 @@
       },
 
       "STAGE III": {
-        code: "STAGE III OF V",
-        badge: "STAGE III · QUANTUM GATES, FOURIER TRANSFORM & ALGORITHMS (+5 NEW BUBBLES → 16 TOTAL)",
-        subtitle: "Evolves from Hilbert Space & Uncomputation into Shor Factoring & Grover Search",
+        code: "Stage 3",
+        badge: "STAGE 3 · QUANTUM GATES, FOURIER TRANSFORM & ALGORITHMS (SUBTITLES a–e)",
+        subtitle: "Subtitles a–e · Evolves from Hilbert Space into Shor Factoring & Grover Search",
         title: "Universal Gate Synthesis, Quantum Algorithms & Query Complexity",
-        summary: "Stage III connects Stage I’s Bennett uncomputation and Stage II’s unitary dynamics into algorithmic speedups: Solovay–Kitaev gate approximation, phase kickback, Simon’s period finding, the Quantum Fourier Transform, Shor’s factoring algorithm, and Grover’s $\\Theta(\\sqrt{N})$ search.",
+        summary: "Stage 3 connects Stage 1’s Bennett uncomputation and Stage 2’s unitary dynamics into algorithmic speedups (subtitles a–e): Solovay–Kitaev gate approximation, phase kickback, Simon’s period finding, the Quantum Fourier Transform, Shor’s factoring algorithm, and Grover’s $\\Theta(\\sqrt{N})$ search.",
         selectedNodeId: "s3-n5",
         nodes: [
           {
             id: "s3-n1",
-            code: "S3.N1",
+            code: "a.",
             stageOrigin: "STAGE III",
             title: "Clifford+T & Solovay–Kitaev",
             formula: "⟨H, S, CNOT, T⟩, O(log^c(1/ε))",
@@ -2333,7 +2349,7 @@
           },
           {
             id: "s3-n2",
-            code: "S3.N2",
+            code: "b.",
             stageOrigin: "STAGE III",
             title: "Phase Kickback & Oracles",
             formula: "C-U|+⟩|u⟩ = (|0⟩+e^{2πiφ}|1⟩)|u⟩",
@@ -2345,7 +2361,7 @@
           },
           {
             id: "s3-n3",
-            code: "S3.N3",
+            code: "c.",
             stageOrigin: "STAGE III",
             title: "Deutsch–Jozsa & Simon",
             formula: "f(x)=f(x⊕s), O(n) vs Ω(2^{n/2})",
@@ -2357,7 +2373,7 @@
           },
           {
             id: "s3-n4",
-            code: "S3.N4",
+            code: "d.",
             stageOrigin: "STAGE III",
             title: "QFT & Phase Estimation",
             formula: "QFT|x⟩ = N^{-½} ∑ e^{2πixk/N}|k⟩",
@@ -2369,14 +2385,14 @@
           },
           {
             id: "s3-n5",
-            code: "S3.N5",
+            code: "e.",
             stageOrigin: "STAGE III",
             title: "Shor Factoring & Grover √N",
             formula: "O((log N)³) & Θ(√N) BBBV",
             status: "◆ AXIOM / CORE",
             x: 825,
             y: 315,
-            notes: "Culmination of Stage III: exponential speedup for Abelian hidden subgroups (Shor factoring) alongside tight quadratic $\\Theta(\\sqrt{N})$ optimality for unstructured search.",
+            notes: "Culmination of Stage 3: exponential speedup for Abelian hidden subgroups (Shor factoring) alongside tight quadratic $\\Theta(\\sqrt{N})$ optimality for unstructured search.",
             theorem: "Integer factorization lies in $\\mathsf{BQP}$ via order-finding, whereas any quantum unstructured search requires $\\Omega(\\sqrt{N})$ oracle queries (BBBV theorem)."
           }
         ],
@@ -2392,16 +2408,16 @@
       },
 
       "STAGE IV": {
-        code: "STAGE IV OF V",
-        badge: "STAGE IV · OPEN QUANTUM SYSTEMS, CHANNELS & ENTROPY (+5 NEW BUBBLES → 21 TOTAL)",
-        subtitle: "Merges Stage I Shannon Theory & Stage II Entanglement into Noisy Quantum Channels",
+        code: "Stage 4",
+        badge: "STAGE 4 · OPEN QUANTUM SYSTEMS, CHANNELS & ENTROPY (SUBTITLES a–e)",
+        subtitle: "Subtitles a–e · Merges Stage 1 Shannon Theory & Stage 2 Entanglement into Noisy Channels",
         title: "Open Quantum Systems, CPTP Channels & Quantum Shannon Theory",
-        summary: "Stage IV bridges Stage I’s Shannon entropy with Stage II’s entangled subsystems: partial traces yield mixed density matrices $\\rho$, environmental coupling induces CPTP Kraus channels, and Von Neumann entropy governs Schumacher compression and Holevo’s bound.",
+        summary: "Stage 4 bridges Stage 1’s Shannon entropy with Stage 2’s entangled subsystems (subtitles a–e): partial traces yield mixed density matrices $\\rho$, environmental coupling induces CPTP Kraus channels, and Von Neumann entropy governs Schumacher compression and Holevo’s bound.",
         selectedNodeId: "s4-n5",
         nodes: [
           {
             id: "s4-n1",
-            code: "S4.N1",
+            code: "a.",
             stageOrigin: "STAGE IV",
             title: "Density ρ & Purification",
             formula: "ρ = Tr_E(|Ψ⟩⟨Ψ|), D(ρ,σ) = ½‖ρ-σ‖₁",
@@ -2413,7 +2429,7 @@
           },
           {
             id: "s4-n2",
-            code: "S4.N2",
+            code: "b.",
             stageOrigin: "STAGE IV",
             title: "CPTP Kraus & Stinespring",
             formula: "ℰ(ρ) = ∑ E_k ρ E_k^† = Tr_E(U(ρ⊗|0⟩⟨0|)U^†)",
@@ -2425,19 +2441,19 @@
           },
           {
             id: "s4-n3",
-            code: "S4.N3",
+            code: "c.",
             stageOrigin: "STAGE IV",
             title: "Von Neumann Entropy S(ρ)",
             formula: "S(ρ) = -Tr(ρ log₂ ρ), S(A|B) < 0",
             status: "◆ AXIOM / CORE",
             x: 500,
             y: 490,
-            notes: "Quantum generalization of Stage I Shannon entropy; captures entanglement across cuts and allows negative conditional entropy $S(A|B) < 0$.",
+            notes: "Quantum generalization of Stage 1 Shannon entropy; captures entanglement across cuts and allows negative conditional entropy $S(A|B) < 0$.",
             theorem: "Von Neumann entropy is unitary invariant, concave in $\\rho$, and for pure bipartite states $|\\Psi_{AB}\\rangle$ satisfies $S(\\rho_A) = S(\\rho_B)$."
           },
           {
             id: "s4-n4",
-            code: "S4.N4",
+            code: "d.",
             stageOrigin: "STAGE IV",
             title: "Strong Subadditivity (SSA)",
             formula: "S(ABC) + S(B) ≤ S(AB) + S(BC)",
@@ -2449,7 +2465,7 @@
           },
           {
             id: "s4-n5",
-            code: "S4.N5",
+            code: "e.",
             stageOrigin: "STAGE IV",
             title: "Schumacher & Holevo χ",
             formula: "I(X:Y) ≤ χ = S(ρ) - ∑ p_x S(ρ_x)",
@@ -2472,16 +2488,16 @@
       },
 
       "STAGE V": {
-        code: "STAGE V OF V",
-        badge: "STAGE V · FAULT TOLERANCE, SURFACE CODES & COMPLEXITY SYNTHESIS (+6 BUBBLES → 27 TOTAL)",
-        subtitle: "Full 27-Bubble Synthesis: Stabilizer QEC, Surface Codes, Fault-Tolerant Threshold & BQP/QMA",
+        code: "Stage 5",
+        badge: "STAGE 5 · FAULT TOLERANCE, SURFACE CODES & COMPLEXITY SYNTHESIS (SUBTITLES a–f)",
+        subtitle: "Subtitles a–f · Stabilizer QEC, Surface Codes, Fault-Tolerant Threshold & BQP/QMA",
         title: "Quantum Error Correction, Fault Tolerance & Quantum Complexity Zoo",
-        summary: "Stage V completes the evolving curriculum network: it tames Stage IV’s noisy channels via syndrome discretization, Gottesman stabilizer codes, Kitaev surface codes, and magic-state distillation, culminating in the global complexity synthesis of $\\mathsf{BQP}, \\mathsf{QMA}$, and $\\mathsf{MIP}^* = \\mathsf{RE}$.",
+        summary: "Stage 5 completes the evolving curriculum network (subtitles a–f): it tames Stage 4’s noisy channels via syndrome discretization, Gottesman stabilizer codes, Kitaev surface codes, and magic-state distillation, culminating in the global complexity synthesis of $\\mathsf{BQP}, \\mathsf{QMA}$, and $\\mathsf{MIP}^* = \\mathsf{RE}$.",
         selectedNodeId: "s5-n6",
         nodes: [
           {
             id: "s5-n1",
-            code: "S5.N1",
+            code: "a.",
             stageOrigin: "STAGE V",
             title: "Error Discretization & CSS",
             formula: "P E_a^† E_b P = α_{ab} P, [[n,k,d]]",
@@ -2493,7 +2509,7 @@
           },
           {
             id: "s5-n2",
-            code: "S5.N2",
+            code: "b.",
             stageOrigin: "STAGE V",
             title: "Pauli Stabilizer Formalism",
             formula: "𝒮 ⊂ 𝒫_n Abelian, -I ∉ 𝒮",
@@ -2505,7 +2521,7 @@
           },
           {
             id: "s5-n3",
-            code: "S5.N3",
+            code: "c.",
             stageOrigin: "STAGE V",
             title: "Gottesman–Knill Theorem",
             formula: "Clifford + Pauli ∈ ⊕L ⊆ P",
@@ -2517,7 +2533,7 @@
           },
           {
             id: "s5-n4",
-            code: "S5.N4",
+            code: "d.",
             stageOrigin: "STAGE V",
             title: "Topological Surface Codes",
             formula: "H = -∑ A_v - ∑ B_p, p_th ≈ 1%",
@@ -2529,7 +2545,7 @@
           },
           {
             id: "s5-n5",
-            code: "S5.N5",
+            code: "e.",
             stageOrigin: "STAGE V",
             title: "Threshold & Magic States",
             formula: "p < p_th ⇒ ε_L ≤ (p/p_th)^{2^L}",
@@ -2541,7 +2557,7 @@
           },
           {
             id: "s5-n6",
-            code: "S5.N6",
+            code: "f.",
             stageOrigin: "STAGE V",
             title: "BQP, QMA & Local Hamiltonians",
             formula: "P ⊆ BPP ⊆ BQP ⊆ QMA ⊆ PSPACE",
@@ -2566,98 +2582,107 @@
     };
 
     // =========================================================================
-    // 4. CURRICULUM PATHWAY MODULES (SECTION 3)
+    // 4. LETTERED STAGE SUBTITLES (a, b, c, ...) ACROSS STAGES 1–5
     // =========================================================================
     const pathwayModulesData = [
       {
-        id: "MOD-101",
+        letter: "a.",
         stage: "STAGE I",
         nodeId: "s1-n1",
-        title: "Turing Machines, Undecidability & The Church–Turing–Deutsch Thesis",
+        title: "a. Turing Machines, Undecidability & The Church–Turing–Deutsch Thesis",
         prereq: "First-Order Logic & Discrete Mathematics",
         summary: "Formalizes effective calculability via Universal Turing Machines, diagonalization, Rice’s Theorem, and physical computability limits.",
         eq: "$$\\mathsf{HALT}_{\\text{TM}} = \\{\\langle M, x \\rangle \\mid M(x) \\downarrow\\} \\notin \\mathsf{R}$$"
       },
       {
-        id: "MOD-102",
+        letter: "b.",
         stage: "STAGE I",
         nodeId: "s1-n4",
-        title: "Thermodynamics of Information, Landauer’s Bound & Reversible Logic",
-        prereq: "MOD-101 · Classical Statistical Mechanics",
+        title: "b. Thermodynamics of Information, Landauer’s Bound & Reversible Logic",
+        prereq: "Stage 1 (a) · Classical Statistical Mechanics",
         summary: "Bridges bit erasure with entropy production ($k_B T \\ln 2$), constructing universal Toffoli circuits and Bennett’s compute–copy–uncompute protocol.",
         eq: "$$\\Delta Q_{\\text{env}} \\ge k_B T \\ln 2, \\quad |a,b,c\\rangle \\mapsto |a,b,c \\oplus ab\\rangle$$"
       },
       {
-        id: "MOD-103",
+        letter: "c.",
         stage: "STAGE I",
         nodeId: "s1-n6",
-        title: "Shannon Entropy, Asymptotic Equipartition & Noisy Channel Coding",
-        prereq: "MOD-101 · Probability Theory",
+        title: "c. Shannon Entropy, Asymptotic Equipartition & Noisy Channel Coding",
+        prereq: "Stage 1 (a) · Probability Theory",
         summary: "Derives typical-set compression, mutual information, KL divergence, and Shannon’s capacity limit $C = \\max_{p(x)} I(X;Y)$.",
         eq: "$$H(X) = -\\sum_x p(x) \\log_2 p(x), \\quad C = \\max_{p(x)} I(X;Y)$$"
       },
       {
-        id: "MOD-201",
+        letter: "a.",
         stage: "STAGE II",
         nodeId: "s2-n2",
-        title: "Complex Hilbert Spaces, Bloch Geometry & Spectral Decomposition",
-        prereq: "STAGE I · Linear Algebra over ℂ",
+        title: "a. Complex Hilbert Spaces, Bloch Geometry & Spectral Decomposition",
+        prereq: "Stage 1 · Linear Algebra over ℂ",
         summary: "Develops the Dirac bra-ket formalism, Bloch sphere representation $\\rho = \\frac{1}{2}(I + \\vec{r}\\cdot\\vec{\\sigma})$, unitary evolution, and POVM measurements.",
         eq: "$$U^\\dagger U = I, \\quad p(m) = \\operatorname{Tr}(E_m \\rho)$$"
       },
       {
-        id: "MOD-202",
+        letter: "b.",
         stage: "STAGE II",
         nodeId: "s2-n5",
-        title: "Composite Tensor Spaces, Schmidt Rank, No-Cloning & Bell’s Theorem",
-        prereq: "MOD-201",
+        title: "b. Composite Tensor Spaces, Schmidt Rank, No-Cloning & Bell’s Theorem",
+        prereq: "Stage 2 (a)",
         summary: "Analyzes bipartite entanglement via singular value decomposition, proves the No-Cloning Theorem, and derives Tsirelson’s $2\\sqrt{2}$ CHSH bound.",
         eq: "$$|\\mathcal{S}_{\\text{LHV}}| \\le 2 < |\\mathcal{S}_{\\text{QM}}| = 2\\sqrt{2}$$"
       },
       {
-        id: "MOD-301",
+        letter: "a.",
         stage: "STAGE III",
         nodeId: "s3-n1",
-        title: "Universal Quantum Gate Sets, Clifford+$T$ & Solovay–Kitaev Synthesis",
-        prereq: "STAGE II",
+        title: "a. Universal Quantum Gate Sets, Clifford+$T$ & Solovay–Kitaev Synthesis",
+        prereq: "Stage 2",
         summary: "Constructs exact two-level unitaries, CNOT+single-qubit universality, and polylogarithmic gate approximation in $SU(2)$.",
         eq: "$$\\ell(U, \\epsilon) = \\mathcal{O}(\\log^c(1/\\epsilon))$$"
       },
       {
-        id: "MOD-302",
+        letter: "b.",
         stage: "STAGE III",
         nodeId: "s3-n5",
-        title: "Quantum Fourier Transform, Phase Estimation, Shor & Grover Optimality",
-        prereq: "MOD-301",
+        title: "b. Quantum Fourier Transform, Phase Estimation, Shor & Grover Optimality",
+        prereq: "Stage 3 (a)",
         summary: "Unifies Deutsch–Jozsa, Simon, QFT, and QPE to factor integers in $O((\\log N)^3)$ time and prove the BBBV $\\Omega(\\sqrt{N})$ unstructured search lower bound.",
         eq: "$$\\mathrm{QFT}|x\\rangle = \\frac{1}{\\sqrt{N}}\\sum_{k=0}^{N-1} e^{2\\pi i x k / N}|k\\rangle$$"
       },
       {
-        id: "MOD-401",
+        letter: "a.",
         stage: "STAGE IV",
         nodeId: "s4-n2",
-        title: "Density Operators, CPTP Quantum Channels, Kraus & Stinespring Dilation",
-        prereq: "STAGE II & III",
+        title: "a. Density Operators, CPTP Quantum Channels, Kraus & Stinespring Dilation",
+        prereq: "Stage 2 & Stage 3",
         summary: "Formulates open quantum system dynamics via partial traces, Choi–Jamiołkowski duality, Kraus operator sums, and Lindblad master equations.",
         eq: "$$\\mathcal{E}(\\rho) = \\sum_k E_k \\rho E_k^\\dagger = \\operatorname{Tr}_E\\left(U(\\rho \\otimes |0\\rangle\\langle 0|_E)U^\\dagger\\right)$$"
       },
       {
-        id: "MOD-402",
+        letter: "b.",
         stage: "STAGE IV",
         nodeId: "s4-n5",
-        title: "Von Neumann Entropy, Strong Subadditivity, Schumacher & Holevo Bounds",
-        prereq: "MOD-103 · MOD-401",
+        title: "b. Von Neumann Entropy, Strong Subadditivity, Schumacher & Holevo Bounds",
+        prereq: "Stage 1 (c) · Stage 4 (a)",
         summary: "Proves fundamental quantum entropy inequalities, noiseless qubit compression at rate $S(\\rho)$, and the Holevo–Schumacher–Westmoreland capacity theorem.",
         eq: "$$I(X:Y) \\le \\chi = S(\\rho) - \\sum_x p_x S(\\rho_x)$$"
       },
       {
-        id: "MOD-501",
+        letter: "a.",
+        stage: "STAGE V",
+        nodeId: "s5-n4",
+        title: "a. Stabilizer QEC, Surface Codes & Fault-Tolerant Threshold Theorem",
+        prereq: "Stage 4",
+        summary: "Synthesizes Knill–Laflamme conditions, Gottesman stabilizers, Kitaev 2D surface codes, and magic-state distillation below the fault-tolerant threshold $p_{\\text{th}}$.",
+        eq: "$$p < p_{\\text{th}} \\implies \\epsilon_L \\le (p/p_{\\text{th}})^{2^L}$$"
+      },
+      {
+        letter: "b.",
         stage: "STAGE V",
         nodeId: "s5-n6",
-        title: "Stabilizer QEC, Surface Codes, Fault-Tolerant Threshold & BQP / QMA",
-        prereq: "STAGE I–IV",
-        summary: "Synthesizes Knill–Laflamme conditions, Gottesman stabilizers, Kitaev surface codes, magic-state distillation, and Kitaev’s $\\mathsf{QMA}$-complete Local Hamiltonian theorem.",
-        eq: "$$p < p_{\\text{th}} \\implies \\epsilon_L \\le (p/p_{\\text{th}})^{2^L}, \\quad \\mathsf{P} \\subseteq \\mathsf{BPP} \\subseteq \\mathsf{BQP} \\subseteq \\mathsf{QMA}$$"
+        title: "b. Quantum Complexity Zoo: BQP, QMA-Completeness & Local Hamiltonians",
+        prereq: "Stage 1–Stage 5 (a)",
+        summary: "Places fault-tolerant quantum computation inside the complexity hierarchy alongside Kitaev’s $\\mathsf{QMA}$-complete $k$-Local Hamiltonian problem and $\\mathsf{MIP}^* = \\mathsf{RE}$.",
+        eq: "$$\\mathsf{P} \\subseteq \\mathsf{BPP} \\subseteq \\mathsf{BQP} \\subseteq \\mathsf{QMA} \\subseteq \\mathsf{PSPACE}$$"
       }
     ];
 
@@ -2665,7 +2690,7 @@
     // =========================================================================
     // 5. STATE MANAGEMENT, CUMULATIVE GRAPH BUILDER & SVG BUBBLE RENDERER
     // =========================================================================
-    const STORAGE_KEY = "istignet_evolving_bubble_maps_v3";
+    const STORAGE_KEY = "xtignet_evolving_bubble_maps_v4";
     let stageMaps = loadOrInitStageMaps();
     let currentStageKey = "STAGE I";
     let isCumulativeMode = true; // Shows how the map grows across Stages I -> V
@@ -2937,9 +2962,9 @@
           class: "map-bubble-badge"
         });
         const statusShort = isCustomBubble
-          ? "★ EXTRA BUBBLE"
+          ? "★ EXTRA"
           : node.isAncestor
-          ? `SEED (${node.ownerStageKey.replace("STAGE ", "S")})`
+          ? formatStageLabel(node.ownerStageKey)
           : (node.status || "").split(" ")[0];
         badgeText.textContent = `${node.code} · ${statusShort}`;
         g.appendChild(badgeText);
@@ -3051,18 +3076,17 @@
     }
 
     // =========================================================================
-    // 6. MASTER CONCEPT MAP (§1) & INLINE QUICK EDITOR SYNCHRONIZATION
+    // 6. MASTER CONCEPT MAP & INLINE QUICK EDITOR SYNCHRONIZATION
     // =========================================================================
     function renderMasterStageMap() {
       const st = stageMaps[currentStageKey];
       const graph = getEffectiveGraphForStage(currentStageKey);
 
-      document.getElementById("active-stage-code").textContent = st.code;
-      const ancestorCount = graph.nodes.filter((n) => n.isAncestor).length;
+      document.getElementById("active-stage-code").textContent = formatStageLabel(currentStageKey).toUpperCase();
       const stageOwnCount = st.nodes.length;
-      document.getElementById("active-stage-summary").textContent = isCumulativeMode && ancestorCount > 0
-        ? `${graph.nodes.length} Total Bubbles (${stageOwnCount} Stage + ${ancestorCount} Foundation Seeds)`
-        : `${stageOwnCount} Stage Bubbles`;
+      const lastLetter = String.fromCharCode(96 + Math.min(26, Math.max(1, stageOwnCount)));
+      document.getElementById("active-stage-summary").textContent =
+        `Subtitles a–${lastLetter}` + (isCumulativeMode && currentStageKey !== "STAGE I" ? " (+ Earlier Stage Seeds)" : "");
       document.getElementById("map-stage-badge").textContent = st.badge;
 
       // Sync radio buttons & blackboard stage tabs
@@ -3102,10 +3126,12 @@
 
         const codeSpan = document.createElement("span");
         codeSpan.className = "node-code-tag";
-        codeSpan.textContent = node.code;
+        codeSpan.textContent = node.isAncestor
+          ? `${formatStageLabel(node.ownerStageKey)} ${node.code}`
+          : node.code;
 
         const titleSpan = document.createElement("span");
-        titleSpan.textContent = node.title + (node.isAncestor ? " (seed)" : "");
+        titleSpan.textContent = node.title;
 
         btn.append(codeSpan, titleSpan);
         container.appendChild(btn);
@@ -3118,7 +3144,7 @@
       if (isLinkMode) {
         if (!linkSourceNodeId) {
           linkSourceNodeId = nodeId;
-          setMapStatus(`SOURCE BUBBLE [${nodeId.toUpperCase()}] SELECTED — CLICK A TARGET BUBBLE TO ADD/REMOVE ARROW`);
+          setMapStatus(`SOURCE BUBBLE SELECTED — CLICK A TARGET BUBBLE TO ADD/REMOVE ARROW`);
           renderMasterStageMap();
           return;
         }
@@ -3157,8 +3183,8 @@
 
       // Sync Unframed Academic Specification & Full Form
       document.getElementById("inspector-node-code").textContent =
-        `${rec.ownerStageKey} · BUBBLE ${node.code} · ${node.status}`;
-      document.getElementById("inspector-node-title").textContent = node.title;
+        `${formatStageLabel(rec.ownerStageKey).toUpperCase()} · SUBTITLE ${node.code} · ${node.status}`;
+      document.getElementById("inspector-node-title").textContent = `${node.code} ${node.title}`;
       document.getElementById("inspector-math-preview").textContent = `$$${node.formula}$$`;
       document.getElementById("inspector-node-notes").textContent = node.notes || "";
       document.getElementById("inspector-node-theorem").textContent = node.theorem || "";
@@ -3185,7 +3211,7 @@
         if (other.id === node.id) continue;
         const opt = document.createElement("option");
         opt.value = other.id;
-        opt.textContent = `${other.code} — ${other.title}`;
+        opt.textContent = `${other.isAncestor ? formatStageLabel(other.ownerStageKey) + " " : ""}${other.code} ${other.title}`;
         selectEl.appendChild(opt);
       }
       if (prevVal && [...selectEl.options].some((o) => o.value === prevVal)) {
@@ -3201,7 +3227,7 @@
       }
     }
 
-    // Live edit from the on-map Quick Bubble Editor bar in §1
+    // Live edit from the on-map Quick Bubble Editor bar
     function onQuickBubbleEdit() {
       const st = stageMaps[currentStageKey];
       const rec = findNodeRecordAcrossStages(st.selectedNodeId, currentStageKey);
@@ -3257,12 +3283,12 @@
       const baseNode = selectedRec ? selectedRec.node : st.nodes[st.nodes.length - 1];
 
       const stageNum = STAGE_ORDER.indexOf(stageKey) + 1;
-      const nextIdx = st.nodes.length + 1;
+      const nextIdxZeroBased = st.nodes.length;
       const newId = `s${stageNum}-custom-${Date.now().toString().slice(-4)}`;
-      const newCode = `S${stageNum}.N${nextIdx}`;
+      const newCode = indexToLetterCode(nextIdxZeroBased);
 
       // Place near the parent bubble or at double-clicked coordinates
-      const angle = ((nextIdx * 67) % 360) * (Math.PI / 180);
+      const angle = (((nextIdxZeroBased + 1) * 67) % 360) * (Math.PI / 180);
       const defaultX = baseNode
         ? Math.max(95, Math.min(825, Math.round(baseNode.x + Math.cos(angle) * 145)))
         : 460;
@@ -3275,7 +3301,7 @@
         code: newCode,
         stageOrigin: stageKey,
         isCustom: true,
-        title: options.title || `Custom Bubble ${nextIdx}`,
+        title: options.title || `Custom Topic (${newCode.replace(".", "")})`,
         formula: options.formula || "|ψ_custom⟩ ∈ ℋ",
         status: "★ EXTRA BUBBLE",
         x: options.x !== undefined ? options.x : defaultX,
@@ -3300,7 +3326,7 @@
         renderMasterStageMap();
       }
       refreshEmbeddedStageSvg(stageKey);
-      setMapStatus(`ADDED EXTRA BUBBLE [${newCode}] TO ${stageKey} — TYPE IN THE QUICK BAR BELOW TO RENAME`);
+      setMapStatus(`ADDED EXTRA SUBTITLE BUBBLE [${newCode}] TO ${formatStageLabel(stageKey).toUpperCase()} — TYPE IN THE QUICK BAR BELOW TO RENAME`);
 
       // Focus the quick title input if spawned in the active master stage
       if (stageKey === currentStageKey) {
@@ -3423,7 +3449,7 @@
     }
 
     // =========================================================================
-    // 8. SECTION 2: PROGRESSIVE FIVE-STAGE ATLAS (ALL 5 EVOLVING STAGE MAPS)
+    // 8. PROGRESSIVE FIVE-STAGE ATLAS (STAGES 1–5 WITH LETTERED SUBTITLES a, b, c...)
     // =========================================================================
     function renderAllStagesAtlas() {
       const container = document.getElementById("all-stages-atlas");
@@ -3431,13 +3457,14 @@
 
       STAGE_ORDER.forEach((stageKey, idx) => {
         const st = stageMaps[stageKey];
+        const stageLabel = formatStageLabel(stageKey);
         const detailsEl = document.createElement("details");
         detailsEl.className = "syllabus-row";
         detailsEl.open = true; // Open all 5 stages so the user immediately sees the map evolve!
 
         const summaryEl = document.createElement("summary");
         const leftSpan = document.createElement("span");
-        leftSpan.textContent = `${stageKey}: ${st.title}`;
+        leftSpan.textContent = `${stageLabel}: ${st.title}`;
 
         const rightSpan = document.createElement("span");
         rightSpan.style.cssText = "font-family: var(--font-mono); font-size: 0.72rem; color: var(--accent-moon-blue); font-weight: 500;";
@@ -3452,9 +3479,26 @@
 
         const descP = document.createElement("p");
         descP.className = "monograph-paragraph";
-        descP.style.marginBottom = "0.65rem";
-        descP.innerHTML = `<span class="run-in-label">Stage Evolution (${stageKey}).</span> ${st.summary}`;
+        descP.style.marginBottom = "0.55rem";
+        descP.innerHTML = `<span class="run-in-label">${stageLabel} Overview.</span> ${st.summary}`;
         bodyWrap.appendChild(descP);
+
+        // Lettered Stage Subtitles Strip (a, b, c, ...) directly under the Stage Overview
+        const subtitleStrip = document.createElement("div");
+        subtitleStrip.style.cssText = "display: flex; flex-wrap: wrap; gap: 0.45rem 1.15rem; margin-bottom: 0.75rem; padding-block: 0.4rem; border-top: 1px dotted var(--rule-hairline); border-bottom: 1px dotted var(--rule-hairline); font-family: var(--font-serif); font-size: 0.94rem;";
+        st.nodes.forEach((node) => {
+          const subBtn = document.createElement("button");
+          subBtn.type = "button";
+          subBtn.style.cssText = "background: none; border: none; cursor: pointer; color: var(--ink-violet-body); font-family: var(--font-serif); font-size: 0.93rem; text-align: left; padding: 0;";
+          subBtn.innerHTML = `<strong style="font-family: var(--font-mono); font-size: 0.76rem; color: var(--accent-moon-blue);">${node.code}</strong> ${node.title}`;
+          subBtn.addEventListener("click", () => {
+            stageMaps[stageKey].selectedNodeId = node.id;
+            saveStageMaps();
+            refreshEmbeddedStageSvg(stageKey);
+          });
+          subtitleStrip.appendChild(subBtn);
+        });
+        bodyWrap.appendChild(subtitleStrip);
 
         // Embedded Blackboard Stage Map with its own Add/Branch/Edit controls
         const stageBox = document.createElement("div");
@@ -3495,7 +3539,7 @@
         const openMasterBtn = document.createElement("button");
         openMasterBtn.type = "button";
         openMasterBtn.className = "map-tool-btn";
-        openMasterBtn.textContent = "[↑ Open in §1 Full Inspector]";
+        openMasterBtn.textContent = "[↑ Open in Top Inspector]";
         openMasterBtn.addEventListener("click", () => selectStageMap(stageKey, st.selectedNodeId, true));
 
         toolBar.append(addBtn, branchBtn, delBtn, resetBtn, openMasterBtn);
@@ -3520,7 +3564,7 @@
         quickBar.className = "onmap-quick-editor";
         quickBar.innerHTML = `
           <div class="onmap-field">
-            <label for="embedded-title-${idx}">Selected Bubble:</label>
+            <label for="embedded-title-${idx}">Selected Subtitle Bubble:</label>
             <input type="text" id="embedded-title-${idx}" class="onmap-input" maxlength="60" placeholder="Bubble title...">
           </div>
           <div class="onmap-field">
@@ -3533,8 +3577,8 @@
         const bottomBar = document.createElement("div");
         bottomBar.className = "map-bottom-bar";
         bottomBar.innerHTML = `
-          <span>DOUBLE-CLICK EMPTY CANVAS TO ADD EXTRA BUBBLE &middot; DRAG BUBBLES TO RE-LAYOUT ${stageKey}</span>
-          <span style="color: var(--accent-toxic-bright);">EVOLVING STAGE ${idx + 1} OF 5</span>
+          <span>DOUBLE-CLICK EMPTY CANVAS TO ADD EXTRA BUBBLE &middot; DRAG BUBBLES TO RE-LAYOUT ${stageLabel.toUpperCase()}</span>
+          <span style="color: var(--accent-toxic-bright);">${stageLabel.toUpperCase()} &middot; SUBTITLES a, b, c…</span>
         `;
         stageBox.appendChild(bottomBar);
 
@@ -3596,8 +3640,12 @@
     }
 
     // =========================================================================
-    // 9. RENDER LEFT GLOSSARY, RIGHT EPISTEMIC FRAME & SECTION 3 MODULES
+    // 9. RENDER LEFT GLOSSARY, RIGHT EPISTEMIC FRAME & STAGE SUBTITLES
     // =========================================================================
+    function stripLeadingRomanNumeral(str) {
+      return (str || "").replace(/^[IVXLCDM]+\.\s*/, "");
+    }
+
     function renderGlossaryTree(filterText = "") {
       const container = document.getElementById("glossary-tree");
       container.replaceChildren();
@@ -3632,20 +3680,20 @@
 
         const domSummary = document.createElement("summary");
         const domTitleSpan = document.createElement("span");
-        domTitleSpan.textContent = dom.domain;
+        domTitleSpan.textContent = stripLeadingRomanNumeral(dom.domain);
         const domCountSpan = document.createElement("span");
         domCountSpan.className = "domain-count";
         domCountSpan.textContent = `${domainConceptCount}`;
         domSummary.append(domTitleSpan, domCountSpan);
         domDetails.appendChild(domSummary);
 
-        for (const sub of matchingSubdomains) {
+        matchingSubdomains.forEach((sub, subIdx) => {
           const subDiv = document.createElement("div");
           subDiv.className = "subdomain-block";
 
           const subHeading = document.createElement("div");
           subHeading.className = "subdomain-title";
-          subHeading.textContent = sub.title;
+          subHeading.textContent = `${indexToLetterCode(subIdx)} ${sub.title}`;
           subDiv.appendChild(subHeading);
 
           for (const item of sub.concepts) {
@@ -3673,7 +3721,7 @@
               const jumpBtn = document.createElement("button");
               jumpBtn.type = "button";
               jumpBtn.className = "glossary-map-jump";
-              jumpBtn.textContent = `→ Inspect Bubble in ${item.stageRef}`;
+              jumpBtn.textContent = `→ Inspect in ${formatStageLabel(item.stageRef)}`;
               jumpBtn.addEventListener("click", () => {
                 selectStageMap(item.stageRef, item.nodeRef, true);
               });
@@ -3685,13 +3733,13 @@
           }
 
           domDetails.appendChild(subDiv);
-        }
+        });
 
         container.appendChild(domDetails);
       }
 
       document.getElementById("glossary-count-badge").textContent =
-        q ? `Matching Concepts: ${totalShown}` : `8 Domains · ${totalShown} Concepts`;
+        q ? `Matching Concepts: ${totalShown}` : `${totalShown} Concepts`;
 
       if (window.MathJax && window.MathJax.typesetPromise) {
         window.MathJax.typesetPromise([container]).catch(() => {});
@@ -3718,7 +3766,7 @@
 
         const headerDiv = document.createElement("div");
         headerDiv.className = "epistemic-theme-header";
-        headerDiv.textContent = group.theme;
+        headerDiv.textContent = stripLeadingRomanNumeral(group.theme);
         themeDiv.appendChild(headerDiv);
 
         group.questions.forEach((item, qIdx) => {
@@ -3727,7 +3775,7 @@
           if (gIdx === 0 && qIdx === 0) qDetails.open = true;
 
           const qSummary = document.createElement("summary");
-          qSummary.textContent = item.q;
+          qSummary.textContent = `${indexToLetterCode(qIdx)} ${item.q}`;
           qDetails.appendChild(qSummary);
 
           const bodyDiv = document.createElement("div");
@@ -3737,13 +3785,18 @@
 
           const anchorDiv = document.createElement("div");
           anchorDiv.className = "epistemic-anchor";
-          anchorDiv.textContent = item.anchor + " ";
+          const cleanAnchor = (item.anchor || "").replace(/Stage I\b/g, "Stage 1")
+            .replace(/Stage II\b/g, "Stage 2")
+            .replace(/Stage III\b/g, "Stage 3")
+            .replace(/Stage IV\b/g, "Stage 4")
+            .replace(/Stage V\b/g, "Stage 5");
+          anchorDiv.textContent = cleanAnchor + " ";
 
           if (item.stageRef && item.nodeRef) {
             const jumpBtn = document.createElement("button");
             jumpBtn.type = "button";
             jumpBtn.className = "glossary-map-jump";
-            jumpBtn.textContent = `[Open Bubble]`;
+            jumpBtn.textContent = `[Open in ${formatStageLabel(item.stageRef)}]`;
             jumpBtn.addEventListener("click", () => {
               selectStageMap(item.stageRef, item.nodeRef, true);
             });
@@ -3777,12 +3830,13 @@
       );
 
       for (const mod of filtered) {
+        const stageLabel = formatStageLabel(mod.stage);
         const row = document.createElement("article");
         row.className = "archive-item";
 
         const metaCol = document.createElement("div");
         metaCol.innerHTML = `
-          <div style="font-family: var(--font-mono); font-size: 0.72rem; font-weight: 600; color: var(--accent-moon-blue);">${mod.id} · ${mod.stage}</div>
+          <div style="font-family: var(--font-mono); font-size: 0.74rem; font-weight: 600; color: var(--accent-moon-blue);">${stageLabel} &middot; Subtitle ${mod.letter}</div>
           <div style="font-family: var(--font-mono); font-size: 0.65rem; color: var(--ink-violet-muted); margin-top: 0.2rem;">Prereq: ${mod.prereq}</div>
         `;
 
@@ -3797,7 +3851,7 @@
         const jumpBtn = document.createElement("button");
         jumpBtn.type = "button";
         jumpBtn.className = "text-action-btn";
-        jumpBtn.textContent = `[Inspect Bubble in ${mod.stage} →]`;
+        jumpBtn.textContent = `[Inspect in ${stageLabel} (${mod.letter.replace(".", "")}) →]`;
         jumpBtn.addEventListener("click", () => {
           selectStageMap(mod.stage, mod.nodeId, true);
         });
